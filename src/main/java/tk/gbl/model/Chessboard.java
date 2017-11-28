@@ -11,7 +11,7 @@ import tk.gbl.chessmodel.Chessman;
  * @author Tian.Dong
  */
 public class Chessboard {
-    Chessman[][] chessmans = new Chessman[9][10];
+    Chessman[][] chessmans;
 
     public Chessman[][] getChessmans() {
         return chessmans;

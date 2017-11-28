@@ -9,4 +9,5 @@ package tk.gbl.chessmodel;
  * @author Tian.Dong
  */
 public class Rook extends Chessman {
+
 }
