@@ -11,7 +11,7 @@ import tk.gbl.constant.GameConstant;
  *
  * @author Tian.Dong
  */
-public class Chessman {
+public abstract class Chessman {
     int type;
     int color;
 
@@ -46,4 +46,6 @@ public class Chessman {
     public void setColor(int color) {
         this.color = color;
     }
+
+    public abstract String getChineseName();
 }

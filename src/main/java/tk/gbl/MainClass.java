@@ -16,8 +16,6 @@ public class MainClass {
         Chessboard chessboard = new Chessboard();
         Chessman[][] chessmans = SaveReadUtil.read("gamestart.txt");
         chessboard.setChessmans(chessmans);
-        MainFrame mainFrame = new MainFrame();
-        mainFrame.setChessboard(chessboard);
-
+        MainFrame mainFrame = new MainFrame(chessboard);
     }
 }

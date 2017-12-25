@@ -15,7 +15,7 @@ public class MainFrame extends JFrame {
 
     Chessboard chessboard;
 
-    public MainFrame() {
+    public MainFrame(Chessboard chessboard) {
         this.setBounds(366, 28, 580, 690);
 
         this.setTitle("象棋");

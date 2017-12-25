@@ -1,5 +1,7 @@
 package tk.gbl.chessmodel;
 
+import tk.gbl.constant.GameConstant;
+
 /**
  * 卒
  *
@@ -9,4 +11,11 @@ package tk.gbl.chessmodel;
  * @author Tian.Dong
  */
 public class Pawn extends Chessman {
+    @Override
+    public String getChineseName() {
+        if(getColor() == GameConstant.red) {
+            return "兵";
+        }
+        return "卒";
+    }
 }

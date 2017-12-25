@@ -1,5 +1,7 @@
 package tk.gbl.chessmodel;
 
+import tk.gbl.constant.GameConstant;
+
 /**
  * 士
  *
@@ -9,4 +11,12 @@ package tk.gbl.chessmodel;
  * @author Tian.Dong
  */
 public class Guard extends Chessman {
+
+    @Override
+    public String getChineseName() {
+        if(getColor() == GameConstant.red) {
+            return "仕";
+        }
+        return "士";
+    }
 }

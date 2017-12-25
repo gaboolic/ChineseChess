@@ -9,4 +9,8 @@ package tk.gbl.chessmodel;
  * @author Tian.Dong
  */
 public class Horse extends Chessman {
+    @Override
+    public String getChineseName() {
+        return "马";
+    }
 }

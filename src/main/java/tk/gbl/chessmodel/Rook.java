@@ -10,4 +10,8 @@ package tk.gbl.chessmodel;
  */
 public class Rook extends Chessman {
 
+    @Override
+    public String getChineseName() {
+        return "车";
+    }
 }
