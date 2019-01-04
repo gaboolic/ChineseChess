@@ -1,6 +1,7 @@
-package tk.gbl.ui;
+package tk.gbl.ui.component;
 
 import tk.gbl.model.Chessboard;
+import tk.gbl.ui.listener.ChessClickController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +14,7 @@ import java.awt.*;
  */
 public class MainFrame extends JFrame {
 
-    Chessboard chessboard;
+    private Chessboard chessboard;
 
     public MainFrame(Chessboard chessboard) {
         this.setBounds(366, 28, 580, 690);
@@ -25,6 +26,8 @@ public class MainFrame extends JFrame {
 
         this.setLayout(null);
         BoardPanel boardPanel = new BoardPanel(chessboard);
+        boardPanel.setVisible(true);
+        boardPanel.addMouseListener(new ChessClickController(chessboard));
         this.add(boardPanel, BorderLayout.CENTER);
     }
 

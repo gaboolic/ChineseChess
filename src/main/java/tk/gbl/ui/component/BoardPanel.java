@@ -1,14 +1,13 @@
-package tk.gbl.ui;
+package tk.gbl.ui.component;
 
 import tk.gbl.chessmodel.Chessman;
 import tk.gbl.constant.GameConstant;
 import tk.gbl.model.Chessboard;
 import tk.gbl.ui.constant.ColorConstant;
+import tk.gbl.ui.constant.SizeConstant;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 
 /**
  * Date: 2017/11/28
@@ -20,7 +19,6 @@ public class BoardPanel extends JPanel {
 
     Chessboard chessboard;
     int pos = 50;
-    int size = 52;
 
     public BoardPanel(Chessboard chessboard) {
         this.chessboard = chessboard;
@@ -66,25 +64,25 @@ public class BoardPanel extends JPanel {
         } else {
             g.setColor(ColorConstant.blackChess);
         }
-        int ovalSize = size - 10;
-        g.fillOval(pos + x * size - ovalSize / 2, pos + y * size - ovalSize / 2, ovalSize, ovalSize);
+        int ovalSize = SizeConstant.gridSize - 10;
+        g.fillOval(pos + x * SizeConstant.gridSize - ovalSize / 2, pos + y * SizeConstant.gridSize - ovalSize / 2, ovalSize, ovalSize);
         if (chessman.getColor() == GameConstant.red) {
             g.setColor(ColorConstant.redChessWord);
         } else {
             g.setColor(ColorConstant.blackChessWord);
         }
         g.setFont(new Font("微软雅黑", Font.PLAIN, 22));
-        g.drawString(chessman.getChineseName(), pos + x * size - 10, pos + y * size + 5);
+        g.drawString(chessman.getChineseName(), pos + x * SizeConstant.gridSize - 10, pos + y * SizeConstant.gridSize + 5);
         g.setColor(oldColor);
     }
 
     public void drawLine(Graphics g, int sx, int sy, int ex, int ey) {
-        g.drawLine(pos + sx * size, pos + sy * size, pos + ex * size, pos + ey * size);
+        g.drawLine(pos + sx * SizeConstant.gridSize, pos + sy * SizeConstant.gridSize, pos + ex * SizeConstant.gridSize, pos + ey * SizeConstant.gridSize);
     }
 
     public void fillRect(Graphics g, int sx, int sy, int ex, int ey) {
-        int width = (ex - sx) * size - 1;
-        int height = (ey - sy) * size - 1;
-        g.fillRect(pos + 1 + sx * size, pos + 1 + sy * size, width, height);
+        int width = (ex - sx) * SizeConstant.gridSize - 1;
+        int height = (ey - sy) * SizeConstant.gridSize - 1;
+        g.fillRect(pos + 1 + sx * SizeConstant.gridSize, pos + 1 + sy * SizeConstant.gridSize, width, height);
     }
 }

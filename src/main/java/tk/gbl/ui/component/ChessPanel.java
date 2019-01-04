@@ -1,4 +1,4 @@
-package tk.gbl.ui;
+package tk.gbl.ui.component;
 
 /**
  * Date: 2017/12/22

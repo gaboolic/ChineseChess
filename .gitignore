@@ -1,0 +1,27 @@
+taobao-tomcat
+
+# Project Files #
+*.iml
+*.log
+*.bak
+*.class
+*.jar
+*.versionsBackup
+*.log
+.classpath
+.project
+.settings
+hsf.configuration
+*.cache
+*.log.*
+*.tmp
+*.orig
+*.rej
+.DS_Store
+LOG_FILE_IS_UNDEFINED*
+
+# Project Directories #
+.idea/
+target/
+logs/
+config-cache/

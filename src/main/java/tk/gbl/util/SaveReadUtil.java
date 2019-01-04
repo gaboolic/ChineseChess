@@ -2,6 +2,7 @@ package tk.gbl.util;
 
 import tk.gbl.chessmodel.Chessman;
 import tk.gbl.constant.GameConstant;
+import tk.gbl.model.Point;
 
 import java.io.*;
 
@@ -30,7 +31,11 @@ public class SaveReadUtil {
             for (int j = 0; j < 9; j++) {
                 String chessNumberStr = chessNumbers[j];
                 int chessNumber = Integer.parseInt(chessNumberStr);
+                if (chessNumber == 0) {
+                    continue;
+                }
                 Chessman chessman = Chessman.getInstance(chessNumber);
+                chessman.setPoint(new Point(j, i));
                 chessmans[i][j] = chessman;
             }
         }

@@ -2,7 +2,7 @@ package tk.gbl;
 
 import tk.gbl.chessmodel.Chessman;
 import tk.gbl.model.Chessboard;
-import tk.gbl.ui.MainFrame;
+import tk.gbl.ui.component.MainFrame;
 import tk.gbl.util.SaveReadUtil;
 
 /**

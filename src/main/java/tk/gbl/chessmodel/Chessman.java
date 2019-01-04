@@ -2,6 +2,7 @@ package tk.gbl.chessmodel;
 
 import tk.gbl.constant.ChessTypeMapping;
 import tk.gbl.constant.GameConstant;
+import tk.gbl.model.Point;
 
 /**
  * 棋子
@@ -12,6 +13,8 @@ import tk.gbl.constant.GameConstant;
  * @author Tian.Dong
  */
 public abstract class Chessman {
+    Point point;
+
     int type;
     int color;
 
@@ -23,12 +26,20 @@ public abstract class Chessman {
         }
         int type = number;
         Chessman chessman = ChessTypeMapping.getChess(type);
-        if(chessman == null) {
-            return null;
+        if (chessman == null) {
+            throw new RuntimeException("棋子类型不正确");
         }
         chessman.setColor(color);
         chessman.setType(type);
         return chessman;
+    }
+
+    public Point getPoint() {
+        return point;
+    }
+
+    public void setPoint(Point point) {
+        this.point = point;
     }
 
     public int getType() {
