@@ -22,12 +22,12 @@ public class Chessboard {
     }
 
     public Chessman getChessman(Point point) {
-        return chessmans[point.getX()][point.getY()];
+        return chessmans[point.getY()][point.getX()];
     }
 
     public void setChessman(Chessman chessman) {
         Point point = chessman.getPoint();
-        chessmans[point.getX()][point.getY()] = chessman;
+        chessmans[point.getY()][point.getX()] = chessman;
     }
 
     public void moveChessMan(Chessman currentChessman, Point toPoint) {
@@ -35,6 +35,6 @@ public class Chessboard {
 
         currentChessman.setPoint(toPoint);
         setChessman(currentChessman);
-        chessmans[fromPoint.getX()][fromPoint.getY()] = null;
+        chessmans[fromPoint.getY()][fromPoint.getX()] = null;
     }
 }

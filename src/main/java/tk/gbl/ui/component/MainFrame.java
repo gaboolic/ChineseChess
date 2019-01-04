@@ -27,7 +27,7 @@ public class MainFrame extends JFrame {
         this.setLayout(null);
         BoardPanel boardPanel = new BoardPanel(chessboard);
         boardPanel.setVisible(true);
-        boardPanel.addMouseListener(new ChessClickController(chessboard));
+        boardPanel.addMouseListener(new ChessClickController(chessboard,boardPanel));
         this.add(boardPanel, BorderLayout.CENTER);
     }
 

@@ -13,6 +13,16 @@ import tk.gbl.util.SaveReadUtil;
  */
 public class MainClass {
     public static void main(String[] args){
+        // 显示应用 GUI
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                createAndShowGUI();
+            }
+        });
+
+    }
+
+    private static void createAndShowGUI() {
         Chessboard chessboard = new Chessboard();
         Chessman[][] chessmans = SaveReadUtil.read("gamestart.txt");
         chessboard.setChessmans(chessmans);
