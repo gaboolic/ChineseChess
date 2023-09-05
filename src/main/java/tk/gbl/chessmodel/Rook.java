@@ -1,5 +1,7 @@
 package tk.gbl.chessmodel;
 
+import tk.gbl.constant.GameConstant;
+
 /**
  * 车
  *
@@ -12,6 +14,9 @@ public class Rook extends Chessman {
 
     @Override
     public String getChineseName() {
-        return "车";
+        if(getColor() == GameConstant.red) {
+            return "俥";
+        }
+        return "車";
     }
 }

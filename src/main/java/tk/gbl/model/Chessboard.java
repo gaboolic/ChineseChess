@@ -1,6 +1,7 @@
 package tk.gbl.model;
 
 import tk.gbl.chessmodel.Chessman;
+import tk.gbl.constant.GameConstant;
 
 /**
  * 棋盘
@@ -11,7 +12,12 @@ import tk.gbl.chessmodel.Chessman;
  * @author Tian.Dong
  */
 public class Chessboard {
+
+    private Chessman currentChessman;
     private Chessman[][] chessmans;
+
+    private int current = GameConstant.red;
+
 
     public Chessman[][] getChessmans() {
         return chessmans;
@@ -30,11 +36,30 @@ public class Chessboard {
         chessmans[point.getY()][point.getX()] = chessman;
     }
 
-    public void moveChessMan(Chessman currentChessman, Point toPoint) {
+    public void setCurrentChessman(Chessman currentChessman) {
+        this.currentChessman = currentChessman;
+    }
+
+    public Chessman getCurrentChessman() {
+        return currentChessman;
+    }
+
+    public int getCurrent() {
+        return current;
+    }
+
+    public void moveChessMan(Point toPoint) {
         Point fromPoint = currentChessman.getPoint();
 
         currentChessman.setPoint(toPoint);
         setChessman(currentChessman);
         chessmans[fromPoint.getY()][fromPoint.getX()] = null;
+
+        //当前方
+        if (current == GameConstant.red) {
+            current = GameConstant.black;
+        } else {
+            current = GameConstant.red;
+        }
     }
 }
