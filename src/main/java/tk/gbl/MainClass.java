@@ -9,7 +9,7 @@ import tk.gbl.util.SaveReadUtil;
  * Date: 2017/11/27
  * Time: 16:09
  *
- * @author Tian.Dong
+ * @author gaboolic
  */
 public class MainClass {
     public static void main(String[] args){

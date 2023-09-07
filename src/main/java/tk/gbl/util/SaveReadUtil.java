@@ -10,7 +10,7 @@ import java.io.*;
  * Date: 2017/11/28
  * Time: 15:34
  *
- * @author Tian.Dong
+ * @author gaboolic
  */
 public class SaveReadUtil {
     public static Chessman[][] read(String filename) {

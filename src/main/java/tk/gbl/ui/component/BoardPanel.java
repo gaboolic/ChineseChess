@@ -13,7 +13,7 @@ import java.awt.*;
  * Date: 2017/11/28
  * Time: 16:19
  *
- * @author Tian.Dong
+ * @author gaboolic
  */
 public class BoardPanel extends JPanel {
 
@@ -46,11 +46,26 @@ public class BoardPanel extends JPanel {
         drawLine(g, 3, 7, 5, 9);
         drawLine(g, 5, 7, 3, 9);
 
+        //绘制棋子
         for (int row = 0; row < 10; row++) {
             for (int column = 0; column < 9; column++) {
                 Chessman chessman = chessboard.getChessmans()[row][column];
                 drawChess(g, column, row, chessman);
             }
+        }
+
+        //绘制当前选中棋子的标志
+        Chessman currentChessman = chessboard.getCurrentChessman();
+        if (currentChessman != null) {
+            int ovalSize = 3;
+            g.fillOval(pos + currentChessman.getPoint().getX() * SizeConstant.gridSize - ovalSize / 2, pos + currentChessman.getPoint().getY() * SizeConstant.gridSize - ovalSize / 2, ovalSize, ovalSize);
+        }
+
+        //绘制当前行动方
+        if (chessboard.getCurrent() == GameConstant.red) {
+            g.drawString("红", 0, 0);
+        } else {
+            g.drawString("黑", 0, 0);
         }
     }
 

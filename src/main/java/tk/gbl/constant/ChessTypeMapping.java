@@ -9,7 +9,7 @@ import java.util.Map;
  * Date: 2017/11/28
  * Time: 15:46
  *
- * @author Tian.Dong
+ * @author gaboolic
  */
 public class ChessTypeMapping {
     static Map<Integer, Class<? extends Chessman>> mapping = new HashMap<>();

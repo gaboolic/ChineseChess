@@ -10,7 +10,7 @@ import java.awt.*;
  * Date: 2017/11/28
  * Time: 16:15
  *
- * @author Tian.Dong
+ * @author gaboolic
  */
 public class MainFrame extends JFrame {
 

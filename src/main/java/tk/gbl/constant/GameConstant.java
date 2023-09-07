@@ -4,7 +4,7 @@ package tk.gbl.constant;
  * Date: 2017/11/27
  * Time: 16:22
  *
- * @author Tian.Dong
+ * @author gaboolic
  */
 public class GameConstant {
     public static int red = 0;

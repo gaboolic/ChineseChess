@@ -8,7 +8,7 @@ import tk.gbl.constant.GameConstant;
  * Date: 2017/11/15
  * Time: 15:36
  *
- * @author Tian.Dong
+ * @author gaboolic
  */
 public class Bishop extends Chessman {
     @Override

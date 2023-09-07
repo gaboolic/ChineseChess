@@ -8,7 +8,7 @@ import tk.gbl.model.Step;
  * Date: 2017/11/27
  * Time: 16:09
  *
- * @author Tian.Dong
+ * @author gaboolic
  */
 public class AiCenter {
 

@@ -4,7 +4,7 @@ package tk.gbl.model;
  * Date: 2017/11/27
  * Time: 16:12
  *
- * @author Tian.Dong
+ * @author gaboolic
  */
 public class Point {
     private int x;

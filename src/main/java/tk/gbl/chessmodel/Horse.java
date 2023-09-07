@@ -6,7 +6,7 @@ package tk.gbl.chessmodel;
  * Date: 2017/11/15
  * Time: 15:25
  *
- * @author Tian.Dong
+ * @author gaboolic
  */
 public class Horse extends Chessman {
     @Override

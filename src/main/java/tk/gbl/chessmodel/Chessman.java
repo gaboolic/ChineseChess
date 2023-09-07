@@ -10,7 +10,7 @@ import tk.gbl.model.Point;
  * Date: 2017/11/15
  * Time: 15:39
  *
- * @author Tian.Dong
+ * @author gaboolic
  */
 public abstract class Chessman {
     Point point;

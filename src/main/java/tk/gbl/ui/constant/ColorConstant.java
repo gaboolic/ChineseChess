@@ -6,7 +6,7 @@ import java.awt.*;
  * Date: 2017/7/8
  * Time: 13:17
  *
- * @author Tian.Dong
+ * @author gaboolic
  */
 public class ColorConstant {
     public final static Color woodBoard = new Color(252, 220, 161);

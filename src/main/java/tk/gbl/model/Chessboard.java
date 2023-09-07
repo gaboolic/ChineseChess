@@ -9,7 +9,7 @@ import tk.gbl.constant.GameConstant;
  * Date: 2017/11/27
  * Time: 16:17
  *
- * @author Tian.Dong
+ * @author gaboolic
  */
 public class Chessboard {
 

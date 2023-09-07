@@ -13,7 +13,7 @@ import java.awt.event.MouseEvent;
  * Date: 2019/1/3
  * Time: 下午2:37
  *
- * @author dongtian
+ * @author gaboolic
  */
 public class ChessClickController extends MouseAdapter {
     //view

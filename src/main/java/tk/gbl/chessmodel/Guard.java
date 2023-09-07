@@ -8,7 +8,7 @@ import tk.gbl.constant.GameConstant;
  * Date: 2017/11/15
  * Time: 15:33
  *
- * @author Tian.Dong
+ * @author gaboolic
  */
 public class Guard extends Chessman {
 
