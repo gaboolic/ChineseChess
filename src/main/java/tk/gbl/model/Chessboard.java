@@ -54,7 +54,7 @@ public class Chessboard {
         currentChessman.setPoint(toPoint);
         setChessman(currentChessman);
         chessmans[fromPoint.getY()][fromPoint.getX()] = null;
-
+        currentChessman = null;
         //当前方
         if (current == GameConstant.red) {
             current = GameConstant.black;
