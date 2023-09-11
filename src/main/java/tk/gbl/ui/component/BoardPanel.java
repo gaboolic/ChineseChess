@@ -57,20 +57,7 @@ public class BoardPanel extends JPanel {
         }
 
         //绘制当前选中棋子的标志
-        Chessman currentChessman = chessboard.getCurrentChessman();
-        if (currentChessman != null) {
-            int ovalSize = 3;
-            g.fillOval(pos + currentChessman.getPoint().getX() * SizeConstant.gridSize - ovalSize / 2, pos + currentChessman.getPoint().getY() * SizeConstant.gridSize - ovalSize / 2, ovalSize, ovalSize);
-            List<Point> movePoints = currentChessman.getMovePoints(chessboard);
-
-            ovalSize = 10;
-            Color oldColor = g.getColor();
-            g.setColor(Color.GREEN);
-            for (Point point : movePoints) {
-                g.fillOval(pos + point.getX() * SizeConstant.gridSize - ovalSize / 2, pos + point.getY() * SizeConstant.gridSize - ovalSize / 2, ovalSize, ovalSize);
-            }
-            g.setColor(oldColor);
-        }
+        drawCurrentChessman(g);
 
         //绘制当前行动方
         if (chessboard.getCurrent() == GameConstant.red) {
@@ -78,6 +65,23 @@ public class BoardPanel extends JPanel {
         } else {
             g.drawString("黑", 0, 0);
         }
+    }
+
+    private void drawCurrentChessman(Graphics g) {
+        Color oldColor = g.getColor();
+        Chessman currentChessman = chessboard.getCurrentChessman();
+        if (currentChessman != null) {
+            int ovalSize = 6;
+            g.fillOval(pos + currentChessman.getPoint().getX() * SizeConstant.gridSize - ovalSize / 2, pos + currentChessman.getPoint().getY() * SizeConstant.gridSize - ovalSize / 2, ovalSize, ovalSize);
+            List<Point> movePoints = currentChessman.getMovePoints(chessboard);
+
+            ovalSize = 10;
+            g.setColor(Color.GREEN);
+            for (Point point : movePoints) {
+                g.fillOval(pos + point.getX() * SizeConstant.gridSize - ovalSize / 2, pos + point.getY() * SizeConstant.gridSize - ovalSize / 2, ovalSize, ovalSize);
+            }
+        }
+        g.setColor(oldColor);
     }
 
     private void drawChess(Graphics g, int x, int y, Chessman chessman) {
