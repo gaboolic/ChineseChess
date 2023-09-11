@@ -1,5 +1,7 @@
 package tk.gbl.model;
 
+import java.util.Objects;
+
 /**
  * Date: 2017/11/27
  * Time: 16:12
@@ -41,5 +43,18 @@ public class Point {
                 "x=" + x +
                 ", y=" + y +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Point point = (Point) o;
+        return x == point.x && y == point.y;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 }

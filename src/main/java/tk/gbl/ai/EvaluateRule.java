@@ -25,7 +25,7 @@ public class EvaluateRule {
     public static final int SOLDIER_VALUE = 100;  // 兵的价值
     public static final int CROSS_SOLDIER_VALUE = 200;  // 兵的价值
 
-    private int evaluatePosition(Chessboard chessboard) {
+    public int evaluatePosition(Chessboard chessboard) {
         int evaluation = 0;
 
         // 遍历棋盘上的每个位置

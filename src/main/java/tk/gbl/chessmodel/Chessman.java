@@ -5,6 +5,7 @@ import tk.gbl.constant.GameConstant;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ import java.util.List;
  *
  * @author gaboolic
  */
-public abstract class Chessman {
+public abstract class Chessman implements Serializable {
     Point point;
 
     int type;
@@ -73,4 +74,5 @@ public abstract class Chessman {
     public abstract List<Point> getMovePoints(Chessboard chessboard);
 
     public abstract int getEvalValue();
+
 }

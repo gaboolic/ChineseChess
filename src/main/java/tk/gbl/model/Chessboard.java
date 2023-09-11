@@ -1,6 +1,7 @@
 package tk.gbl.model;
 
 import tk.gbl.chessmodel.Chessman;
+import tk.gbl.chessmodel.King;
 import tk.gbl.constant.GameConstant;
 
 /**
@@ -75,6 +76,35 @@ public class Chessboard {
             return false;
         }
         if (x >= X_SIZE || y >= Y_SIZE) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 移动
+     */
+    public Chessboard makeStep(Step step) {
+        Chessboard newBoard = new Chessboard();
+        Chessman[][] copyChessmans = chessmans.clone();
+        newBoard.setChessmans(copyChessmans);
+        Chessman currentChessman = newBoard.getChessman(step.getStart());
+        newBoard.setCurrentChessman(currentChessman);
+        newBoard.moveChessMan(step.getEnd());
+        return newBoard;
+    }
+
+    public boolean isGameOver() {
+        int kingCount = 0;
+        for (int row = 0; row < Chessboard.Y_SIZE; row++) {
+            for (int column = 0; column < Chessboard.X_SIZE; column++) {
+                Chessman chessman = this.getChessmans()[row][column];
+                if (chessman instanceof King) {
+                    kingCount++;
+                }
+            }
+        }
+        if (kingCount != 2) {
             return false;
         }
         return true;
