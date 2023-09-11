@@ -3,11 +3,13 @@ package tk.gbl.ui.component;
 import tk.gbl.chessmodel.Chessman;
 import tk.gbl.constant.GameConstant;
 import tk.gbl.model.Chessboard;
+import tk.gbl.model.Point;
 import tk.gbl.ui.constant.ColorConstant;
 import tk.gbl.ui.constant.SizeConstant;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 /**
  * Date: 2017/11/28
@@ -59,6 +61,15 @@ public class BoardPanel extends JPanel {
         if (currentChessman != null) {
             int ovalSize = 3;
             g.fillOval(pos + currentChessman.getPoint().getX() * SizeConstant.gridSize - ovalSize / 2, pos + currentChessman.getPoint().getY() * SizeConstant.gridSize - ovalSize / 2, ovalSize, ovalSize);
+            List<Point> movePoints = currentChessman.getMovePoints(chessboard);
+
+            ovalSize = 10;
+            Color oldColor = g.getColor();
+            g.setColor(Color.GREEN);
+            for (Point point : movePoints) {
+                g.fillOval(pos + point.getX() * SizeConstant.gridSize - ovalSize / 2, pos + point.getY() * SizeConstant.gridSize - ovalSize / 2, ovalSize, ovalSize);
+            }
+            g.setColor(oldColor);
         }
 
         //绘制当前行动方
