@@ -31,6 +31,11 @@ public class Chessboard {
         return chessmans[point.getY()][point.getX()];
     }
 
+    public Chessman getChessman(int x, int y) {
+        Point point = new Point(x, y);
+        return chessmans[point.getY()][point.getX()];
+    }
+
     public void setChessman(Chessman chessman) {
         Point point = chessman.getPoint();
         chessmans[point.getY()][point.getX()] = chessman;
