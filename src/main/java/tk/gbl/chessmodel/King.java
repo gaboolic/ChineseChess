@@ -54,10 +54,48 @@ public class King extends Chessman {
         // 判断目标位置是否为空或者有敌方棋子
         Chessman targetChessman = chessboard.getChessman(x, y);
         if (targetChessman == null || targetChessman.getColor() != getColor()) {
+            // 判断将帅是否面对面
+            if (isFacingEachOther(x, y, chessboard)) {
+                return false;
+            }
             return true;
         }
-
         return false;
+    }
+
+    //判断竖线上是否有另一个将帅 且中间没有任何阻挡
+    private boolean isFacingEachOther(int x, int y, Chessboard chessboard) {
+        int startY = y;
+        int endY = y;
+        int kingCount = 0; // Count of kings found on the vertical line
+
+        // Check upward from the current position
+        while (startY > 0) {
+            startY--;
+            Chessman chessman = chessboard.getChessman(x, startY);
+            if (chessman != null) {
+                if (chessman instanceof King) {
+                    kingCount++;
+                } else {
+                    break; // There is another piece blocking the line of sight
+                }
+            }
+        }
+
+        // Check downward from the current position
+        while (endY < Chessboard.Y_SIZE) {
+            endY++;
+            Chessman chessman = chessboard.getChessman(x, endY);
+            if (chessman != null) {
+                if (chessman instanceof King) {
+                    kingCount++;
+                } else {
+                    break; // There is another piece blocking the line of sight
+                }
+            }
+        }
+
+        return kingCount > 0;
     }
 
     private boolean isInPalace(int x, int y) {

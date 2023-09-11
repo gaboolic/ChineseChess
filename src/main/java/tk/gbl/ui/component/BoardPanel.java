@@ -34,10 +34,10 @@ public class BoardPanel extends JPanel {
         g.setColor(ColorConstant.woodBoard);
         g.fillRect(0, 0, 558, 620);
         g.setColor(ColorConstant.gray);
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < Chessboard.Y_SIZE; i++) {
             drawLine(g, 0, i, 8, i);
         }
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < Chessboard.X_SIZE; i++) {
             drawLine(g, i, 0, i, 9);
         }
         g.setColor(ColorConstant.woodBoard);
@@ -49,8 +49,8 @@ public class BoardPanel extends JPanel {
         drawLine(g, 5, 7, 3, 9);
 
         //绘制棋子
-        for (int row = 0; row < 10; row++) {
-            for (int column = 0; column < 9; column++) {
+        for (int row = 0; row < Chessboard.Y_SIZE; row++) {
+            for (int column = 0; column < Chessboard.X_SIZE; column++) {
                 Chessman chessman = chessboard.getChessmans()[row][column];
                 drawChess(g, column, row, chessman);
             }

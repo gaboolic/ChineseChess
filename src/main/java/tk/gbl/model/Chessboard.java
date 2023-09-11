@@ -13,6 +13,8 @@ import tk.gbl.constant.GameConstant;
  */
 public class Chessboard {
 
+    public static final int X_SIZE = 9;
+    public static final int Y_SIZE = 10;
     private Chessman currentChessman;
     private Chessman[][] chessmans;
 
@@ -72,7 +74,7 @@ public class Chessboard {
         if (x < 0 || y < 0) {
             return false;
         }
-        if (x >= 9 || y >= 10) {
+        if (x >= X_SIZE || y >= Y_SIZE) {
             return false;
         }
         return true;
