@@ -1,5 +1,6 @@
 package tk.gbl.chessmodel;
 
+import tk.gbl.ai.EvaluateRule;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
 
@@ -18,6 +19,11 @@ public class Horse extends Chessman {
     @Override
     public String getChineseName() {
         return "马";
+    }
+
+    @Override
+    public int getEvalValue() {
+        return EvaluateRule.HORSE_VALUE;
     }
 
     @Override

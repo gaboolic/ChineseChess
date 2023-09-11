@@ -1,5 +1,6 @@
 package tk.gbl.chessmodel;
 
+import tk.gbl.ai.EvaluateRule;
 import tk.gbl.constant.GameConstant;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
@@ -23,6 +24,11 @@ public class Guard extends Chessman {
             return "仕";
         }
         return "士";
+    }
+
+    @Override
+    public int getEvalValue() {
+        return EvaluateRule.GUARD_VALUE;
     }
 
     @Override

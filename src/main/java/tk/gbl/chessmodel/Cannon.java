@@ -1,5 +1,6 @@
 package tk.gbl.chessmodel;
 
+import tk.gbl.ai.EvaluateRule;
 import tk.gbl.constant.GameConstant;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
@@ -22,6 +23,10 @@ public class Cannon extends Chessman {
             return "炮";
         }
         return "砲";
+    }
+    @Override
+    public int getEvalValue() {
+        return EvaluateRule.CANNON_VALUE;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package tk.gbl.chessmodel;
 
+import tk.gbl.ai.EvaluateRule;
 import tk.gbl.constant.GameConstant;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
@@ -23,7 +24,10 @@ public class King extends Chessman {
         }
         return "将";
     }
-
+    @Override
+    public int getEvalValue() {
+        return EvaluateRule.KING_VALUE;
+    }
     @Override
     public List<Point> getMovePoints(Chessboard chessboard) {
         List<Point> movePoints = new ArrayList<>();

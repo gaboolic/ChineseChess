@@ -71,4 +71,6 @@ public abstract class Chessman {
     }
 
     public abstract List<Point> getMovePoints(Chessboard chessboard);
+
+    public abstract int getEvalValue();
 }

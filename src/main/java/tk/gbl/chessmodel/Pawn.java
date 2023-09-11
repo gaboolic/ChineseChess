@@ -1,5 +1,6 @@
 package tk.gbl.chessmodel;
 
+import tk.gbl.ai.EvaluateRule;
 import tk.gbl.constant.GameConstant;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
@@ -25,6 +26,14 @@ public class Pawn extends Chessman {
     }
 
     @Override
+    public int getEvalValue() {
+        if (crossedRiver()) {
+            return EvaluateRule.CROSS_SOLDIER_VALUE;
+        }
+        return EvaluateRule.SOLDIER_VALUE;
+    }
+
+    @Override
     public List<Point> getMovePoints(Chessboard chessboard) {
         List<Point> movePoints = new ArrayList<>();
         int startX = getPoint().getX();
@@ -39,10 +48,9 @@ public class Pawn extends Chessman {
         }
 
         // 判断兵是否过河
-        boolean isCrossedRiver = getColor() == GameConstant.red ? startX >= 5 : startX <= 4;
 
         // 如果兵过河了，则判断是否可以左右移动
-        if (isCrossedRiver) {
+        if (crossedRiver()) {
             if (isValidMove(startX, startY - 1, chessboard)) {
                 movePoints.add(new Point(targetX, targetY));
             }
@@ -52,6 +60,12 @@ public class Pawn extends Chessman {
         }
 
         return movePoints;
+    }
+
+    private boolean crossedRiver() {
+        int startX = getPoint().getX();
+        boolean isCrossedRiver = getColor() == GameConstant.red ? startX >= 5 : startX <= 4;
+        return isCrossedRiver;
     }
 
     private boolean isValidMove(int x, int y, Chessboard chessboard) {
