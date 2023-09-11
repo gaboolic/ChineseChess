@@ -2,7 +2,10 @@ package tk.gbl.chessmodel;
 
 import tk.gbl.constant.ChessTypeMapping;
 import tk.gbl.constant.GameConstant;
+import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
+
+import java.util.List;
 
 /**
  * 棋子
@@ -59,4 +62,13 @@ public abstract class Chessman {
     }
 
     public abstract String getChineseName();
+
+    public boolean canRemove(Chessboard chessboard, Point target) {
+        if (getMovePoints(chessboard).contains(target)) {
+            return true;
+        }
+        return false;
+    }
+
+    public abstract List<Point> getMovePoints(Chessboard chessboard);
 }

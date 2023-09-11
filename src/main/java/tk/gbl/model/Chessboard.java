@@ -62,4 +62,14 @@ public class Chessboard {
             current = GameConstant.red;
         }
     }
+
+    public boolean isInsideBoard(int x, int y) {
+        if (x < 0 || y < 0) {
+            return false;
+        }
+        if (x > 9 || y > 10) {
+            return false;
+        }
+        return true;
+    }
 }

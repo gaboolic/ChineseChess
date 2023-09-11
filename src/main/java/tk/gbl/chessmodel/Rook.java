@@ -1,6 +1,10 @@
 package tk.gbl.chessmodel;
 
 import tk.gbl.constant.GameConstant;
+import tk.gbl.model.Chessboard;
+import tk.gbl.model.Point;
+
+import java.util.List;
 
 /**
  * 车
@@ -19,4 +23,10 @@ public class Rook extends Chessman {
         }
         return "車";
     }
+
+    @Override
+    public List<Point> getMovePoints(Chessboard chessboard) {
+        return null;
+    }
+
 }

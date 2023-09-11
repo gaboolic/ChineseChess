@@ -39,7 +39,9 @@ public class ChessClickController extends MouseAdapter {
             chessboard.setCurrentChessman(chessman);
         } else if (chessboard.getCurrentChessman() != null) {
             //todo 判断目标位置是否能走棋
-            chessboard.moveChessMan(point);
+            if (chessboard.getCurrentChessman().canRemove(chessboard, point)) {
+                chessboard.moveChessMan(point);
+            }
         }
         boardPanel.repaint();
     }
