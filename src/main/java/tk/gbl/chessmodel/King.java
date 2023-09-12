@@ -78,7 +78,7 @@ public class King extends Chessman {
             startY--;
             Chessman chessman = chessboard.getChessman(x, startY);
             if (chessman != null) {
-                if (chessman instanceof King) {
+                if (chessman instanceof King && chessman.getColor() != getColor()) {
                     kingCount++;
                 } else {
                     break; // There is another piece blocking the line of sight
@@ -91,7 +91,7 @@ public class King extends Chessman {
             endY++;
             Chessman chessman = chessboard.getChessman(x, endY);
             if (chessman != null) {
-                if (chessman instanceof King) {
+                if (chessman instanceof King && chessman.getColor() != getColor()) {
                     kingCount++;
                 } else {
                     break; // There is another piece blocking the line of sight
