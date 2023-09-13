@@ -39,6 +39,8 @@ public class ControlPanel extends JPanel {
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                System.out.println("重新开始 actionPerformed");
+                System.out.println(e);
                 chessboard.setCurrentChessman(null);
                 chessboard.setCurrent(GameConstant.red);
                 chessboard.setChessmans(SaveReadUtil.read("gamestart.txt"));
