@@ -101,4 +101,8 @@ public class Chessboard {
         }
         return true;
     }
+
+    public void applyStep(Step step) {
+
+    }
 }

@@ -32,6 +32,10 @@ public class ChessClickController extends MouseAdapter {
         int x = getX(e);
         int y = getY(e);
         Point point = new Point(x, y);
+        this.clickPoint(point);
+    }
+
+    public void clickPoint(Point point) {
         System.out.println(point);
 
         Chessman chessman = chessboard.getChessman(point);
