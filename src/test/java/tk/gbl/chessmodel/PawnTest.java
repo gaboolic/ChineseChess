@@ -20,16 +20,23 @@ public class PawnTest {
         Chessman[][] chessmans = SaveReadUtil.read("gamestart.txt");
         Chessboard chessboard = new Chessboard();
         chessboard.setChessmans(chessmans);
-        Chessman chessman = chessboard.getChessman(new Point(0,3));
+        Chessman chessman = chessboard.getChessman(new Point(0, 3));
         System.out.println(chessman);
         List<Point> movePoints = chessman.getMovePoints(chessboard);
         System.out.println(movePoints);
 
-        Chessman chessman2 = chessboard.getChessman(new Point(2,3));
+        Chessman chessman2 = chessboard.getChessman(new Point(2, 3));
         System.out.println(chessman2);
         List<Point> movePoints2 = chessman2.getMovePoints(chessboard);
         System.out.println(movePoints2);
 
-        //todo 不正确 需要修改
+        System.out.println(chessboard.getChessman(new Point(4, 3)).getMovePoints(chessboard));
+        System.out.println(chessboard.getChessman(new Point(6, 3)).getMovePoints(chessboard));
+        System.out.println(chessboard.getChessman(new Point(8, 3)).getMovePoints(chessboard));
+
+        //过河卒
+        chessman2.setPoint(new Point(2, 5));
+        chessboard.setChessman(chessman2);
+        System.out.println(chessman2.getMovePoints(chessboard));
     }
 }

@@ -38,11 +38,11 @@ public class Pawn extends Chessman {
         List<Point> movePoints = new ArrayList<>();
         int startX = getPoint().getX();
         int startY = getPoint().getY();
-        int forwardDirection = getColor() == GameConstant.red ? 1 : -1; // 兵的前进方向
+        int forwardDirection = getColor() == GameConstant.red ? -1 : 1; // 兵的前进方向
 
         // 判断兵是否可以前进一步
-        int targetX = startX + forwardDirection;
-        int targetY = startY;
+        int targetX = startX;
+        int targetY = startY + forwardDirection;
         if (isValidMove(targetX, targetY, chessboard)) {
             movePoints.add(new Point(targetX, targetY));
         }
@@ -51,11 +51,11 @@ public class Pawn extends Chessman {
 
         // 如果兵过河了，则判断是否可以左右移动
         if (crossedRiver()) {
-            if (isValidMove(startX, startY - 1, chessboard)) {
-                movePoints.add(new Point(targetX, targetY));
+            if (isValidMove(startX - 1, startY, chessboard)) {
+                movePoints.add(new Point(startX - 1, targetY));
             }
-            if (isValidMove(startX, startY + 1, chessboard)) {
-                movePoints.add(new Point(targetX, targetY));
+            if (isValidMove(startX + 1, startY, chessboard)) {
+                movePoints.add(new Point(startX + 1, targetY));
             }
         }
 
@@ -63,8 +63,8 @@ public class Pawn extends Chessman {
     }
 
     private boolean crossedRiver() {
-        int startX = getPoint().getX();
-        boolean isCrossedRiver = getColor() == GameConstant.red ? startX >= 5 : startX <= 4;
+        int startY = getPoint().getY();
+        boolean isCrossedRiver = getColor() == GameConstant.black ? startY >= 5 : startY <= 4;
         return isCrossedRiver;
     }
 
