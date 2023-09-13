@@ -86,17 +86,6 @@ public class Chessboard {
         return true;
     }
 
-    /**
-     * 移动
-     */
-    public Chessboard makeStep(Step step) {
-        Chessboard newBoard = CopyUtil.copyChessboard(this);
-        Chessman currentChessman = newBoard.getChessman(step.getStart());
-        newBoard.setCurrentChessman(currentChessman);
-        newBoard.moveChessMan(step.getEnd());
-        return newBoard;
-    }
-
     public boolean isGameOver() {
         int kingCount = 0;
         for (int row = 0; row < Chessboard.Y_SIZE; row++) {

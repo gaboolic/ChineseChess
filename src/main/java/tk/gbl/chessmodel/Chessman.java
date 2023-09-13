@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author gaboolic
  */
-public abstract class Chessman implements Serializable {
+public abstract class Chessman implements Serializable, Cloneable {
     Point point;
 
     int type;
@@ -82,5 +82,16 @@ public abstract class Chessman implements Serializable {
                 ", class=" + getClass().getSimpleName() +
                 ", color=" + color +
                 '}';
+    }
+
+    @Override
+    public Chessman clone() {
+        try {
+            Chessman clone = (Chessman) super.clone();
+            // TODO: copy mutable state here, so the clone can't change the internals of the original
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

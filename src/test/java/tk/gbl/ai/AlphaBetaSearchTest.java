@@ -5,6 +5,7 @@ import tk.gbl.chessmodel.Chessman;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
 import tk.gbl.model.Step;
+import tk.gbl.util.CopyUtil;
 import tk.gbl.util.SaveReadUtil;
 
 /**
@@ -32,5 +33,9 @@ public class AlphaBetaSearchTest {
         Chessman to = chessboard.getChessman(end);
         System.out.println(from);
         System.out.println(to);
+
+        chessboard = CopyUtil.makeStep(chessboard, step);
+        Step step2 = alphaBetaSearch.alphaBetaSearch(chessboard);
+        System.out.println(step2);
     }
 }

@@ -4,6 +4,7 @@ import tk.gbl.chessmodel.Chessman;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
 import tk.gbl.model.Step;
+import tk.gbl.util.CopyUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class AlphaBetaSearch {
         int maxScore = Integer.MIN_VALUE;
 
         for (Step step : Steps) {
-            Chessboard newChessboard = chessboard.makeStep(step);
+            Chessboard newChessboard = CopyUtil.makeStep(chessboard, step);
 
             int score = minValue(newChessboard, depth + 1, alpha, beta);
 
@@ -51,16 +52,16 @@ public class AlphaBetaSearch {
     }
 
     // 极大层级
-    private int maxValue(Chessboard Chessboard, int depth, int alpha, int beta) {
-        if (depth >= MAX_DEPTH || Chessboard.isGameOver()) {
-            return evaluate(Chessboard);
+    private int maxValue(Chessboard chessboard, int depth, int alpha, int beta) {
+        if (depth >= MAX_DEPTH || chessboard.isGameOver()) {
+            return evaluate(chessboard);
         }
 
         int maxScore = Integer.MIN_VALUE;
 
-        List<Step> Steps = generateSteps(Chessboard);
-        for (Step Step : Steps) {
-            Chessboard newChessboard = Chessboard.makeStep(Step);
+        List<Step> steps = generateSteps(chessboard);
+        for (Step step : steps) {
+            Chessboard newChessboard = CopyUtil.makeStep(chessboard, step);
 
             int score = minValue(newChessboard, depth + 1, alpha, beta);
 
@@ -84,9 +85,9 @@ public class AlphaBetaSearch {
 
         int minScore = Integer.MAX_VALUE;
 
-        List<Step> Steps = generateSteps(chessboard);
-        for (Step Step : Steps) {
-            Chessboard newChessboard = chessboard.makeStep(Step);
+        List<Step> steps = generateSteps(chessboard);
+        for (Step step : steps) {
+            Chessboard newChessboard = CopyUtil.makeStep(chessboard, step);
 
             int score = maxValue(newChessboard, depth + 1, alpha, beta);
 
@@ -115,7 +116,7 @@ public class AlphaBetaSearch {
         Chessman[][] chessmans = chessboard.getChessmans();
         for (Chessman[] list : chessmans) {
             for (Chessman chessman : list) {
-                if(chessman == null) {
+                if (chessman == null) {
                     continue;
                 }
                 List<Point> movePoints = chessman.getMovePoints(chessboard);
