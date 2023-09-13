@@ -61,9 +61,9 @@ public class BoardPanel extends JPanel {
 
         //绘制当前行动方
         if (chessboard.getCurrent() == GameConstant.red) {
-            g.drawString("红", 0, 0);
+            g.drawString("红", 0, 50);
         } else {
-            g.drawString("黑", 0, 0);
+            g.drawString("黑", 0, 50);
         }
     }
 
@@ -72,6 +72,7 @@ public class BoardPanel extends JPanel {
         Chessman currentChessman = chessboard.getCurrentChessman();
         if (currentChessman != null) {
             int ovalSize = 6;
+            g.setColor(Color.GREEN);
             g.fillOval(pos + currentChessman.getPoint().getX() * SizeConstant.gridSize - ovalSize / 2, pos + currentChessman.getPoint().getY() * SizeConstant.gridSize - ovalSize / 2, ovalSize, ovalSize);
             List<Point> movePoints = currentChessman.getMovePoints(chessboard);
 

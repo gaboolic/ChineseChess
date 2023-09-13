@@ -19,22 +19,21 @@ public class MainFrame extends JFrame {
     public MainFrame(Chessboard chessboard) {
         this.setBounds(366, 28, 580, 690);
 
-        this.setTitle("象棋");
+        this.setTitle("中国象棋");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         this.setVisible(true);
 
-        this.setLayout(null);
+        this.setLayout(new BorderLayout());
         BoardPanel boardPanel = new BoardPanel(chessboard);
         boardPanel.setVisible(true);
         ChessClickController chessClickController = new ChessClickController(chessboard, boardPanel);
         boardPanel.addMouseListener(chessClickController);
         this.add(boardPanel, BorderLayout.CENTER);
 
-        ControlPanel controlPanel = new ControlPanel(chessboard,chessClickController);
+        ControlPanel controlPanel = new ControlPanel(chessboard, chessClickController);
         controlPanel.setVisible(true);
         this.add(controlPanel, BorderLayout.EAST);
-
     }
 
     public Chessboard getChessboard() {
