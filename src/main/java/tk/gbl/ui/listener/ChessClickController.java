@@ -41,12 +41,20 @@ public class ChessClickController extends MouseAdapter {
         Chessman chessman = chessboard.getChessman(point);
         if (chessman != null && chessman.getColor() == chessboard.getCurrent()) {
             chessboard.setCurrentChessman(chessman);
+            System.out.println("setCurrentChessman" + chessman);
         } else if (chessboard.getCurrentChessman() != null) {
             // 判断目标位置是否能走棋
             if (chessboard.getCurrentChessman().canRemove(chessboard, point)) {
+                System.out.println(chessman + "move to " + point);
                 chessboard.moveChessMan(point);
             }
+        } else {
+            System.out.println("点击不合法 do nothing");
         }
+        repaint();
+    }
+
+    public void repaint(){
         boardPanel.repaint();
     }
 

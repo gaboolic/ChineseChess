@@ -119,6 +119,9 @@ public class AlphaBetaSearch {
                 if (chessman == null) {
                     continue;
                 }
+                if (chessboard.getCurrent() != chessman.getColor()) {
+                    continue;
+                }
                 List<Point> movePoints = chessman.getMovePoints(chessboard);
                 for (Point to : movePoints) {
                     Step step = new Step();

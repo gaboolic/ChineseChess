@@ -44,12 +44,14 @@ public class ControlPanel extends JPanel {
                 chessboard.setCurrentChessman(null);
                 chessboard.setCurrent(GameConstant.red);
                 chessboard.setChessmans(SaveReadUtil.read("gamestart.txt"));
+                chessClickController.repaint();
+                System.out.println("重新开始 end");
             }
         });
         this.add(button1, gbc);
 
         JButton button2 = new JButton("走一步");
-        button1.addActionListener(new ActionListener() {
+        button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 AlphaBetaSearch alphaBetaSearch = new AlphaBetaSearch();
