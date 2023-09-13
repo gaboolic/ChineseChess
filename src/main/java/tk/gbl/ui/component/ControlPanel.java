@@ -58,13 +58,15 @@ public class ControlPanel extends JPanel {
                 Step step = alphaBetaSearch.alphaBetaSearch(chessboard);
                 Point start = step.getStart();
                 chessClickController.clickPoint(start);
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException ex) {
-                    throw new RuntimeException(ex);
-                }
-                Point end = step.getEnd();
-                chessClickController.clickPoint(end);
+                new Thread(() -> {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    Point end = step.getEnd();
+                    chessClickController.clickPoint(end);
+                }).start();
             }
         });
         this.add(button2, gbc);

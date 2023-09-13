@@ -18,6 +18,7 @@ public class Chessboard {
     public static final int X_SIZE = 9;
     public static final int Y_SIZE = 10;
     private Chessman currentChessman;
+    private Chessman lastChessman;
     private Chessman[][] chessmans;
 
     private int current = GameConstant.red;
@@ -53,6 +54,14 @@ public class Chessboard {
         return currentChessman;
     }
 
+    public Chessman getLastChessman() {
+        return lastChessman;
+    }
+
+    public void setLastChessman(Chessman lastChessman) {
+        this.lastChessman = lastChessman;
+    }
+
     public int getCurrent() {
         return current;
     }
@@ -67,6 +76,7 @@ public class Chessboard {
         currentChessman.setPoint(toPoint);
         setChessman(currentChessman);
         chessmans[fromPoint.getY()][fromPoint.getX()] = null;
+        lastChessman = currentChessman;
         currentChessman = null;
         //当前方
         if (current == GameConstant.red) {

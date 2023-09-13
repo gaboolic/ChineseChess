@@ -82,6 +82,12 @@ public class BoardPanel extends JPanel {
                 g.fillOval(pos + point.getX() * SizeConstant.gridSize - ovalSize / 2, pos + point.getY() * SizeConstant.gridSize - ovalSize / 2, ovalSize, ovalSize);
             }
         }
+        if (chessboard.getLastChessman() != null) {
+            int ovalSize = 6;
+            g.setColor(Color.GREEN);
+            g.drawOval(pos + chessboard.getLastChessman().getPoint().getX() * SizeConstant.gridSize - ovalSize / 2, pos + chessboard.getLastChessman().getPoint().getY() * SizeConstant.gridSize - ovalSize / 2, ovalSize, ovalSize);
+            List<Point> movePoints = chessboard.getLastChessman().getMovePoints(chessboard);
+        }
         g.setColor(oldColor);
     }
 
