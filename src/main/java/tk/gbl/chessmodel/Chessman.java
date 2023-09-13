@@ -75,4 +75,12 @@ public abstract class Chessman implements Serializable {
 
     public abstract int getEvalValue();
 
+    @Override
+    public String toString() {
+        return "Chessman{" +
+                "point=" + point +
+                ", class=" + getClass().getSimpleName() +
+                ", color=" + color +
+                '}';
+    }
 }

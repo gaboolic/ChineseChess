@@ -1,6 +1,7 @@
 package tk.gbl.chessmodel;
 
 import tk.gbl.ai.EvaluateRule;
+import tk.gbl.constant.GameConstant;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
 
@@ -9,7 +10,7 @@ import java.util.List;
 
 /**
  * 马
- *
+ * <p>
  * Date: 2017/11/15
  * Time: 15:25
  *
@@ -18,7 +19,10 @@ import java.util.List;
 public class Horse extends Chessman {
     @Override
     public String getChineseName() {
-        return "马";
+        if (getColor() == GameConstant.red) {
+            return "傌";
+        }
+        return "馬";
     }
 
     @Override
@@ -57,8 +61,9 @@ public class Horse extends Chessman {
         Chessman targetChessman = chessboard.getChessman(x, y);
         if (targetChessman == null || targetChessman.getColor() != getColor()) {
             // 判断是否有拌马腿的情况
-            int blockX = x - (x - getPoint().getX()) / 2; // 马腿所在位置的x坐标
-            int blockY = y - (y - getPoint().getY()) / 2; // 马腿所在位置的y坐标
+            int blockX = getPoint().getX() + (x - getPoint().getX()) / 2; // 马腿所在位置的x坐标
+            int blockY = getPoint().getY() + (y - getPoint().getY()) / 2; // 马腿所在位置的y坐标
+
 
             if (chessboard.getChessman(blockX, blockY) == null) {
                 return true;

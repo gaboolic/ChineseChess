@@ -20,9 +20,9 @@ public class King extends Chessman {
     @Override
     public String getChineseName() {
         if (getColor() == GameConstant.red) {
-            return "帅";
+            return "帥";
         }
-        return "将";
+        return "將";
     }
     @Override
     public int getEvalValue() {
