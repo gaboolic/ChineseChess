@@ -1,8 +1,6 @@
 package tk.gbl.ai;
 
-import tk.gbl.chessmodel.Chessman;
-import tk.gbl.chessmodel.Guard;
-import tk.gbl.chessmodel.Rook;
+import tk.gbl.chessmodel.*;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
 
@@ -82,8 +80,13 @@ public class EvaluateRule {
             int sumValue = movePoints.size() * 5;
             return sumValue;
         }
+        if (chessman instanceof Horse) {
+            List<Point> movePoints = chessman.getMovePoints(chessboard);
+            int sumValue = movePoints.size() * 20;
+            return sumValue;
+        }
 
-        if (chessman instanceof Guard) {
+        if (chessman instanceof Guard || chessman instanceof King) {
             //士在九宫格位置中心时位置评估值最高
             if (chessman.getPoint().getX() == 5) {
                 return 50;

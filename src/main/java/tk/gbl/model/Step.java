@@ -25,4 +25,12 @@ public class Step {
     public void setEnd(Point end) {
         this.end = end;
     }
+
+    @Override
+    public String toString() {
+        return "Step{" +
+                "start=" + start +
+                ", end=" + end +
+                '}';
+    }
 }
