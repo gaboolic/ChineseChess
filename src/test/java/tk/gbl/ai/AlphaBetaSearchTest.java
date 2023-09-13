@@ -3,10 +3,9 @@ package tk.gbl.ai;
 import org.junit.Test;
 import tk.gbl.chessmodel.Chessman;
 import tk.gbl.model.Chessboard;
+import tk.gbl.model.Point;
 import tk.gbl.model.Step;
 import tk.gbl.util.SaveReadUtil;
-
-import static org.junit.Assert.*;
 
 /**
  * Date: 2023-09-13
@@ -25,5 +24,13 @@ public class AlphaBetaSearchTest {
         AlphaBetaSearch alphaBetaSearch = new AlphaBetaSearch();
         Step step = alphaBetaSearch.alphaBetaSearch(chessboard);
         System.out.println(step);
+
+        Point start = step.getStart();
+        Point end = step.getEnd();
+
+        Chessman from = chessboard.getChessman(start);
+        Chessman to = chessboard.getChessman(end);
+        System.out.println(from);
+        System.out.println(to);
     }
 }
