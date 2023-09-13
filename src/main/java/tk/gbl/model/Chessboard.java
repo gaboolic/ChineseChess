@@ -3,6 +3,7 @@ package tk.gbl.model;
 import tk.gbl.chessmodel.Chessman;
 import tk.gbl.chessmodel.King;
 import tk.gbl.constant.GameConstant;
+import tk.gbl.util.CopyUtil;
 
 /**
  * 棋盘
@@ -56,6 +57,10 @@ public class Chessboard {
         return current;
     }
 
+    public void setCurrent(int current) {
+        this.current = current;
+    }
+
     public void moveChessMan(Point toPoint) {
         Point fromPoint = currentChessman.getPoint();
 
@@ -85,9 +90,7 @@ public class Chessboard {
      * 移动
      */
     public Chessboard makeStep(Step step) {
-        Chessboard newBoard = new Chessboard();
-        Chessman[][] copyChessmans = chessmans.clone();
-        newBoard.setChessmans(copyChessmans);
+        Chessboard newBoard = CopyUtil.copyChessboard(this);
         Chessman currentChessman = newBoard.getChessman(step.getStart());
         newBoard.setCurrentChessman(currentChessman);
         newBoard.moveChessMan(step.getEnd());

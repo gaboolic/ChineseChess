@@ -19,25 +19,25 @@ public class AlphaBetaSearch {
     private static final int MAX_DEPTH = 4; // 最大搜索深度
 
     // Alpha-Beta搜索函数
-    public Step alphaBetaSearch(Chessboard Chessboard) {
+    public Step alphaBetaSearch(Chessboard chessboard) {
         int depth = 0;
         int alpha = Integer.MIN_VALUE;
         int beta = Integer.MAX_VALUE;
 
         // 获取当前可行的移动
-        List<Step> Steps = generateSteps(Chessboard);
+        List<Step> Steps = generateSteps(chessboard);
 
         Step bestStep = null;
         int maxScore = Integer.MIN_VALUE;
 
-        for (Step Step : Steps) {
-            Chessboard newChessboard = Chessboard.makeStep(Step);
+        for (Step step : Steps) {
+            Chessboard newChessboard = chessboard.makeStep(step);
 
             int score = minValue(newChessboard, depth + 1, alpha, beta);
 
             if (score > maxScore) {
                 maxScore = score;
-                bestStep = Step;
+                bestStep = step;
             }
 
             alpha = Math.max(alpha, maxScore);
