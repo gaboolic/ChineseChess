@@ -20,14 +20,22 @@ public class RookTest {
         Chessman[][] chessmans = SaveReadUtil.read("gamestart.txt");
         Chessboard chessboard = new Chessboard();
         chessboard.setChessmans(chessmans);
-        Chessman chessman = chessboard.getChessman(new Point(0,0));
+        Chessman chessman = chessboard.getChessman(new Point(0, 0));
         System.out.println(chessman);
         List<Point> movePoints = chessman.getMovePoints(chessboard);
         System.out.println(movePoints);
 
-        Chessman chessman2 = chessboard.getChessman(new Point(8,0));
+        Chessman chessman2 = chessboard.getChessman(new Point(8, 0));
         System.out.println(chessman2);
         List<Point> movePoints2 = chessman2.getMovePoints(chessboard);
         System.out.println(movePoints2);
+
+        chessman2.setPoint(new Point(8, 9));
+        chessboard.setChessman(chessman2);
+        List<Point> movePoints3 = chessman2.getMovePoints(chessboard);
+        System.out.println(movePoints3);
+        for (Point point : movePoints3) {
+            System.out.println(chessboard.getChessman(point));
+        }
     }
 }

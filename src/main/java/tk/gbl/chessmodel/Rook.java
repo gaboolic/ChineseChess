@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * 车
- *
+ * <p>
  * Date: 2017/11/15
  * Time: 15:36
  *
@@ -20,7 +20,7 @@ public class Rook extends Chessman {
 
     @Override
     public String getChineseName() {
-        if(getColor() == GameConstant.red) {
+        if (getColor() == GameConstant.red) {
             return "俥";
         }
         return "車";
@@ -37,39 +37,34 @@ public class Rook extends Chessman {
         int startX = getPoint().getX();
         int startY = getPoint().getY();
 
-        // 向上移动
-        for (int x = startX - 1; x >= 0; x--) {
-            if (isValidMove(x, startY, chessboard)) {
-                movePoints.add(new Point(x, startY));
-            } else {
-                break; // 遇到障碍停止
-            }
-        }
+        int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}}; // 四个直线方向
 
-        // 向下移动
-        for (int x = startX + 1; x < 10; x++) {
-            if (isValidMove(x, startY, chessboard)) {
-                movePoints.add(new Point(x, startY));
-            } else {
-                break; // 遇到障碍停止
-            }
-        }
+        for (int[] direction : directions) {
+            int dx = direction[0];
+            int dy = direction[1];
+            int targetX = startX + dx;
+            int targetY = startY + dy;
 
-        // 向左移动
-        for (int y = startY - 1; y >= 0; y--) {
-            if (isValidMove(startX, y, chessboard)) {
-                movePoints.add(new Point(startX, y));
-            } else {
-                break; // 遇到障碍停止
-            }
-        }
+            while (chessboard.isInsideBoard(targetX, targetY)) {
+                Chessman targetChessman = chessboard.getChessman(targetX, targetY);
 
-        // 向右移动
-        for (int y = startY + 1; y < 11; y++) {
-            if (isValidMove(startX, y, chessboard)) {
-                movePoints.add(new Point(startX, y));
-            } else {
-                break; // 遇到障碍停止
+                if (targetChessman == null) {
+                    // 空位置，加入移动点
+                    movePoints.add(new Point(targetX, targetY));
+                } else {
+                    Chessman nextChessman = chessboard.getChessman(targetX, targetY);
+
+                    if (nextChessman != null) {
+                        // 遇到第二个棋子，若颜色不同则加入吃子点
+                        if (nextChessman.getColor() != getColor()) {
+                            movePoints.add(new Point(targetX, targetY));
+                        }
+                    }
+                    break;
+                }
+
+                targetX += dx;
+                targetY += dy;
             }
         }
 
