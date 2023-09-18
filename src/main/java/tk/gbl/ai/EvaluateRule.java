@@ -73,6 +73,26 @@ public class EvaluateRule {
                 sumValue += targetChessman.getEvalValue();
             }
         }
+        if (chessman instanceof Cannon) {
+            //判断炮打帅
+            for (int endY = 0; endY < Chessboard.Y_SIZE; endY++) {
+                Chessman targetChessman = chessboard.getChessman(chessman.getPoint().getX(), endY);
+                if (targetChessman != null) {
+                    if (targetChessman instanceof King && targetChessman.getColor() != chessman.getColor()) {
+                        sumValue += 50;
+                    }
+                }
+            }
+            for (int endX = 0; endX < Chessboard.X_SIZE; endX++) {
+                Chessman targetChessman = chessboard.getChessman(endX, chessman.getPoint().getY());
+                if (targetChessman != null) {
+                    if (targetChessman instanceof King && targetChessman.getColor() != chessman.getColor()) {
+                        sumValue += 50;
+                    }
+                }
+            }
+        }
+
         return sumValue;
     }
 
