@@ -24,6 +24,7 @@ public class FlowTest {
         for (int i = 0; i < 10; i++) {
             Step step = alphaBetaSearch.alphaBetaSearch(chessboard);
             System.out.println(step);
+            System.out.println(chessboard.getChessman(step.getStart()) + "---" + chessboard.getChessman(step.getEnd()));
             chessboard = CopyUtil.makeStep(chessboard, step);
 
             String result = SaveReadUtil.outputStr(chessboard.getChessmans());

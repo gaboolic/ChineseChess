@@ -29,5 +29,7 @@ public class BishopTest {
         System.out.println(chessman2);
         List<Point> movePoints2 = chessman2.getMovePoints(chessboard);
         System.out.println(movePoints2);
+
+        //todo 飞象不能过河
     }
 }
