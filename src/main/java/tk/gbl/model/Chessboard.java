@@ -3,7 +3,11 @@ package tk.gbl.model;
 import tk.gbl.chessmodel.Chessman;
 import tk.gbl.chessmodel.King;
 import tk.gbl.constant.GameConstant;
-import tk.gbl.util.CopyUtil;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 棋盘
@@ -107,9 +111,23 @@ public class Chessboard {
             }
         }
         if (kingCount != 2) {
-            return false;
+            return true;
         }
-        return true;
+
+        //困毙
+        Map<Integer, List<Point>> colorMoveMap = new HashMap<>();
+        for (int row = 0; row < Chessboard.Y_SIZE; row++) {
+            for (int column = 0; column < Chessboard.X_SIZE; column++) {
+                Chessman chessman = this.getChessmans()[row][column];
+                List<Point> moves = chessman.getMovePoints(this);
+                colorMoveMap.computeIfAbsent(chessman.getColor(), k -> new ArrayList<>());
+                colorMoveMap.get(chessman.getColor()).addAll(moves);
+            }
+        }
+        if (colorMoveMap.get(GameConstant.red).size() == 0 || colorMoveMap.get(GameConstant.black).size() == 0) {
+            return true;
+        }
+        return false;
     }
 
     public void applyStep(Step step) {

@@ -1,7 +1,6 @@
 package tk.gbl.ai;
 
 import tk.gbl.chessmodel.Chessman;
-import tk.gbl.constant.GameConstant;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
 import tk.gbl.model.Step;
@@ -22,6 +21,7 @@ public class AlphaBetaSearch {
 
     // Alpha-Beta搜索函数
     public Step alphaBetaSearch(Chessboard chessboard) {
+        int color = chessboard.getCurrent();
         int depth = 0;
         int alpha = Integer.MIN_VALUE;
         int beta = Integer.MAX_VALUE;
@@ -35,7 +35,7 @@ public class AlphaBetaSearch {
         for (Step step : Steps) {
             Chessboard newChessboard = CopyUtil.makeStep(chessboard, step);
 
-            int score = minValue(newChessboard, depth + 1, alpha, beta);
+            int score = minValue(color, newChessboard, depth + 1, alpha, beta);
 
             if (score > maxScore) {
                 maxScore = score;
@@ -53,9 +53,9 @@ public class AlphaBetaSearch {
     }
 
     // 极大层级
-    private int maxValue(Chessboard chessboard, int depth, int alpha, int beta) {
+    private int maxValue(int color, Chessboard chessboard, int depth, int alpha, int beta) {
         if (depth >= MAX_DEPTH || chessboard.isGameOver()) {
-            return evaluate(chessboard);
+            return evaluate(chessboard, color);
         }
 
         int maxScore = Integer.MIN_VALUE;
@@ -64,7 +64,7 @@ public class AlphaBetaSearch {
         for (Step step : steps) {
             Chessboard newChessboard = CopyUtil.makeStep(chessboard, step);
 
-            int score = minValue(newChessboard, depth + 1, alpha, beta);
+            int score = minValue(color, newChessboard, depth + 1, alpha, beta);
 
             maxScore = Math.max(maxScore, score);
 
@@ -79,9 +79,9 @@ public class AlphaBetaSearch {
     }
 
     // 极小层级
-    private int minValue(Chessboard chessboard, int depth, int alpha, int beta) {
+    private int minValue(int color, Chessboard chessboard, int depth, int alpha, int beta) {
         if (depth >= MAX_DEPTH || chessboard.isGameOver()) {
-            return evaluate(chessboard);
+            return evaluate(chessboard, color);
         }
 
         int minScore = Integer.MAX_VALUE;
@@ -90,7 +90,7 @@ public class AlphaBetaSearch {
         for (Step step : steps) {
             Chessboard newChessboard = CopyUtil.makeStep(chessboard, step);
 
-            int score = maxValue(newChessboard, depth + 1, alpha, beta);
+            int score = maxValue(color, newChessboard, depth + 1, alpha, beta);
 
             minScore = Math.min(minScore, score);
 
@@ -105,10 +105,9 @@ public class AlphaBetaSearch {
     }
 
     // 评估函数，用于评估当前棋局的得分
-    private int evaluate(Chessboard chessboard) {
+    private int evaluate(Chessboard chessboard, int color) {
         // 在这里计算当前棋局的得分并返回
-        //todo color
-        return new EvaluateRule().evaluatePosition(chessboard, GameConstant.red);
+        return new EvaluateRule().evaluatePosition(chessboard, color);
     }
 
     // 生成当前棋局的所有合法移动
