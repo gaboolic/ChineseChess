@@ -18,6 +18,90 @@ import tk.gbl.util.SaveReadUtil;
 public class EvaluateRuleTest {
 
     @Test
+    public void evaluatePositionGameStart() {
+        Chessman[][] chessmans = SaveReadUtil.readStr(
+                "! @ # $ % $ # @ !\n" +
+                        "0 0 0 0 0 0 0 0 0\n" +
+                        "0 ^ 0 0 0 0 0 ^ 0\n" +
+                        "& 0 & 0 & 0 & 0 &\n" +
+                        "0 0 0 0 0 0 0 0 0\n" +
+                        "0 0 0 0 0 0 0 0 0\n" +
+                        "7 0 7 0 7 0 7 0 7\n" +
+                        "0 6 0 0 0 0 0 6 0\n" +
+                        "0 0 0 0 0 0 0 0 0\n" +
+                        "1 2 3 4 5 4 3 2 1");
+
+        Chessboard chessboard = new Chessboard();
+        chessboard.setChessmans(chessmans);
+
+        int result = new EvaluateRule().evaluatePosition(chessboard, GameConstant.red);
+        System.out.println(result);
+    }
+
+    @Test
+    public void evaluatePositionGameStart_horse() {
+        Chessman[][] chessmans = SaveReadUtil.readStr(
+                "! @ # $ % $ # @ !\n" +
+                        "0 0 0 0 0 0 0 0 0\n" +
+                        "0 ^ 0 0 0 0 0 ^ 0\n" +
+                        "& 0 & 0 & 0 & 0 &\n" +
+                        "0 0 0 0 0 0 0 0 0\n" +
+                        "0 0 0 0 0 0 0 0 0\n" +
+                        "7 0 7 0 7 0 7 0 7\n" +
+                        "0 6 2 0 0 0 0 6 0\n" +
+                        "0 0 0 0 0 0 0 0 0\n" +
+                        "1 0 3 4 5 4 3 2 1");
+
+        Chessboard chessboard = new Chessboard();
+        chessboard.setChessmans(chessmans);
+
+        int result = new EvaluateRule().evaluatePosition(chessboard, GameConstant.red);
+        System.out.println(result);
+    }
+
+    @Test
+    public void evaluatePositionGameStart_rook() {
+        Chessman[][] chessmans = SaveReadUtil.readStr(
+                "! @ # $ % $ # @ !\n" +
+                        "0 0 0 0 0 0 0 0 0\n" +
+                        "0 ^ 0 0 0 0 0 ^ 0\n" +
+                        "& 0 & 0 & 0 & 0 &\n" +
+                        "0 0 0 0 0 0 0 0 0\n" +
+                        "0 0 0 0 0 0 0 0 0\n" +
+                        "7 0 7 0 7 0 7 0 7\n" +
+                        "0 6 0 0 0 0 0 6 0\n" +
+                        "1 0 0 0 0 0 0 0 0\n" +
+                        "0 2 3 4 5 4 3 2 1");
+
+        Chessboard chessboard = new Chessboard();
+        chessboard.setChessmans(chessmans);
+
+        int result = new EvaluateRule().evaluatePosition(chessboard, GameConstant.red);
+        System.out.println(result);
+    }
+
+    @Test
+    public void evaluatePositionGameStart_cannon() {
+        Chessman[][] chessmans = SaveReadUtil.readStr(
+                "! @ # $ % $ # @ !\n" +
+                        "0 0 0 0 0 0 0 0 0\n" +
+                        "0 ^ 0 0 0 0 0 ^ 0\n" +
+                        "& 0 & 0 & 0 & 0 &\n" +
+                        "0 0 0 0 0 0 0 0 0\n" +
+                        "0 0 0 0 0 0 0 0 0\n" +
+                        "7 0 7 0 7 0 7 0 7\n" +
+                        "0 0 0 0 6 0 0 6 0\n" +
+                        "0 0 0 0 0 0 0 0 0\n" +
+                        "1 2 3 4 5 4 3 2 1");
+
+        Chessboard chessboard = new Chessboard();
+        chessboard.setChessmans(chessmans);
+
+        int result = new EvaluateRule().evaluatePosition(chessboard, GameConstant.red);
+        System.out.println(result);
+    }
+
+    @Test
     public void evaluatePosition() {
         Chessman[][] chessmans = SaveReadUtil.readStr(
                 "! @ # $ % $ # @ !\n" +

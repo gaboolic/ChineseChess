@@ -1,6 +1,7 @@
 package tk.gbl.ai;
 
 import tk.gbl.chessmodel.*;
+import tk.gbl.constant.GameConstant;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
 
@@ -91,9 +92,22 @@ public class EvaluateRule {
             return sumValue;
         }
 
+        if (chessman instanceof Cannon) {
+            //天地炮
+            if (chessman.getPoint().getX() == 4) {
+                return 50;
+            }
+            if (chessman.getColor() == GameConstant.red && chessman.getPoint().getY() == 0) {
+                return 50;
+            }
+            if (chessman.getColor() == GameConstant.black && chessman.getPoint().getY() == 9) {
+                return 50;
+            }
+        }
+
         if (chessman instanceof Guard || chessman instanceof King) {
             //士在九宫格位置中心时位置评估值最高
-            if (chessman.getPoint().getX() == 5) {
+            if (chessman.getPoint().getX() == 4) {
                 return 50;
             }
         }
