@@ -88,4 +88,24 @@ public class SaveReadUtil {
             e.printStackTrace();
         }
     }
+
+    public static String outputStr(Chessman[][] chessmans) {
+        StringBuilder line = new StringBuilder();
+        for (Chessman[] chessmansLine : chessmans) {
+            for (int i = 0; i < chessmansLine.length; i++) {
+                Chessman chessman = chessmansLine[i];
+                if (chessman != null) {
+                    String type = chessman.getChineseName();
+                    line.append(type);
+                    line.append(" ");
+                } else {
+                    line.append("空");
+                    line.append(" ");
+                }
+            }
+            line.deleteCharAt(line.length() - 1);
+            line.append("\n");
+        }
+        return line.toString();
+    }
 }

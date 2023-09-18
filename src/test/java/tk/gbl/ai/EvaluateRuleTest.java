@@ -13,7 +13,7 @@ import tk.gbl.util.SaveReadUtil;
  * Date: 2023-09-18
  * Time: 5:34 PM
  *
- * @author
+ * @author gaboolic
  */
 public class EvaluateRuleTest {
 

@@ -119,6 +119,9 @@ public class Chessboard {
         for (int row = 0; row < Chessboard.Y_SIZE; row++) {
             for (int column = 0; column < Chessboard.X_SIZE; column++) {
                 Chessman chessman = this.getChessmans()[row][column];
+                if (chessman == null) {
+                    continue;
+                }
                 List<Point> moves = chessman.getMovePoints(this);
                 colorMoveMap.computeIfAbsent(chessman.getColor(), k -> new ArrayList<>());
                 colorMoveMap.get(chessman.getColor()).addAll(moves);

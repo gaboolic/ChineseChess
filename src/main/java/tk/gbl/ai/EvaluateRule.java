@@ -73,7 +73,7 @@ public class EvaluateRule {
                 sumValue += targetChessman.getEvalValue();
             }
         }
-        if (chessman instanceof Cannon) {
+        if (chessman instanceof Cannon || chessman instanceof Rook) {
             //判断炮打帅
             for (int endY = 0; endY < Chessboard.Y_SIZE; endY++) {
                 Chessman targetChessman = chessboard.getChessman(chessman.getPoint().getX(), endY);
@@ -104,6 +104,13 @@ public class EvaluateRule {
         if (chessman instanceof Rook) {
             List<Point> movePoints = chessman.getMovePoints(chessboard);
             int sumValue = movePoints.size() * 5;
+
+            if (chessman.getPoint().getX() == 3 || chessman.getPoint().getX() == 5) {
+                sumValue += 50;
+            }
+            if (chessman.getPoint().getY() == 1 || chessman.getPoint().getY() == 8) {
+                sumValue += 50;
+            }
             return sumValue;
         }
         if (chessman instanceof Horse) {
