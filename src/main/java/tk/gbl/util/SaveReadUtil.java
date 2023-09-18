@@ -1,7 +1,6 @@
 package tk.gbl.util;
 
 import tk.gbl.chessmodel.Chessman;
-import tk.gbl.constant.GameConstant;
 import tk.gbl.model.Point;
 
 import java.io.*;
@@ -30,14 +29,35 @@ public class SaveReadUtil {
             String[] chessNumbers = line.split(" ");
             for (int j = 0; j < 9; j++) {
                 String chessNumberStr = chessNumbers[j];
-                int chessNumber = Integer.parseInt(chessNumberStr);
-                if (chessNumber == 0) {
+                if (chessNumberStr.equals("0")) {
                     continue;
                 }
-                Chessman chessman = Chessman.getInstance(chessNumber);
+                Chessman chessman = Chessman.getInstance(chessNumberStr);
                 chessman.setPoint(new Point(j, i));
                 chessmans[i][j] = chessman;
             }
+        }
+        return chessmans;
+    }
+
+    public static Chessman[][] readStr(String str) {
+        Chessman[][] chessmans = new Chessman[10][9];
+        int i = 0;
+        for (String line : str.split("\n")) {
+            if (line == null) {
+                continue;
+            }
+            String[] chessNumbers = line.split(" ");
+            for (int j = 0; j < 9; j++) {
+                String chessNumberStr = chessNumbers[j];
+                if (chessNumberStr.equals("0")) {
+                    continue;
+                }
+                Chessman chessman = Chessman.getInstance(chessNumberStr);
+                chessman.setPoint(new Point(j, i));
+                chessmans[i][j] = chessman;
+            }
+            i++;
         }
         return chessmans;
     }
@@ -50,10 +70,7 @@ public class SaveReadUtil {
                 for (int i = 0; i < chessmansLine.length; i++) {
                     Chessman chessman = chessmansLine[i];
                     if (chessman != null) {
-                        int type = chessman.getType();
-                        if (chessman.getColor() == GameConstant.black) {
-                            type = -type;
-                        }
+                        String type = chessman.getType();
                         line.append(type);
                         line.append(" ");
                     } else {
@@ -70,12 +87,5 @@ public class SaveReadUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        Chessman[][] chessmans = SaveReadUtil.read("gamestart.txt");
-        System.out.println(chessmans);
-
-        SaveReadUtil.save(chessmans, "F:\\workProject\\gaboolic\\ChineseChess\\src\\main\\resources\\chessmanual\\kaiju.txt");
     }
 }

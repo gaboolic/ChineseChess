@@ -29,7 +29,5 @@ public class HorseTest {
         System.out.println(chessman2);
         List<Point> movePoints2 = chessman2.getMovePoints(chessboard);
         System.out.println(movePoints2);
-
-        //todo 别马脚判断不对 需要修改
     }
 }

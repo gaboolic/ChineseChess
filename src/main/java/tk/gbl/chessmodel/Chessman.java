@@ -1,7 +1,6 @@
 package tk.gbl.chessmodel;
 
 import tk.gbl.constant.ChessTypeMapping;
-import tk.gbl.constant.GameConstant;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
 
@@ -19,22 +18,14 @@ import java.util.List;
 public abstract class Chessman implements Serializable, Cloneable {
     Point point;
 
-    int type;
+    String type;
     int color;
 
-    public static Chessman getInstance(int number) {
-        int color = GameConstant.red;
-        if (number < 0) {
-            color = GameConstant.black;
-            number = -number;
-        }
-        int type = number;
-        Chessman chessman = ChessTypeMapping.getChess(type);
+    public static Chessman getInstance(String chessNumberStr) {
+        Chessman chessman = ChessTypeMapping.getChess(chessNumberStr);
         if (chessman == null) {
             throw new RuntimeException("棋子类型不正确");
         }
-        chessman.setColor(color);
-        chessman.setType(type);
         return chessman;
     }
 
@@ -46,11 +37,11 @@ public abstract class Chessman implements Serializable, Cloneable {
         this.point = point;
     }
 
-    public int getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -77,11 +68,7 @@ public abstract class Chessman implements Serializable, Cloneable {
 
     @Override
     public String toString() {
-        return "Chessman{" +
-                "point=" + point +
-                ", class=" + getClass().getSimpleName() +
-                ", color=" + color +
-                '}';
+        return "Chessman{" + "point=" + point + ", class=" + getClass().getSimpleName() + ", color=" + color + '}';
     }
 
     @Override
