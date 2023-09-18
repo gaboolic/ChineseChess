@@ -10,6 +10,15 @@ public class Step {
     Point start;
     Point end;
 
+    public Step() {
+    }
+
+    public Step(Point start, Point end) {
+        this.start = start;
+        this.end = end;
+    }
+
+
     public Point getStart() {
         return start;
     }

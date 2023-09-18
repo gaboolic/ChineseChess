@@ -38,4 +38,33 @@ public class AlphaBetaSearchTest {
         Step step2 = alphaBetaSearch.alphaBetaSearch(chessboard);
         System.out.println(step2);
     }
+
+    @Test
+    public void test() {
+        Chessman[][] chessmans = SaveReadUtil.readStr(
+                "! @ # $ % $ # @ !\n" +
+                        "0 0 0 0 0 0 0 0 0\n" +
+                        "0 0 0 0 0 0 0 0 0\n" +
+                        "0 0 0 0 1 0 0 0 0\n" +
+                        "0 0 0 0 0 0 0 0 0\n" +
+                        "0 0 0 0 0 0 0 0 0\n" +
+                        "7 0 7 0 7 0 7 0 7\n" +
+                        "0 6 0 0 0 0 0 6 0\n" +
+                        "0 0 0 0 0 0 0 0 0\n" +
+                        "0 2 3 4 5 4 3 2 1");
+
+        Chessboard chessboard = new Chessboard();
+        chessboard.setChessmans(chessmans);
+
+
+        AlphaBetaSearch alphaBetaSearch = new AlphaBetaSearch();
+        Step step = alphaBetaSearch.alphaBetaSearch(chessboard);
+
+        System.out.println(step);
+        System.out.println(chessboard.getChessman(step.getStart()));
+
+        System.out.println(chessboard.getChessman(step.getStart()).getMovePoints(chessboard));
+
+        System.out.println(chessboard.getChessman(step.getEnd()));
+    }
 }

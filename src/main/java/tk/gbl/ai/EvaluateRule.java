@@ -23,25 +23,30 @@ public class EvaluateRule {
     public static final int SOLDIER_VALUE = 100;  // 兵的价值
     public static final int CROSS_SOLDIER_VALUE = 200;  // 兵的价值
 
-    public int evaluatePosition(Chessboard chessboard) {
+    public int evaluatePosition(Chessboard chessboard, int color) {
         int evaluation = 0;
 
         // 遍历棋盘上的每个位置
         for (int x = 0; x < Chessboard.X_SIZE; x++) {
             for (int y = 0; y < Chessboard.Y_SIZE; y++) {
                 Chessman chessman = chessboard.getChessman(x, y);
+
+                double score = 0;
                 if (chessman != null) {
                     // 根据棋子类型进行评估
                     int pieceValue = getPieceValue(chessman);
-
                     // 根据棋子的控制力进行评估
                     int controlValue = getControlValue(chessman, chessboard);
-
                     // 根据棋子的位置进行评估
                     int positionValue = getPositionValue(chessman, chessboard);
 
                     // 加权求和评估值
-                    evaluation += pieceValue + controlValue + positionValue;
+                    score = pieceValue + 0.5 * controlValue + 0.5 * positionValue;
+                    if (chessman.getColor() == color) {
+                        evaluation += score;
+                    } else {
+                        evaluation -= score;
+                    }
                 }
             }
         }

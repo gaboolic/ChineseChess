@@ -1,6 +1,7 @@
 package tk.gbl.ai;
 
 import tk.gbl.chessmodel.Chessman;
+import tk.gbl.constant.GameConstant;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
 import tk.gbl.model.Step;
@@ -106,7 +107,8 @@ public class AlphaBetaSearch {
     // 评估函数，用于评估当前棋局的得分
     private int evaluate(Chessboard chessboard) {
         // 在这里计算当前棋局的得分并返回
-        return new EvaluateRule().evaluatePosition(chessboard);
+        //todo color
+        return new EvaluateRule().evaluatePosition(chessboard, GameConstant.red);
     }
 
     // 生成当前棋局的所有合法移动
