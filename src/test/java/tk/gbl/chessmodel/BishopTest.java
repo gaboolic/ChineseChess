@@ -30,6 +30,9 @@ public class BishopTest {
         List<Point> movePoints2 = chessman2.getMovePoints(chessboard);
         System.out.println(movePoints2);
 
-        //todo 飞象不能过河
+        // 测试飞象不能过河
+        chessboard.setCurrentChessman(chessman2);
+        chessboard.moveChessMan(new Point(4, 2));
+        System.out.println(chessman2.getMovePoints(chessboard));
     }
 }
