@@ -65,6 +65,11 @@ public class Bishop extends Chessman {
             return false;
         }
 
+        boolean isCrossedRiver = getColor() == GameConstant.black ? y >= 5 : y <= 4;
+        if (isCrossedRiver) {
+            return false;
+        }
+
         // 判断目标位置是否为空或者有敌方棋子
         Chessman targetChessman = chessboard.getChessman(new Point(x, y));
         if (targetChessman == null || targetChessman.getColor() != getColor()) {
@@ -82,4 +87,5 @@ public class Bishop extends Chessman {
 
         return false;
     }
+
 }

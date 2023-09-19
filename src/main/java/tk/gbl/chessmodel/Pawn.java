@@ -52,10 +52,10 @@ public class Pawn extends Chessman {
         // 如果兵过河了，则判断是否可以左右移动
         if (crossedRiver()) {
             if (isValidMove(startX - 1, startY, chessboard)) {
-                movePoints.add(new Point(startX - 1, targetY));
+                movePoints.add(new Point(startX - 1, startY));
             }
             if (isValidMove(startX + 1, startY, chessboard)) {
-                movePoints.add(new Point(startX + 1, targetY));
+                movePoints.add(new Point(startX + 1, startY));
             }
         }
 

@@ -34,7 +34,7 @@ public class PawnTest {
         System.out.println(chessboard.getChessman(new Point(6, 3)).getMovePoints(chessboard));
         System.out.println(chessboard.getChessman(new Point(8, 3)).getMovePoints(chessboard));
 
-        //todo 过河卒
+        // 过河卒
         chessman2.setPoint(new Point(2, 5));
         chessboard.setChessman(chessman2);
         System.out.println(chessman2.getMovePoints(chessboard));
