@@ -24,8 +24,8 @@ public class EvaluateRule {
     public static final int SOLDIER_VALUE = 100;  // 兵的价值
     public static final int CROSS_SOLDIER_VALUE = 200;  // 兵的价值
 
-    public int evaluatePosition(Chessboard chessboard, int color) {
-        int evaluation = 0;
+    public double evaluatePosition(Chessboard chessboard, int color) {
+        double evaluation = 0;
 
         // 遍历棋盘上的每个位置
         for (int x = 0; x < Chessboard.X_SIZE; x++) {
@@ -42,12 +42,13 @@ public class EvaluateRule {
                     int positionValue = getPositionValue(chessman, chessboard);
 
                     // 加权求和评估值
-                    score = pieceValue + 0.5 * controlValue + 0.5 * positionValue;
+                    score = pieceValue + 0.5 * controlValue + Math.sqrt(positionValue);
                     if (chessman.getColor() == color) {
                         evaluation += score;
                     } else {
                         evaluation -= score;
                     }
+                    System.out.println(chessman.toString() + "---" + score);
                 }
             }
         }
@@ -69,17 +70,25 @@ public class EvaluateRule {
         int sumValue = 0;
         for (Point point : movePoints) {
             Chessman targetChessman = chessboard.getChessman(point);
-            if (targetChessman != null) {
+            //威胁力
+            if (targetChessman != null && targetChessman.getColor() != chessman.getColor()) {
                 sumValue += targetChessman.getEvalValue();
             }
+            //todo 保护力
+            if (targetChessman != null && targetChessman.getColor() == chessman.getColor()) {
+                sumValue += 0.5 * targetChessman.getEvalValue();
+            }
         }
-        if (chessman instanceof Cannon || chessman instanceof Rook) {
+        if(chessman instanceof Rook){
+            System.out.println();
+        }
+        if (chessman instanceof Cannon) {
             //判断炮打帅
             for (int endY = 0; endY < Chessboard.Y_SIZE; endY++) {
                 Chessman targetChessman = chessboard.getChessman(chessman.getPoint().getX(), endY);
                 if (targetChessman != null) {
                     if (targetChessman instanceof King && targetChessman.getColor() != chessman.getColor()) {
-                        sumValue += 50;
+                        sumValue += 100;
                     }
                 }
             }
@@ -87,7 +96,7 @@ public class EvaluateRule {
                 Chessman targetChessman = chessboard.getChessman(endX, chessman.getPoint().getY());
                 if (targetChessman != null) {
                     if (targetChessman instanceof King && targetChessman.getColor() != chessman.getColor()) {
-                        sumValue += 50;
+                        sumValue += 100;
                     }
                 }
             }
@@ -103,19 +112,19 @@ public class EvaluateRule {
         // 返回一个位置评估值
         if (chessman instanceof Rook) {
             List<Point> movePoints = chessman.getMovePoints(chessboard);
-            int sumValue = movePoints.size() * 5;
+            int sumValue = movePoints.size() * 1;
 
-            if (chessman.getPoint().getX() == 3 || chessman.getPoint().getX() == 5) {
-                sumValue += 50;
-            }
-            if (chessman.getPoint().getY() == 1 || chessman.getPoint().getY() == 8) {
-                sumValue += 50;
-            }
+//            if (chessman.getPoint().getX() == 3 || chessman.getPoint().getX() == 5) {
+//                sumValue += 20;
+//            }
+//            if (chessman.getPoint().getY() == 1 || chessman.getPoint().getY() == 8) {
+//                sumValue += 20;
+//            }
             return sumValue;
         }
         if (chessman instanceof Horse) {
             List<Point> movePoints = chessman.getMovePoints(chessboard);
-            int sumValue = movePoints.size() * 20;
+            int sumValue = movePoints.size() * 10;
             return sumValue;
         }
 
@@ -137,6 +146,18 @@ public class EvaluateRule {
             if (chessman.getPoint().getX() == 4) {
                 return 50;
             }
+        }
+        if (chessman instanceof Pawn) {
+            List<Point> movePoints = chessman.getMovePoints(chessboard);
+            int sumValue = movePoints.size() * 10;
+
+            if (chessman.getPoint().getX() == 3 || chessman.getPoint().getX() == 5) {
+                sumValue += 30;
+            }
+            if (chessman.getPoint().getY() == 1 || chessman.getPoint().getY() == 8) {
+                sumValue += 30;
+            }
+            return sumValue;
         }
 
         return 0;

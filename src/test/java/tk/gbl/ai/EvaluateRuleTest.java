@@ -19,8 +19,9 @@ public class EvaluateRuleTest {
 
     @Test
     public void evaluatePositionGameStart() {
+        //todo
         Chessman[][] chessmans = SaveReadUtil.readStr(
-                "! @ # $ % $ # @ !\n" +
+                        "! @ # $ % $ # @ !\n" +
                         "0 0 0 0 0 0 0 0 0\n" +
                         "0 ^ 0 0 0 0 0 ^ 0\n" +
                         "& 0 & 0 & 0 & 0 &\n" +
@@ -34,7 +35,7 @@ public class EvaluateRuleTest {
         Chessboard chessboard = new Chessboard();
         chessboard.setChessmans(chessmans);
 
-        int result = new EvaluateRule().evaluatePosition(chessboard, GameConstant.red);
+        double result = new EvaluateRule().evaluatePosition(chessboard, GameConstant.red);
         System.out.println(result);
     }
 
@@ -55,12 +56,13 @@ public class EvaluateRuleTest {
         Chessboard chessboard = new Chessboard();
         chessboard.setChessmans(chessmans);
 
-        int result = new EvaluateRule().evaluatePosition(chessboard, GameConstant.red);
+        double result = new EvaluateRule().evaluatePosition(chessboard, GameConstant.red);
         System.out.println(result);
     }
 
     @Test
     public void evaluatePositionGameStart_rook() {
+        //todo
         Chessman[][] chessmans = SaveReadUtil.readStr(
                 "! @ # $ % $ # @ !\n" +
                         "0 0 0 0 0 0 0 0 0\n" +
@@ -76,7 +78,7 @@ public class EvaluateRuleTest {
         Chessboard chessboard = new Chessboard();
         chessboard.setChessmans(chessmans);
 
-        int result = new EvaluateRule().evaluatePosition(chessboard, GameConstant.red);
+        double result = new EvaluateRule().evaluatePosition(chessboard, GameConstant.red);
         System.out.println(result);
     }
 
@@ -97,7 +99,7 @@ public class EvaluateRuleTest {
         Chessboard chessboard = new Chessboard();
         chessboard.setChessmans(chessmans);
 
-        int result = new EvaluateRule().evaluatePosition(chessboard, GameConstant.red);
+        double result = new EvaluateRule().evaluatePosition(chessboard, GameConstant.red);
         System.out.println(result);
     }
 
@@ -118,18 +120,18 @@ public class EvaluateRuleTest {
         Chessboard chessboard = new Chessboard();
         chessboard.setChessmans(chessmans);
 
-        int result = new EvaluateRule().evaluatePosition(chessboard, GameConstant.red);
+        double result = new EvaluateRule().evaluatePosition(chessboard, GameConstant.red);
         System.out.println(result);
 
         //Step{start=Point{x=4, y=3}, end=Point{x=4, y=1}}
         Step step = new Step(new Point(4, 3), new Point(4, 1));
         Chessboard chessboard2 = CopyUtil.makeStep(chessboard, step);
-        int result2 = new EvaluateRule().evaluatePosition(chessboard2, GameConstant.red);
+        double result2 = new EvaluateRule().evaluatePosition(chessboard2, GameConstant.red);
         System.out.println(result2);
 
         Step step3 = new Step(new Point(4, 3), new Point(4, 0));
         Chessboard chessboard3 = CopyUtil.makeStep(chessboard, step3);
-        int result3 = new EvaluateRule().evaluatePosition(chessboard3, GameConstant.red);
+        double result3 = new EvaluateRule().evaluatePosition(chessboard3, GameConstant.red);
         System.out.println(result3);
     }
 }

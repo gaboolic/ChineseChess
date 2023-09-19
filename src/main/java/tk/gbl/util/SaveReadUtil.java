@@ -97,13 +97,13 @@ public class SaveReadUtil {
                 if (chessman != null) {
                     String type = chessman.getChineseName();
                     line.append(type);
-                    line.append(" ");
+                    line.append("");
                 } else {
-                    line.append("空");
-                    line.append(" ");
+                    line.append("　");
+                    line.append("");
                 }
             }
-            line.deleteCharAt(line.length() - 1);
+//            line.deleteCharAt(line.length() - 1);
             line.append("\n");
         }
         return line.toString();
