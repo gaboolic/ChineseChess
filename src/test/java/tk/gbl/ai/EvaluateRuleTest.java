@@ -134,4 +134,26 @@ public class EvaluateRuleTest {
         double result3 = new EvaluateRule().evaluatePosition(chessboard3, GameConstant.red);
         System.out.println(result3);
     }
+
+    @Test
+    public void evaluatePositionGameStart_gameover() {
+        Chessman[][] chessmans = SaveReadUtil.readStr(
+                        "0 0 0 % 0 0 0 0 0\n" +
+                        "0 0 0 0 0 0 0 0 0\n" +
+                        "0 0 0 0 0 0 0 0 0\n" +
+                        "0 0 0 1 0 0 0 0 0\n" +
+                        "0 0 0 0 0 0 0 0 0\n" +
+                        "0 0 0 0 0 0 0 0 0\n" +
+                        "7 0 7 0 0 0 7 0 7\n" +
+                        "0 6 0 0 0 0 0 6 0\n" +
+                        "0 0 0 0 0 0 0 0 0\n" +
+                        "0 0 3 4 5 4 3 2 1");
+
+        Chessboard chessboard = new Chessboard();
+        chessboard.setChessmans(chessmans);
+        chessboard.setCurrent(GameConstant.black);
+
+        double result = new EvaluateRule().evaluatePosition(chessboard, GameConstant.red);
+        System.out.println(result);
+    }
 }

@@ -57,6 +57,22 @@ public class King extends Chessman {
             return false;
         }
 
+        //判断不能送吃
+        Chessman[][] chessmans = chessboard.getChessmans();
+        for (Chessman[] list : chessmans) {
+            for (Chessman chessman : list) {
+                if (chessman == null) {
+                    continue;
+                }
+                if (this.getColor() != chessman.getColor() && !(chessman instanceof King)) {
+                    List<Point> movePoints = chessman.getMovePoints(chessboard);
+                    if (movePoints.contains(new Point(x, y))) {
+                        return false;
+                    }
+                }
+            }
+        }
+
         // 判断目标位置是否为空或者有敌方棋子
         Chessman targetChessman = chessboard.getChessman(x, y);
         if (targetChessman == null || targetChessman.getColor() != getColor()) {

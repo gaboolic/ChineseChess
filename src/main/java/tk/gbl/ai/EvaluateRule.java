@@ -25,6 +25,14 @@ public class EvaluateRule {
     public static final int CROSS_SOLDIER_VALUE = 200;  // 兵的价值
 
     public double evaluatePosition(Chessboard chessboard, int color) {
+        int gameOver = chessboard.isGameOver();
+        if (gameOver >= 0) {
+            if (gameOver == color) {
+                return Integer.MAX_VALUE;
+            } else {
+                return Integer.MIN_VALUE;
+            }
+        }
         double evaluation = 0;
 
         // 遍历棋盘上的每个位置
@@ -79,7 +87,7 @@ public class EvaluateRule {
                 sumValue += 0.5 * targetChessman.getEvalValue();
             }
         }
-        if(chessman instanceof Rook){
+        if (chessman instanceof Rook) {
             System.out.println();
         }
         if (chessman instanceof Cannon) {

@@ -100,18 +100,29 @@ public class Chessboard {
         return true;
     }
 
-    public boolean isGameOver() {
-        int kingCount = 0;
+    /**
+     * 返回胜利方
+     */
+    public int isGameOver() {
+        int redKingCount = 0;
+        int blackKingCount = 0;
         for (int row = 0; row < Chessboard.Y_SIZE; row++) {
             for (int column = 0; column < Chessboard.X_SIZE; column++) {
                 Chessman chessman = this.getChessmans()[row][column];
                 if (chessman instanceof King) {
-                    kingCount++;
+                    if (chessman.getColor() == GameConstant.red) {
+                        redKingCount++;
+                    } else {
+                        blackKingCount++;
+                    }
                 }
             }
         }
-        if (kingCount != 2) {
-            return true;
+        if (redKingCount == 0) {
+            return GameConstant.black;
+        }
+        if (blackKingCount == 0) {
+            return GameConstant.red;
         }
 
         //困毙
@@ -127,10 +138,14 @@ public class Chessboard {
                 colorMoveMap.get(chessman.getColor()).addAll(moves);
             }
         }
-        if (colorMoveMap.get(GameConstant.red).size() == 0 || colorMoveMap.get(GameConstant.black).size() == 0) {
-            return true;
+        if (current == GameConstant.red && colorMoveMap.get(GameConstant.red).size() == 0) {
+            return GameConstant.black;
         }
-        return false;
+        if (current == GameConstant.black && colorMoveMap.get(GameConstant.black).size() == 0){
+            return GameConstant.red;
+        }
+        //todo 判断下一回合是否被绝杀
+        return -1;
     }
 
     public void applyStep(Step step) {

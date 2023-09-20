@@ -54,7 +54,7 @@ public class AlphaBetaSearch {
 
     // 极大层级
     private double maxValue(int color, Chessboard chessboard, int depth, double alpha, double beta) {
-        if (depth >= MAX_DEPTH || chessboard.isGameOver()) {
+        if (depth >= MAX_DEPTH || chessboard.isGameOver() >= 0) {
             return evaluate(chessboard, color);
         }
 
@@ -80,7 +80,7 @@ public class AlphaBetaSearch {
 
     // 极小层级
     private double minValue(int color, Chessboard chessboard, int depth, double alpha, double beta) {
-        if (depth >= MAX_DEPTH || chessboard.isGameOver()) {
+        if (depth >= MAX_DEPTH || chessboard.isGameOver() >= 0) {
             return evaluate(chessboard, color);
         }
 
