@@ -56,7 +56,7 @@ public class EvaluateRule {
                     } else {
                         evaluation -= score;
                     }
-                    System.out.println(chessman.toString() + "---" + score);
+//                    System.out.println("evaluatePosition " + chessman.toString() + "---" + score);
                 }
             }
         }
@@ -86,9 +86,6 @@ public class EvaluateRule {
             if (targetChessman != null && targetChessman.getColor() == chessman.getColor()) {
                 sumValue += 0.5 * targetChessman.getEvalValue();
             }
-        }
-        if (chessman instanceof Rook) {
-            System.out.println();
         }
         if (chessman instanceof Cannon) {
             //判断炮打帅
