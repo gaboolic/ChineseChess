@@ -18,11 +18,11 @@ public class EvaluateRule {
     public static final int KING_VALUE = 99999;  // 将帅的价值
     public static final int GUARD_VALUE = 260;  // 士的价值
     public static final int BISHOP_VALUE = 250;  // 象的价值
-    public static final int HORSE_VALUE = 300;  // 马的价值
-    public static final int ROOK_VALUE = 900;  // 车的价值
-    public static final int CANNON_VALUE = 500;  // 炮的价值
-    public static final int SOLDIER_VALUE = 100;  // 兵的价值
-    public static final int CROSS_SOLDIER_VALUE = 200;  // 兵的价值
+    public static final int HORSE_VALUE = 500;  // 马的价值
+    public static final int ROOK_VALUE = 1000;  // 车的价值
+    public static final int CANNON_VALUE = 600;  // 炮的价值
+    public static final int SOLDIER_VALUE = 50;  // 兵的价值
+    public static final int CROSS_SOLDIER_VALUE = 150;  // 兵的价值
 
     public double evaluatePosition(Chessboard chessboard, int color) {
         int gameOver = chessboard.isGameOver();
@@ -82,11 +82,9 @@ public class EvaluateRule {
             if (targetChessman != null && targetChessman.getColor() != chessman.getColor()) {
                 sumValue += targetChessman.getEvalValue();
             }
-            //todo 保护力
-            if (targetChessman != null && targetChessman.getColor() == chessman.getColor()) {
-                sumValue += 0.5 * targetChessman.getEvalValue();
-            }
         }
+        //todo 保护力
+
         if (chessman instanceof Cannon) {
             //判断炮打帅
             for (int endY = 0; endY < Chessboard.Y_SIZE; endY++) {
@@ -119,17 +117,33 @@ public class EvaluateRule {
             List<Point> movePoints = chessman.getMovePoints(chessboard);
             int sumValue = movePoints.size() * 1;
 
-//            if (chessman.getPoint().getX() == 3 || chessman.getPoint().getX() == 5) {
-//                sumValue += 20;
-//            }
-//            if (chessman.getPoint().getY() == 1 || chessman.getPoint().getY() == 8) {
-//                sumValue += 20;
-//            }
+            if (chessman.getPoint().getX() == 4 && chessman.getPoint().getY() == 1) {
+                sumValue += 50;
+            }
+            if (chessman.getPoint().getX() == 4 && chessman.getPoint().getY() == 8) {
+                sumValue += 50;
+            }
             return sumValue;
         }
         if (chessman instanceof Horse) {
             List<Point> movePoints = chessman.getMovePoints(chessboard);
             int sumValue = movePoints.size() * 10;
+
+            //卧槽马
+            if (chessman.getPoint().getX() == 2 && (chessman.getPoint().getY() == 1 || chessman.getPoint().getY() == 8)) {
+                sumValue += 50;
+            }
+            if (chessman.getPoint().getX() == 6 && (chessman.getPoint().getY() == 1 || chessman.getPoint().getY() == 8)) {
+                sumValue += 50;
+            }
+
+            //八角马
+            if (chessman.getPoint().getX() == 3 && (chessman.getPoint().getY() == 2 || chessman.getPoint().getY() == 7)) {
+                sumValue += 50;
+            }
+            if (chessman.getPoint().getX() == 5 && (chessman.getPoint().getY() == 2 || chessman.getPoint().getY() == 7)) {
+                sumValue += 50;
+            }
             return sumValue;
         }
 
@@ -161,6 +175,12 @@ public class EvaluateRule {
             }
             if (chessman.getPoint().getY() == 1 || chessman.getPoint().getY() == 8) {
                 sumValue += 30;
+            }
+            if (chessman.getPoint().getX() == 4 && chessman.getPoint().getY() == 1) {
+                sumValue += 50;
+            }
+            if (chessman.getPoint().getX() == 4 && chessman.getPoint().getY() == 8) {
+                sumValue += 50;
             }
             return sumValue;
         }

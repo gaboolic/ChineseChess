@@ -21,6 +21,8 @@ public class AlphaBetaSearch {
 
     // Alpha-Beta搜索函数
     public Step alphaBetaSearch(Chessboard chessboard) {
+        long startTime = System.currentTimeMillis();
+
         int color = chessboard.getCurrent();
         int depth = 0;
         double alpha = Integer.MIN_VALUE;
@@ -49,6 +51,8 @@ public class AlphaBetaSearch {
             }
         }
 
+        long endTime = System.currentTimeMillis();
+        System.out.println((endTime - startTime) + "ms");
         return bestStep;
     }
 
