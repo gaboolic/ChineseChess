@@ -3,6 +3,7 @@ package tk.gbl.model;
 import tk.gbl.chessmodel.Chessman;
 import tk.gbl.chessmodel.King;
 import tk.gbl.constant.GameConstant;
+import tk.gbl.util.CopyUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,6 +27,11 @@ public class Chessboard {
     private Chessman[][] chessmans;
 
     private int current = GameConstant.red;
+
+    /**
+     * 回合数
+     */
+    private int round = 0;
 
 
     public Chessman[][] getChessmans() {
@@ -83,11 +89,8 @@ public class Chessboard {
         lastChessman = currentChessman;
         currentChessman = null;
         //当前方
-        if (current == GameConstant.red) {
-            current = GameConstant.black;
-        } else {
-            current = GameConstant.red;
-        }
+        current = current ^ 1;
+        round++;
     }
 
     public boolean isInsideBoard(int x, int y) {
@@ -141,7 +144,7 @@ public class Chessboard {
         if (current == GameConstant.red && colorMoveMap.get(GameConstant.red).size() == 0) {
             return GameConstant.black;
         }
-        if (current == GameConstant.black && colorMoveMap.get(GameConstant.black).size() == 0){
+        if (current == GameConstant.black && colorMoveMap.get(GameConstant.black).size() == 0) {
             return GameConstant.red;
         }
         //todo 判断下一回合是否被绝杀
