@@ -1,9 +1,8 @@
 package tk.gbl.model;
 
-import tk.gbl.chessmodel.Chessman;
-import tk.gbl.chessmodel.King;
+import tk.gbl.chessmodel.*;
 import tk.gbl.constant.GameConstant;
-import tk.gbl.util.CopyUtil;
+import tk.gbl.constant.SituationEnum;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -151,7 +150,22 @@ public class Chessboard {
         return -1;
     }
 
-    public void applyStep(Step step) {
-
+    private SituationEnum getSituation() {
+        if (round < 10) {
+            return SituationEnum.START;
+        }
+        int bigCount = 0;
+        for (int row = 0; row < Chessboard.Y_SIZE; row++) {
+            for (int column = 0; column < Chessboard.X_SIZE; column++) {
+                Chessman chessman = this.getChessmans()[row][column];
+                if (chessman instanceof Rook || chessman instanceof Horse || chessman instanceof Cannon) {
+                    bigCount++;
+                }
+            }
+        }
+        if (bigCount > 6) {
+            return SituationEnum.MIDDLE;
+        }
+        return SituationEnum.ENDING;
     }
 }
