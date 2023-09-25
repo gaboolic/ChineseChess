@@ -31,12 +31,12 @@ public class AlphaBetaSearchTest {
 
         Chessman from = chessboard.getChessman(start);
         Chessman to = chessboard.getChessman(end);
-        System.out.println(from);
-        System.out.println(to);
+        System.out.println("from "+from);
+        System.out.println("to "+to);
 
-        chessboard = CopyUtil.makeStep(chessboard, step);
-        Step step2 = alphaBetaSearch.alphaBetaSearch(chessboard);
-        System.out.println(step2);
+//        chessboard = CopyUtil.makeStep(chessboard, step);
+//        Step step2 = alphaBetaSearch.alphaBetaSearch(chessboard);
+//        System.out.println(step2);
     }
 
     @Test

@@ -35,7 +35,6 @@ public class EvaluateRule {
         }
         double evaluation = 0;
 
-        PositionEvaluate positionEvaluate = new PositionEvaluate();
         // 遍历棋盘上的每个位置
         for (int x = 0; x < Chessboard.X_SIZE; x++) {
             for (int y = 0; y < Chessboard.Y_SIZE; y++) {
@@ -48,10 +47,10 @@ public class EvaluateRule {
                     // 根据棋子的控制力进行评估
                     int controlValue = getControlValue(chessman, chessboard);
                     // 根据棋子的位置进行评估
-                    int positionValue = positionEvaluate.getPositionValue(chessman, chessboard);
+                    int positionValue = PositionEvaluate.getPositionValue(chessman, chessboard);
 
                     // 加权求和评估值
-                    score = pieceValue + 0.5 * controlValue + positionValue;
+                    score = pieceValue + positionValue;
                     if (chessman.getColor() == color) {
                         evaluation += score;
                     } else {
