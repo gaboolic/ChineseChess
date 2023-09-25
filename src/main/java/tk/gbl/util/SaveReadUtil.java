@@ -62,6 +62,28 @@ public class SaveReadUtil {
         return chessmans;
     }
 
+    public static Chessman[][] readChineseStr(String str) {
+        Chessman[][] chessmans = new Chessman[10][9];
+        int i = 0;
+        for (String line : str.split("\n")) {
+            if (line == null) {
+                continue;
+            }
+            char[] chessNumbers = line.toCharArray();
+            for (int j = 0; j < 9; j++) {
+                char chessChar = chessNumbers[j];
+                if (chessChar == '　') {
+                    continue;
+                }
+                Chessman chessman = Chessman.getInstanceByChineseName(chessChar + "");
+                chessman.setPoint(new Point(j, i));
+                chessmans[i][j] = chessman;
+            }
+            i++;
+        }
+        return chessmans;
+    }
+
     public static void save(Chessman[][] chessmans, String file) {
         try {
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));

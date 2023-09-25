@@ -2,7 +2,9 @@ package tk.gbl.constant;
 
 import tk.gbl.chessmodel.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,6 +15,7 @@ import java.util.Map;
  */
 public class ChessTypeMapping {
     static Map<String, Class<? extends Chessman>> mapping = new HashMap<>();
+    static List<Class<? extends Chessman>> chessModelList = new ArrayList<>();
 
     static {
         mapping.put("1", Rook.class);
@@ -30,6 +33,14 @@ public class ChessTypeMapping {
         mapping.put("%", King.class);
         mapping.put("^", Cannon.class);
         mapping.put("&", Pawn.class);
+
+        chessModelList.add(Rook.class);
+        chessModelList.add(Horse.class);
+        chessModelList.add(Bishop.class);
+        chessModelList.add(Guard.class);
+        chessModelList.add(King.class);
+        chessModelList.add(Cannon.class);
+        chessModelList.add(Pawn.class);
     }
 
     public static Chessman getChess(String type) {
@@ -51,5 +62,25 @@ public class ChessTypeMapping {
         }
         chessman.setType(type);
         return chessman;
+    }
+
+    public static Chessman getChessByChineseName(String chineseName) {
+        for (Class<? extends Chessman> clz : chessModelList) {
+            Chessman chessman = null;
+            try {
+                chessman = clz.newInstance();
+            } catch (Exception e) {
+                return null;
+            }
+            chessman.setColor(GameConstant.black);
+            if (chessman.getChineseName().equals(chineseName)) {
+                return chessman;
+            }
+            chessman.setColor(GameConstant.red);
+            if (chessman.getChineseName().equals(chineseName)) {
+                return chessman;
+            }
+        }
+        return null;
     }
 }

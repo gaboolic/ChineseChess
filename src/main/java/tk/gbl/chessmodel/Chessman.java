@@ -29,6 +29,14 @@ public abstract class Chessman implements Serializable, Cloneable {
         return chessman;
     }
 
+    public static Chessman getInstanceByChineseName(String chineseName) {
+        Chessman chessman = ChessTypeMapping.getChessByChineseName(chineseName);
+        if (chessman == null) {
+            throw new RuntimeException("棋子类型不正确");
+        }
+        return chessman;
+    }
+
     public Point getPoint() {
         return point;
     }
