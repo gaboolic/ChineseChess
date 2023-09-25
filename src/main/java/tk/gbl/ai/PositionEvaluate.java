@@ -70,7 +70,7 @@ public class PositionEvaluate {
         if (chessman instanceof Bishop || chessman instanceof Guard || chessman instanceof King) {
             //士在九宫格位置中心时位置评估值最高
             if (chessman.getPoint().getX() == 4) {
-                return 50;
+                return 30;
             }
         }
 

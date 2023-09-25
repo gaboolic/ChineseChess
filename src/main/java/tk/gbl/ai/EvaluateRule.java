@@ -51,7 +51,7 @@ public class EvaluateRule {
                     int positionValue = positionEvaluate.getPositionValue(chessman, chessboard);
 
                     // 加权求和评估值
-                    score = pieceValue + 0.5 * controlValue + Math.sqrt(positionValue);
+                    score = pieceValue + 0.5 * controlValue + positionValue;
                     if (chessman.getColor() == color) {
                         evaluation += score;
                     } else {
