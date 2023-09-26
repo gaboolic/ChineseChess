@@ -1,6 +1,9 @@
 package tk.gbl.ai;
 
+import tk.gbl.chessmodel.Cannon;
 import tk.gbl.chessmodel.Chessman;
+import tk.gbl.chessmodel.Horse;
+import tk.gbl.chessmodel.Rook;
 import tk.gbl.constant.SituationEnum;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
@@ -18,7 +21,7 @@ import java.util.List;
  * @author gaboolic
  */
 public class AlphaBetaSearch {
-//    private static final int MAX_DEPTH = 4; // 最大搜索深度
+    private static final int MAX_DEPTH = 4; // 最大搜索深度
 
     // Alpha-Beta搜索函数
     public Step alphaBetaSearch(Chessboard chessboard) {
@@ -37,10 +40,7 @@ public class AlphaBetaSearch {
 
         for (Step step : Steps) {
             Chessboard newChessboard = CopyUtil.makeStep(chessboard, step);
-            int maxDepth = 4;
-            if (newChessboard.getSituation().equals(SituationEnum.ENDING)) {
-                maxDepth = 6;
-            }
+            int maxDepth = getMaxDepth(newChessboard, step);
 
             double score = minValue(color, newChessboard, depth + 1, alpha, beta, maxDepth);
 
@@ -61,6 +61,20 @@ public class AlphaBetaSearch {
         System.out.println((endTime - startTime) + "ms");
         System.out.println("color:" + color + " bestStep:" + bestStep + " maxScore:" + maxScore);
         return bestStep;
+    }
+
+    private int getMaxDepth(Chessboard newChessboard, Step step) {
+        int maxDepth = MAX_DEPTH;
+        if (newChessboard.getSituation().equals(SituationEnum.ENDING)) {
+            maxDepth = 5;
+            if (newChessboard.getChessman(step.getStart()) instanceof Rook
+                    || newChessboard.getChessman(step.getStart()) instanceof Horse
+                    || newChessboard.getChessman(step.getStart()) instanceof Cannon
+            ) {
+                maxDepth = 6;
+            }
+        }
+        return maxDepth;
     }
 
     // 极大层级
