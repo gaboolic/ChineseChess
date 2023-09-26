@@ -1,6 +1,7 @@
 package tk.gbl.ai;
 
 import tk.gbl.chessmodel.Chessman;
+import tk.gbl.constant.SituationEnum;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
 import tk.gbl.model.Step;
@@ -17,7 +18,7 @@ import java.util.List;
  * @author gaboolic
  */
 public class AlphaBetaSearch {
-    private static final int MAX_DEPTH = 4; // 最大搜索深度
+//    private static final int MAX_DEPTH = 4; // 最大搜索深度
 
     // Alpha-Beta搜索函数
     public Step alphaBetaSearch(Chessboard chessboard) {
@@ -36,8 +37,12 @@ public class AlphaBetaSearch {
 
         for (Step step : Steps) {
             Chessboard newChessboard = CopyUtil.makeStep(chessboard, step);
+            int maxDepth = 4;
+            if (newChessboard.getSituation().equals(SituationEnum.ENDING)) {
+                maxDepth = 6;
+            }
 
-            double score = minValue(color, newChessboard, depth + 1, alpha, beta);
+            double score = minValue(color, newChessboard, depth + 1, alpha, beta, maxDepth);
 
 //            System.out.println(step + "---- " + score);
             if (score > maxScore) {
@@ -59,8 +64,8 @@ public class AlphaBetaSearch {
     }
 
     // 极大层级
-    private double maxValue(int color, Chessboard chessboard, int depth, double alpha, double beta) {
-        if (depth >= MAX_DEPTH || chessboard.isGameOver() >= 0) {
+    private double maxValue(int color, Chessboard chessboard, int depth, double alpha, double beta, int maxDepth) {
+        if (depth >= maxDepth || chessboard.isGameOver() >= 0) {
             return evaluate(chessboard, color);
         }
 
@@ -70,7 +75,7 @@ public class AlphaBetaSearch {
         for (Step step : steps) {
             Chessboard newChessboard = CopyUtil.makeStep(chessboard, step);
 
-            double score = minValue(color, newChessboard, depth + 1, alpha, beta);
+            double score = minValue(color, newChessboard, depth + 1, alpha, beta, maxDepth);
 
             maxScore = Math.max(maxScore, score);
 
@@ -85,8 +90,8 @@ public class AlphaBetaSearch {
     }
 
     // 极小层级
-    private double minValue(int color, Chessboard chessboard, int depth, double alpha, double beta) {
-        if (depth >= MAX_DEPTH || chessboard.isGameOver() >= 0) {
+    private double minValue(int color, Chessboard chessboard, int depth, double alpha, double beta, int maxDepth) {
+        if (depth >= maxDepth || chessboard.isGameOver() >= 0) {
             return evaluate(chessboard, color);
         }
 
@@ -96,7 +101,7 @@ public class AlphaBetaSearch {
         for (Step step : steps) {
             Chessboard newChessboard = CopyUtil.makeStep(chessboard, step);
 
-            double score = maxValue(color, newChessboard, depth + 1, alpha, beta);
+            double score = maxValue(color, newChessboard, depth + 1, alpha, beta, maxDepth);
 
             minScore = Math.min(minScore, score);
 
