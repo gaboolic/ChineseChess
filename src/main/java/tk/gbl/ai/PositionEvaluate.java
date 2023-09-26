@@ -29,7 +29,8 @@ public class PositionEvaluate {
     static {
         chessValueMap.put("Cannon", init("Cannon"));
         chessValueMap.put("Horse", init("Horse"));
-        chessValueMap.put("Pawn", init("Rook"));
+        chessValueMap.put("Pawn", init("Pawn"));
+        chessValueMap.put("Rook", init("Rook"));
     }
 
     public static int[][] init(String chessName) {
@@ -67,10 +68,10 @@ public class PositionEvaluate {
         // 可以考虑棋子的位置优势、威胁等因素
         // 返回一个位置评估值
 
-        if (chessman instanceof Bishop || chessman instanceof Guard || chessman instanceof King) {
+        if (chessman instanceof Bishop || chessman instanceof Guard) {
             //士在九宫格位置中心时位置评估值最高
             if (chessman.getPoint().getX() == 4) {
-                return 30;
+                return 25;
             }
         }
 

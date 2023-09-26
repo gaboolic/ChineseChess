@@ -39,7 +39,7 @@ public class AlphaBetaSearch {
 
             double score = minValue(color, newChessboard, depth + 1, alpha, beta);
 
-            System.out.println(step + "---- " + score);
+//            System.out.println(step + "---- " + score);
             if (score > maxScore) {
                 maxScore = score;
                 bestStep = step;
