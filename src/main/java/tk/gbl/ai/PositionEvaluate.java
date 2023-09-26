@@ -3,8 +3,8 @@ package tk.gbl.ai;
 import tk.gbl.chessmodel.Bishop;
 import tk.gbl.chessmodel.Chessman;
 import tk.gbl.chessmodel.Guard;
-import tk.gbl.chessmodel.King;
 import tk.gbl.constant.GameConstant;
+import tk.gbl.constant.SituationEnum;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
 import tk.gbl.util.SaveReadUtil;
@@ -24,18 +24,25 @@ import java.util.Map;
  */
 public class PositionEvaluate {
 
-    static Map<String, int[][]> chessValueMap = new HashMap<>();
+    static Map<String, Map<String, int[][]>> situationChessValueMap = new HashMap<>();
 
     static {
-        chessValueMap.put("Cannon", init("Cannon"));
-        chessValueMap.put("Horse", init("Horse"));
-        chessValueMap.put("Pawn", init("Pawn"));
-        chessValueMap.put("Rook", init("Rook"));
+        String[] situations = new String[]{"start", "middle", "ending"};
+        String[] chessNames = new String[]{"Cannon", "Horse", "Pawn", "Rook", "King"};
+
+        for (String situation : situations) {
+            Map<String, int[][]> chessValueMap = new HashMap<>();
+            situationChessValueMap.put(situation, chessValueMap);
+            for (String chessName : chessNames) {
+                int[][] values = init(situation, chessName);
+                chessValueMap.put(chessName, values);
+            }
+        }
     }
 
-    public static int[][] init(String chessName) {
+    public static int[][] init(String situation, String chessName) {
         int[][] chessmans = new int[10][9];
-        InputStream is = SaveReadUtil.class.getClassLoader().getResourceAsStream("config/positionvalue/middle/" + chessName + ".txt");
+        InputStream is = SaveReadUtil.class.getClassLoader().getResourceAsStream("config/positionvalue/" + situation + "/" + chessName + ".txt");
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is));
 
         for (int i = 0; ; ) {
@@ -74,9 +81,9 @@ public class PositionEvaluate {
                 return 25;
             }
         }
-
+        SituationEnum situationEnum = chessboard.getSituation();
         String chessName = chessman.getClass().getSimpleName();
-        int[][] value = chessValueMap.get(chessName);
+        int[][] value = situationChessValueMap.get(situationEnum.name().toLowerCase()).get(chessName);
         if (value == null) {
             return 0;
         }

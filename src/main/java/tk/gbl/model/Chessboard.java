@@ -150,7 +150,7 @@ public class Chessboard {
         return -1;
     }
 
-    private SituationEnum getSituation() {
+    public SituationEnum getSituation() {
         if (round < 10) {
             return SituationEnum.START;
         }

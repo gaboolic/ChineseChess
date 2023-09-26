@@ -21,7 +21,7 @@ public class FlowTest {
 
         AlphaBetaSearch alphaBetaSearch = new AlphaBetaSearch();
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 30; i++) {
             Step step = alphaBetaSearch.alphaBetaSearch(chessboard);
             System.out.println(step);
             System.out.println(chessboard.getChessman(step.getStart()) + "---" + chessboard.getChessman(step.getEnd()));
