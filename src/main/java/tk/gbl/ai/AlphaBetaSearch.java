@@ -1,9 +1,6 @@
 package tk.gbl.ai;
 
-import tk.gbl.chessmodel.Cannon;
 import tk.gbl.chessmodel.Chessman;
-import tk.gbl.chessmodel.Horse;
-import tk.gbl.chessmodel.Rook;
 import tk.gbl.constant.SituationEnum;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
@@ -37,10 +34,10 @@ public class AlphaBetaSearch {
 
         Step bestStep = null;
         double maxScore = Integer.MIN_VALUE;
+        int maxDepth = getMaxDepth(chessboard);
 
         for (Step step : Steps) {
             Chessboard newChessboard = CopyUtil.makeStep(chessboard, step);
-            int maxDepth = getMaxDepth(newChessboard, step);
 
             double score = minValue(color, newChessboard, depth + 1, alpha, beta, maxDepth);
 
@@ -63,17 +60,14 @@ public class AlphaBetaSearch {
         return bestStep;
     }
 
-    private int getMaxDepth(Chessboard newChessboard, Step step) {
+    private int getMaxDepth(Chessboard newChessboard) {
         int maxDepth = MAX_DEPTH;
-        if (newChessboard.getSituation().equals(SituationEnum.ENDING)) {
+        if (newChessboard.getSituation().equals(SituationEnum.START)) {
+            maxDepth = 3;
+        } else if (newChessboard.getSituation().equals(SituationEnum.ENDING)) {
             maxDepth = 5;
-            if (newChessboard.getChessman(step.getStart()) instanceof Rook
-                    || newChessboard.getChessman(step.getStart()) instanceof Horse
-                    || newChessboard.getChessman(step.getStart()) instanceof Cannon
-            ) {
-                maxDepth = 6;
-            }
         }
+//        System.out.println("getMaxDepth:" + maxDepth);
         return maxDepth;
     }
 

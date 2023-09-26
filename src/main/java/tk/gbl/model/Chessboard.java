@@ -151,6 +151,9 @@ public class Chessboard {
     }
 
     public SituationEnum getSituation() {
+        if (round <= 3) {
+            return SituationEnum.START;
+        }
         int bigCount = 0;
         for (int row = 0; row < Chessboard.Y_SIZE; row++) {
             for (int column = 0; column < Chessboard.X_SIZE; column++) {
@@ -163,9 +166,14 @@ public class Chessboard {
         if (bigCount <= 6) {
             return SituationEnum.ENDING;
         }
-        if (round < 10) {
-            return SituationEnum.START;
-        }
         return SituationEnum.MIDDLE;
+    }
+
+    public int getRound() {
+        return round;
+    }
+
+    public void setRound(int round) {
+        this.round = round;
     }
 }

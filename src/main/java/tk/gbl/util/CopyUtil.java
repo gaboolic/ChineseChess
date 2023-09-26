@@ -38,6 +38,7 @@ public class CopyUtil {
         newBoard.setCurrentChessman(currentChessman);
         newBoard.moveChessMan(step.getEnd());
         newBoard.setCurrent(origin.getCurrent() ^ 1);
+        newBoard.setRound(origin.getRound() + 1);
         return newBoard;
     }
 }
