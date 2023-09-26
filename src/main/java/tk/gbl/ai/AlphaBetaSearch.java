@@ -54,7 +54,7 @@ public class AlphaBetaSearch {
 
         long endTime = System.currentTimeMillis();
         System.out.println((endTime - startTime) + "ms");
-        System.out.println("bestStep:" + bestStep + " maxScore:" + maxScore);
+        System.out.println("color:" + color + " bestStep:" + bestStep + " maxScore:" + maxScore);
         return bestStep;
     }
 

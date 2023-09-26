@@ -104,6 +104,27 @@ public class EvaluateRuleTest {
     }
 
     @Test
+    public void evaluatePositionGameStart_pawn() {
+        Chessman[][] chessmans = SaveReadUtil.readStr(
+                "! @ # $ % $ # @ !\n" +
+                        "0 0 0 0 0 0 0 0 0\n" +
+                        "0 ^ 0 0 0 0 0 ^ 0\n" +
+                        "& 0 & 0 & 0 & 0 &\n" +
+                        "0 0 0 0 0 0 0 0 0\n" +
+                        "0 0 0 0 0 0 7 0 0\n" +
+                        "7 0 7 0 7 0 0 0 7\n" +
+                        "0 6 0 0 0 0 0 6 0\n" +
+                        "0 0 0 0 0 0 0 0 0\n" +
+                        "1 2 3 4 5 4 3 2 1");
+
+        Chessboard chessboard = new Chessboard();
+        chessboard.setChessmans(chessmans);
+
+        double result = new EvaluateRule().evaluatePosition(chessboard, GameConstant.red);
+        System.out.println(result);
+    }
+
+    @Test
     public void evaluatePosition() {
         Chessman[][] chessmans = SaveReadUtil.readStr(
                 "! @ # $ % $ # @ !\n" +
@@ -257,5 +278,43 @@ public class EvaluateRuleTest {
 
         double result = new EvaluateRule().evaluatePosition(chessboard, GameConstant.red);
         System.out.println(result);
+
+        String str2 =
+                "　　　　將士　　　\n" +
+                "　　　　士　　　　\n" +
+                "　砲傌　象　　　象\n" +
+                "卒　　　卒　　車卒\n" +
+                "　馬卒　　　　　　\n" +
+                "　　　馬　　兵　　\n" +
+                "兵　兵　兵　　　兵\n" +
+                "　　傌炮　　　　俥\n" +
+                "　　　　　　　　　\n" +
+                "　　相仕帥仕相　　";
+        Chessman[][] chessmans2 = SaveReadUtil.readChineseStr(str2);
+        Chessboard chessboard2 = new Chessboard();
+        chessboard2.setChessmans(chessmans2);
+        chessboard2.setCurrent(GameConstant.black);
+
+        double result2 = new EvaluateRule().evaluatePosition(chessboard, GameConstant.red);
+        System.out.println(result2);
+
+        String str3 =
+                "　　象　　將　　　\n" +
+                "　　　　砲　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　傌　　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　馬炮　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　帥　　　　";
+        Chessman[][] chessmans3 = SaveReadUtil.readChineseStr(str3);
+        Chessboard chessboard3 = new Chessboard();
+        chessboard3.setChessmans(chessmans3);
+        chessboard3.setCurrent(GameConstant.black);
+
+        double result3 = new EvaluateRule().evaluatePosition(chessboard, GameConstant.red);
+        System.out.println(result3);
     }
 }
