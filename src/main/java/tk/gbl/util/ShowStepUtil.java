@@ -56,7 +56,7 @@ public class ShowStepUtil {
             return getFlatEndNumber(chessman, end.getX());
         }
         if (chessman.getColor() == GameConstant.red) {
-            return numberToChinese(y);
+            return numberToChinese(y - 1);
         } else {
             return String.valueOf(y);
         }
