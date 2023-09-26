@@ -237,4 +237,25 @@ public class EvaluateRuleTest {
         double result4 = new EvaluateRule().evaluatePosition(chessboard4, GameConstant.red);
         System.out.println(result4);
     }
+
+    @Test
+    public void test() {
+        String str = "車　象士將士象　車\n" +
+                "　　　　　　　　　\n" +
+                "　砲　　　　馬　　\n" +
+                "卒　　　卒　卒　卒\n" +
+                "　馬卒　　　　　　\n" +
+                "　　　　　　兵　　\n" +
+                "兵　兵　兵　　　兵\n" +
+                "　　傌　　　傌炮　\n" +
+                "俥　　　　　　　　\n" +
+                "　　相仕帥仕相　俥";
+        Chessman[][] chessmans = SaveReadUtil.readChineseStr(str);
+        Chessboard chessboard = new Chessboard();
+        chessboard.setChessmans(chessmans);
+        chessboard.setCurrent(GameConstant.red);
+
+        double result = new EvaluateRule().evaluatePosition(chessboard, GameConstant.red);
+        System.out.println(result);
+    }
 }
