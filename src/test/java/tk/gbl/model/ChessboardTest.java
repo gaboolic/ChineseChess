@@ -25,4 +25,31 @@ public class ChessboardTest {
         int gameOver = chessboard.isGameOver();
         System.out.println(gameOver);
     }
+
+    @Test
+    public void isGameOver双炮擒王() {
+        String str =
+                "　　　　　將　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　炮　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　炮　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　帥　　　　";
+        Chessman[][] chessmans = SaveReadUtil.readChineseStr(str);
+        Chessboard chessboard = new Chessboard();
+        chessboard.setChessmans(chessmans);
+        chessboard.setCurrent(GameConstant.red);
+
+        int gameOver = chessboard.isGameOver();
+        System.out.println(gameOver);
+
+        chessboard.setCurrent(GameConstant.black);
+
+        int gameOver2 = chessboard.isGameOver();
+        System.out.println(gameOver2);
+    }
 }

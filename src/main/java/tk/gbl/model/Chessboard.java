@@ -140,10 +140,10 @@ public class Chessboard {
                 colorMoveMap.get(chessman.getColor()).addAll(moves);
             }
         }
-        if (current == GameConstant.red && colorMoveMap.get(GameConstant.red).size() == 0) {
+        if (colorMoveMap.get(GameConstant.red).size() == 0) {
             return GameConstant.black;
         }
-        if (current == GameConstant.black && colorMoveMap.get(GameConstant.black).size() == 0) {
+        if (colorMoveMap.get(GameConstant.black).size() == 0) {
             return GameConstant.red;
         }
         //todo 判断下一回合是否被绝杀

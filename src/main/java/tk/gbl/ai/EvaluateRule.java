@@ -16,7 +16,7 @@ import java.util.List;
  * @author gaboolic
  */
 public class EvaluateRule {
-    public static final int KING_VALUE = 99999;  // 将帅的价值
+    public static final int KING_VALUE = 9999;  // 将帅的价值
     public static final int GUARD_VALUE = 210;  // 士的价值
     public static final int BISHOP_VALUE = 200;  // 象的价值
     public static final int HORSE_VALUE = 400;  // 马的价值

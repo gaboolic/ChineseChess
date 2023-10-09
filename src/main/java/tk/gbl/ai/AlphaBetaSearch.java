@@ -17,7 +17,7 @@ import java.util.List;
  * @author gaboolic
  */
 public class AlphaBetaSearch {
-    private static final int MAX_DEPTH = 6; // 最大搜索深度
+    private static final int MAX_DEPTH = 4; // 最大搜索深度
 
     // Alpha-Beta搜索函数
     public Step alphaBetaSearch(Chessboard chessboard) {
@@ -59,6 +59,9 @@ public class AlphaBetaSearch {
                 break; // Beta剪枝
             }
         }
+        if(bestStep == null){
+            bestStep = steps.get(0);
+        }
 
         long endTime = System.currentTimeMillis();
         System.out.println((endTime - startTime) + "ms");
@@ -85,11 +88,7 @@ public class AlphaBetaSearch {
         //todo
         int gameOver = chessboard.isGameOver();
         if (gameOver >= 0) {
-            if(gameOver == color){
-                return 99999;
-            } else {
-                return -99999;
-            }
+            return evaluate(chessboard, color);
         }
 
         double maxScore = Integer.MIN_VALUE;
@@ -120,11 +119,7 @@ public class AlphaBetaSearch {
         //todo
         int gameOver = chessboard.isGameOver();
         if (gameOver >= 0) {
-            if(gameOver == color){
-                return 99999;
-            } else {
-                return -99999;
-            }
+            return evaluate(chessboard, color);
         }
 
         double minScore = Integer.MAX_VALUE;
