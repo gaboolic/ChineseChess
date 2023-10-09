@@ -29,14 +29,14 @@ public class AlphaBetaSearch {
         double beta = Integer.MAX_VALUE;
 
         // 获取当前可行的移动
-        List<Step> steps_old = generateSteps(chessboard);
-        List<Step> steps = new ArrayList<>();
-
-        if (chessboard.getRound() == 0) {
-            steps.add(steps_old.get(steps_old.size() - 1));
-        } else {
-            steps = steps_old;
-        }
+        List<Step> steps = generateSteps(chessboard);
+//        List<Step> steps = new ArrayList<>();
+//
+//        if (chessboard.getRound() == 0) {
+//            steps.add(steps_old.get(steps_old.size() - 1));
+//        } else {
+//            steps = steps_old;
+//        }
 
         Step bestStep = null;
         double maxScore = Integer.MIN_VALUE;
@@ -56,7 +56,7 @@ public class AlphaBetaSearch {
             alpha = Math.max(alpha, maxScore);
 
             if (maxScore >= beta) {
-//                break; // Beta剪枝
+                break; // Beta剪枝
             }
         }
 
@@ -105,7 +105,7 @@ public class AlphaBetaSearch {
             alpha = Math.max(alpha, maxScore);
 
             if (maxScore >= beta) {
-//                break; // Beta剪枝
+                break; // Beta剪枝
             }
         }
 
@@ -140,7 +140,7 @@ public class AlphaBetaSearch {
             beta = Math.min(beta, minScore);
 
             if (minScore <= alpha) {
-//                break; // Alpha剪枝
+                break; // Alpha剪枝
             }
         }
 

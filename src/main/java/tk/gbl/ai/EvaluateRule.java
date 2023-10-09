@@ -46,7 +46,7 @@ public class EvaluateRule {
                     // 根据棋子类型进行评估
                     int pieceValue = getPieceValue(chessman);
                     // 根据棋子的控制力进行评估
-//                    int controlValue = getControlValue(chessman, chessboard);
+                    int controlValue = getControlValue(chessman, chessboard);
                     // 根据棋子的位置进行评估
                     int positionValue = PositionEvaluate.getPositionValue(chessman, chessboard);
 
@@ -55,7 +55,7 @@ public class EvaluateRule {
 
                     // 加权求和评估值
 //                    score = pieceValue + positionValue + Math.sqrt(controlValue);
-                    score = pieceValue + positionValue + flexibleValue;
+                    score = pieceValue + positionValue + flexibleValue + controlValue;
                     if (chessman.getColor() == color) {
                         evaluation += score;
                     } else {
