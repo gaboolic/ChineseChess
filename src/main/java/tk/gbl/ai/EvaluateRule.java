@@ -1,7 +1,6 @@
 package tk.gbl.ai;
 
 import tk.gbl.chessmodel.*;
-import tk.gbl.constant.GameConstant;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
 
@@ -51,9 +50,12 @@ public class EvaluateRule {
                     // 根据棋子的位置进行评估
                     int positionValue = PositionEvaluate.getPositionValue(chessman, chessboard);
 
+                    //灵活度
+                    double flexibleValue = getFlexibleValue(chessman, chessboard);
+
                     // 加权求和评估值
 //                    score = pieceValue + positionValue + Math.sqrt(controlValue);
-                    score = pieceValue + positionValue;
+                    score = pieceValue + positionValue + flexibleValue;
                     if (chessman.getColor() == color) {
                         evaluation += score;
                     } else {
@@ -109,6 +111,31 @@ public class EvaluateRule {
         }
 
         return sumValue;
+    }
+
+    private double getFlexibleValue(Chessman chessman, Chessboard chessboard) {
+        // 在这里计算棋子的控制力评估值
+        // 可以考虑棋子的攻击范围、威胁等因素
+        // 返回一个控制力评估值
+        List<Point> movePoints = chessman.getMovePoints(chessboard);
+
+        double f = 0;
+        if (chessman instanceof Cannon || chessman instanceof Rook) {
+            f = movePoints.size() / 19.0;
+        }
+        if (chessman instanceof Horse) {
+            f = movePoints.size() / 8.0;
+        }
+        if (chessman instanceof King) {
+            if (movePoints.size() == 0) {
+                return -100;
+            }
+            if (movePoints.size() > 1) {
+                return 100;
+            }
+        }
+
+        return 100 * f;
     }
 
 }
