@@ -69,5 +69,10 @@ public class KingTest {
         System.out.println(king);
         List<Point> movePoints = king.getMovePoints(chessboard);
         System.out.println(movePoints);
+
+        Chessman king2 = chessboard.getChessman(new Point(3, 0));
+        System.out.println(king2);
+        List<Point> movePoints2 = king2.getMovePoints(chessboard);
+        System.out.println(movePoints2);
     }
 }
