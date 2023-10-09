@@ -1,7 +1,6 @@
 package tk.gbl.ai;
 
 import tk.gbl.chessmodel.Chessman;
-import tk.gbl.constant.SituationEnum;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
 import tk.gbl.model.Step;
@@ -18,7 +17,7 @@ import java.util.List;
  * @author gaboolic
  */
 public class AlphaBetaSearch {
-    private static final int MAX_DEPTH = 4; // 最大搜索深度
+    private static final int MAX_DEPTH = 6; // 最大搜索深度
 
     // Alpha-Beta搜索函数
     public Step alphaBetaSearch(Chessboard chessboard) {
@@ -30,13 +29,20 @@ public class AlphaBetaSearch {
         double beta = Integer.MAX_VALUE;
 
         // 获取当前可行的移动
-        List<Step> Steps = generateSteps(chessboard);
+        List<Step> steps_old = generateSteps(chessboard);
+        List<Step> steps = new ArrayList<>();
+
+        if (chessboard.getRound() == 0) {
+            steps.add(steps_old.get(steps_old.size() - 1));
+        } else {
+            steps = steps_old;
+        }
 
         Step bestStep = null;
         double maxScore = Integer.MIN_VALUE;
         int maxDepth = getMaxDepth(chessboard);
 
-        for (Step step : Steps) {
+        for (Step step : steps) {
             Chessboard newChessboard = CopyUtil.makeStep(chessboard, step);
 
             double score = minValue(color, newChessboard, depth + 1, alpha, beta, maxDepth);
@@ -50,7 +56,7 @@ public class AlphaBetaSearch {
             alpha = Math.max(alpha, maxScore);
 
             if (maxScore >= beta) {
-                break; // Beta剪枝
+//                break; // Beta剪枝
             }
         }
 
@@ -62,19 +68,28 @@ public class AlphaBetaSearch {
 
     private int getMaxDepth(Chessboard newChessboard) {
         int maxDepth = MAX_DEPTH;
-        if (newChessboard.getSituation().equals(SituationEnum.START)) {
-            maxDepth = 3;
-        } else if (newChessboard.getSituation().equals(SituationEnum.ENDING)) {
-            maxDepth = 5;
-        }
+//        if (newChessboard.getSituation().equals(SituationEnum.START)) {
+//            maxDepth = 3;
+//        } else if (newChessboard.getSituation().equals(SituationEnum.ENDING)) {
+//            maxDepth = 5;
+//        }
 //        System.out.println("getMaxDepth:" + maxDepth);
         return maxDepth;
     }
 
     // 极大层级
     private double maxValue(int color, Chessboard chessboard, int depth, double alpha, double beta, int maxDepth) {
-        if (depth >= maxDepth || chessboard.isGameOver() >= 0) {
+        if (depth >= maxDepth) {
             return evaluate(chessboard, color);
+        }
+        //todo
+        int gameOver = chessboard.isGameOver();
+        if (gameOver >= 0) {
+            if(gameOver == color){
+                return 99999;
+            } else {
+                return -99999;
+            }
         }
 
         double maxScore = Integer.MIN_VALUE;
@@ -90,7 +105,7 @@ public class AlphaBetaSearch {
             alpha = Math.max(alpha, maxScore);
 
             if (maxScore >= beta) {
-                break; // Beta剪枝
+//                break; // Beta剪枝
             }
         }
 
@@ -99,8 +114,17 @@ public class AlphaBetaSearch {
 
     // 极小层级
     private double minValue(int color, Chessboard chessboard, int depth, double alpha, double beta, int maxDepth) {
-        if (depth >= maxDepth || chessboard.isGameOver() >= 0) {
+        if (depth >= maxDepth) {
             return evaluate(chessboard, color);
+        }
+        //todo
+        int gameOver = chessboard.isGameOver();
+        if (gameOver >= 0) {
+            if(gameOver == color){
+                return 99999;
+            } else {
+                return -99999;
+            }
         }
 
         double minScore = Integer.MAX_VALUE;
@@ -116,7 +140,7 @@ public class AlphaBetaSearch {
             beta = Math.min(beta, minScore);
 
             if (minScore <= alpha) {
-                break; // Alpha剪枝
+//                break; // Alpha剪枝
             }
         }
 
