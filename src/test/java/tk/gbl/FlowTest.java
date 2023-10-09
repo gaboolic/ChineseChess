@@ -89,7 +89,20 @@ public class FlowTest {
 
     @Test
     public void test双炮擒王() {
-        //todo 现在搜索不出解法
+        /**
+         * todo 有bug
+         * 將5平6
+         * 　　　　　將　　　
+         *
+         *
+         * 　　　　炮　　　　
+         *
+         *
+         * 　　　炮　　　　　
+         *
+         *
+         * 　　　　帥　
+         */
         Chessman[][] chessmans = SaveReadUtil.read("ending/双炮擒王.txt");
         Chessboard chessboard = new Chessboard();
         chessboard.setChessmans(chessmans);
