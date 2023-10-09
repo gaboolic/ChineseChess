@@ -4,6 +4,8 @@ import tk.gbl.ai.EvaluateRule;
 import tk.gbl.constant.GameConstant;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
+import tk.gbl.model.Step;
+import tk.gbl.util.CopyUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,21 +59,6 @@ public class King extends Chessman {
             return false;
         }
 
-        //判断不能送吃
-        Chessman[][] chessmans = chessboard.getChessmans();
-        for (Chessman[] list : chessmans) {
-            for (Chessman chessman : list) {
-                if (chessman == null) {
-                    continue;
-                }
-                if (this.getColor() != chessman.getColor() && !(chessman instanceof King)) {
-                    List<Point> movePoints = chessman.getMovePoints(chessboard);
-                    if (movePoints.contains(new Point(x, y))) {
-                        return false;
-                    }
-                }
-            }
-        }
 
         // 判断目标位置是否为空或者有敌方棋子
         Chessman targetChessman = chessboard.getChessman(x, y);
@@ -80,9 +67,25 @@ public class King extends Chessman {
             if (isFacingEachOther(x, y, chessboard)) {
                 return false;
             }
-            return true;
         }
-        return false;
+
+        //判断不能送吃
+        Chessboard newBoard = CopyUtil.makeStep(chessboard,new Step(getPoint(),new Point(x,y)));
+        Chessman[][] chessmans = newBoard.getChessmans();
+        for (Chessman[] list : chessmans) {
+            for (Chessman chessman : list) {
+                if (chessman == null) {
+                    continue;
+                }
+                if (this.getColor() != chessman.getColor() && !(chessman instanceof King)) {
+                    List<Point> movePoints = chessman.getMovePoints(newBoard);
+                    if (movePoints.contains(new Point(x, y))) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 
     //判断竖线上是否有另一个将帅 且中间没有任何阻挡

@@ -27,4 +27,26 @@ public class KingTest {
         List<Point> movePoints = king.getMovePoints(chessboard);
         System.out.println(movePoints);
     }
+
+    @Test
+    public void getMovePoints2() {
+        String str =
+                "　　　將　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　炮炮　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　帥　　　　";
+        Chessman[][] chessmans = SaveReadUtil.readChineseStr(str);
+        Chessboard chessboard = new Chessboard();
+        chessboard.setChessmans(chessmans);
+        Chessman king = chessboard.getChessman(new Point(3,0));
+        System.out.println(king);
+        List<Point> movePoints = king.getMovePoints(chessboard);
+        System.out.println(movePoints);
+    }
 }
