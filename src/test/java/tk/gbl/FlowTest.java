@@ -3,6 +3,7 @@ package tk.gbl;
 import org.junit.Test;
 import tk.gbl.ai.AlphaBetaSearch;
 import tk.gbl.chessmodel.Chessman;
+import tk.gbl.constant.GameConstant;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Step;
 import tk.gbl.util.CopyUtil;
@@ -43,6 +44,7 @@ public class FlowTest {
         Chessboard chessboard = new Chessboard();
         chessboard.setChessmans(chessmans);
         chessboard.setRound(100);
+        chessboard.setCurrent(GameConstant.black);
 
         AlphaBetaSearch alphaBetaSearch = new AlphaBetaSearch();
 
