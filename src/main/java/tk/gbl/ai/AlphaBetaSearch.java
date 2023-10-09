@@ -38,7 +38,7 @@ public class AlphaBetaSearch {
 //            steps = steps_old;
 //        }
 
-        Step bestStep = null;
+        List<Step> bestSteps = new ArrayList<>();
         double maxScore = Integer.MIN_VALUE;
         int maxDepth = getMaxDepth(chessboard);
 
@@ -48,9 +48,9 @@ public class AlphaBetaSearch {
             double score = minValue(color, newChessboard, depth + 1, alpha, beta, maxDepth);
 
 //            System.out.println(step + "---- " + score);
-            if (score > maxScore) {
+            if (score >= maxScore) {
                 maxScore = score;
-                bestStep = step;
+                bestSteps.add(step);
             }
 
             alpha = Math.max(alpha, maxScore);
@@ -59,8 +59,16 @@ public class AlphaBetaSearch {
                 break; // Beta剪枝
             }
         }
-        if(bestStep == null){
-            bestStep = steps.get(0);
+
+        Step bestStep = null;
+        double finalScore = Integer.MIN_VALUE;
+        for (Step step : bestSteps) {
+            Chessboard newChessboard = CopyUtil.makeStep(chessboard, step);
+            double value = evaluate(newChessboard, color);
+            if (value > finalScore) {
+                finalScore = value;
+                bestStep = step;
+            }
         }
 
         long endTime = System.currentTimeMillis();

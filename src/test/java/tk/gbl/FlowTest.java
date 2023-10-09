@@ -93,6 +93,7 @@ public class FlowTest {
         Chessman[][] chessmans = SaveReadUtil.read("ending/双炮擒王.txt");
         Chessboard chessboard = new Chessboard();
         chessboard.setChessmans(chessmans);
+        System.out.println(SaveReadUtil.outputStr(chessboard.getChessmans()));
 
         AlphaBetaSearch alphaBetaSearch = new AlphaBetaSearch();
 
