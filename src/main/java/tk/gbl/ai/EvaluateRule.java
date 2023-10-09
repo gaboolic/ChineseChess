@@ -9,6 +9,8 @@ import java.util.List;
 
 /**
  * 局面估值
+ * 子力 攻击性 位置 灵活性 控制 保护
+ * 战术：捉双 闪击
  * Date: 2023-09-11
  * Time: 7:24 PM
  *
@@ -16,11 +18,11 @@ import java.util.List;
  */
 public class EvaluateRule {
     public static final int KING_VALUE = 99999;  // 将帅的价值
-    public static final int GUARD_VALUE = 260;  // 士的价值
-    public static final int BISHOP_VALUE = 250;  // 象的价值
-    public static final int HORSE_VALUE = 500;  // 马的价值
-    public static final int ROOK_VALUE = 1000;  // 车的价值
-    public static final int CANNON_VALUE = 600;  // 炮的价值
+    public static final int GUARD_VALUE = 210;  // 士的价值
+    public static final int BISHOP_VALUE = 200;  // 象的价值
+    public static final int HORSE_VALUE = 400;  // 马的价值
+    public static final int ROOK_VALUE = 900;  // 车的价值
+    public static final int CANNON_VALUE = 450;  // 炮的价值
     public static final int SOLDIER_VALUE = 50;  // 兵的价值
     public static final int CROSS_SOLDIER_VALUE = 150;  // 兵的价值
 
@@ -45,12 +47,13 @@ public class EvaluateRule {
                     // 根据棋子类型进行评估
                     int pieceValue = getPieceValue(chessman);
                     // 根据棋子的控制力进行评估
-                    int controlValue = getControlValue(chessman, chessboard);
+//                    int controlValue = getControlValue(chessman, chessboard);
                     // 根据棋子的位置进行评估
                     int positionValue = PositionEvaluate.getPositionValue(chessman, chessboard);
 
                     // 加权求和评估值
-                    score = pieceValue + positionValue + Math.sqrt(controlValue);
+//                    score = pieceValue + positionValue + Math.sqrt(controlValue);
+                    score = pieceValue + positionValue;
                     if (chessman.getColor() == color) {
                         evaluation += score;
                     } else {

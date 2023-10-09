@@ -37,6 +37,31 @@ public class FlowTest {
         System.out.println(result);
     }
 
+    @Test
+    public void testTest() {
+        Chessman[][] chessmans = SaveReadUtil.read("ending/test.txt");
+        Chessboard chessboard = new Chessboard();
+        chessboard.setChessmans(chessmans);
+        chessboard.setRound(100);
+
+        AlphaBetaSearch alphaBetaSearch = new AlphaBetaSearch();
+
+        for (int i = 0; i < 100; i++) {
+            if (chessboard.isGameOver() != -1) {
+                System.out.println("结束");
+                break;
+            }
+            Step step = alphaBetaSearch.alphaBetaSearch(chessboard);
+            System.out.println(step);
+            System.out.println(chessboard.getChessman(step.getStart()) + "---" + chessboard.getChessman(step.getEnd()));
+            System.out.println(ShowStepUtil.showStep(step, chessboard));
+            chessboard = CopyUtil.makeStep(chessboard, step);
+
+            String result = SaveReadUtil.outputStr(chessboard.getChessmans());
+            System.out.println(result);
+        }
+    }
+
 
     @Test
     public void test单兵擒王() {
