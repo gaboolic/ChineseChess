@@ -93,7 +93,7 @@ public class King extends Chessman {
         int kingCount = 0; // Count of kings found on the vertical line
 
         // Check upward from the current position
-        for (int startY = y - 1; startY > 0; startY--) {
+        for (int startY = y - 1; startY >= 0; startY--) {
             Chessman chessman = chessboard.getChessman(x, startY);
             if (chessman != null) {
                 if (chessman instanceof King && chessman.getColor() != getColor()) {
