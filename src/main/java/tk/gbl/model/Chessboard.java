@@ -122,14 +122,18 @@ public class Chessboard {
     public int isGameOver() {
         int redKingCount = 0;
         int blackKingCount = 0;
+        Chessman redKing = null;
+        Chessman blackKing = null;
         for (int row = 0; row < Chessboard.Y_SIZE; row++) {
             for (int column = 0; column < Chessboard.X_SIZE; column++) {
                 Chessman chessman = this.getChessmans()[row][column];
                 if (chessman instanceof King) {
                     if (chessman.getColor() == GameConstant.red) {
                         redKingCount++;
+                        redKing = chessman;
                     } else {
                         blackKingCount++;
+                        blackKing = chessman;
                     }
                 }
             }
@@ -159,6 +163,12 @@ public class Chessboard {
         }
         if (colorMoveMap.get(GameConstant.black).size() == 0) {
             return GameConstant.red;
+        }
+        if (getCurrent() == GameConstant.red && colorMoveMap.get(GameConstant.red).contains(blackKing.getPoint())) {
+            return GameConstant.red;
+        }
+        if (getCurrent() == GameConstant.black && colorMoveMap.get(GameConstant.black).contains(redKing.getPoint())) {
+            return GameConstant.black;
         }
         //todo 判断下一回合是否被绝杀
         return -1;

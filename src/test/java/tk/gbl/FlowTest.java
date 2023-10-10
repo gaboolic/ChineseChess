@@ -91,23 +91,11 @@ public class FlowTest {
 
     @Test
     public void test双炮擒王() {
-        /**
-         * todo 有bug
-         * 將5平6
-         * 　　　　　將　　　
-         *
-         *
-         * 　　　　炮　　　　
-         *
-         *
-         * 　　　炮　　　　　
-         *
-         *
-         * 　　　　帥　
-         */
+        //todo 无法计算出结果
         Chessman[][] chessmans = SaveReadUtil.read("ending/双炮擒王.txt");
         Chessboard chessboard = new Chessboard();
         chessboard.setChessmans(chessmans);
+        chessboard.setCurrent(GameConstant.black);
         System.out.println(SaveReadUtil.outputStr(chessboard.getChessmans()));
 
         AlphaBetaSearch alphaBetaSearch = new AlphaBetaSearch();

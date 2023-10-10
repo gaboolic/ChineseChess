@@ -2,6 +2,7 @@ package tk.gbl.ai;
 
 import org.junit.Test;
 import tk.gbl.chessmodel.Chessman;
+import tk.gbl.constant.GameConstant;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
 import tk.gbl.model.Step;
@@ -56,6 +57,37 @@ public class AlphaBetaSearchTest {
         Chessboard chessboard = new Chessboard();
         chessboard.setChessmans(chessmans);
 
+
+        AlphaBetaSearch alphaBetaSearch = new AlphaBetaSearch();
+        Step step = alphaBetaSearch.alphaBetaSearch(chessboard);
+
+        System.out.println(step);
+        System.out.println(chessboard.getChessman(step.getStart()));
+
+        System.out.println(chessboard.getChessman(step.getStart()).getMovePoints(chessboard));
+
+        System.out.println(chessboard.getChessman(step.getEnd()));
+    }
+
+    @Test
+    public void testSearch() {
+        //被将军时，躲帥
+        String str =
+                "　　象將　士俥　　\n" +
+                "　　　　　　　　車\n" +
+                "　砲　　　　　　　\n" +
+                "卒　傌　卒　卒　卒\n" +
+                "　　　　　　　　　\n" +
+                "　　卒　　　　　　\n" +
+                "兵　　　兵　兵　兵\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "俥　相車帥仕相　　";
+
+        Chessman[][] chessmans = SaveReadUtil.readChineseStr(str);
+        Chessboard chessboard = new Chessboard();
+        chessboard.setChessmans(chessmans);
+        chessboard.setCurrent(GameConstant.red);
 
         AlphaBetaSearch alphaBetaSearch = new AlphaBetaSearch();
         Step step = alphaBetaSearch.alphaBetaSearch(chessboard);

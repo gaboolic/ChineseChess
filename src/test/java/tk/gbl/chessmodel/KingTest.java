@@ -75,4 +75,6 @@ public class KingTest {
         List<Point> movePoints2 = king2.getMovePoints(chessboard);
         System.out.println(movePoints2);
     }
+
+
 }
