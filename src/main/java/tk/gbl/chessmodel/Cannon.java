@@ -24,10 +24,14 @@ public class Cannon extends Chessman {
         }
         return "砲";
     }
+
     @Override
     public int getEvalValue() {
         return EvaluateRule.CANNON_VALUE;
     }
+
+
+
 
     @Override
     public List<Point> getMovePoints(Chessboard chessboard) {
@@ -41,6 +45,12 @@ public class Cannon extends Chessman {
             int dy = direction[1];
             int targetX = startX + dx;
             int targetY = startY + dy;
+
+            if (targetX != startX) {
+                if (super.judgeKingFace(chessboard)) {
+                    continue;
+                }
+            }
 
             while (chessboard.isInsideBoard(targetX, targetY)) {
                 Chessman targetChessman = chessboard.getChessman(targetX, targetY);

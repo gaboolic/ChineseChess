@@ -41,6 +41,20 @@ public class Chessboard {
         this.chessmans = chessmans;
     }
 
+    public Chessman getKing(int color) {
+        for (int row = 0; row < Chessboard.Y_SIZE; row++) {
+            for (int column = 0; column < Chessboard.X_SIZE; column++) {
+                Chessman chessman = this.getChessmans()[row][column];
+                if (chessman instanceof King) {
+                    if (chessman.getColor() == color) {
+                        return chessman;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
     public Chessman getChessman(Point point) {
         return chessmans[point.getY()][point.getX()];
     }

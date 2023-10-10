@@ -56,6 +56,9 @@ public class Horse extends Chessman {
         if (!chessboard.isInsideBoard(x, y)) {
             return false;
         }
+        if (super.judgeKingFace(chessboard)) {
+            return false;
+        }
 
         // 判断目标位置是否为空或者有敌方棋子
         Chessman targetChessman = chessboard.getChessman(x, y);

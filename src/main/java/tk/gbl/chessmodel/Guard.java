@@ -57,6 +57,9 @@ public class Guard extends Chessman {
         if (!isInPalace(x, y)) {
             return false;
         }
+        if (super.judgeKingFace(chessboard)) {
+            return false;
+        }
 
         // 判断目标位置是否为空或者有敌方棋子
         Chessman targetChessman = chessboard.getChessman(x, y);

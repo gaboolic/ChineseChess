@@ -64,6 +64,9 @@ public class Bishop extends Chessman {
         if (!chessboard.isInsideBoard(x, y)) {
             return false;
         }
+        if (super.judgeKingFace(chessboard)) {
+            return false;
+        }
 
         boolean isCrossedRiver = getColor() == GameConstant.black ? y >= 5 : y <= 4;
         if (isCrossedRiver) {

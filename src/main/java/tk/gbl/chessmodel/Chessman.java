@@ -1,6 +1,7 @@
 package tk.gbl.chessmodel;
 
 import tk.gbl.constant.ChessTypeMapping;
+import tk.gbl.constant.GameConstant;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
 
@@ -87,5 +88,28 @@ public abstract class Chessman implements Serializable, Cloneable {
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
         }
+    }
+
+    public boolean judgeKingFace(Chessboard chessboard) {
+        Chessman king1 = chessboard.getKing(GameConstant.red);
+        Chessman king2 = chessboard.getKing(GameConstant.black);
+        if (king1.getPoint().getX() == king2.getPoint().getX() && getPoint().getX() == king1.getPoint().getX()) {
+            int x = getPoint().getX();
+            int y1 = Math.min(king1.getPoint().getY(), king2.getPoint().getY());
+            int y2 = Math.max(king1.getPoint().getY(), king2.getPoint().getY());
+            int chessmanCount = 0;
+
+            Chessman chessman = null;
+            for (int i = y1 + 1; i < y2; i++) {
+                if (chessboard.getChessman(x, i) != null) {
+                    chessmanCount++;
+                    chessman = chessboard.getChessman(x, i);
+                }
+            }
+            if (chessmanCount == 1 && chessman.getPoint().equals(getPoint())) {
+                return true;
+            }
+        }
+        return false;
     }
 }
