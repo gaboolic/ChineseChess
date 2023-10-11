@@ -1,6 +1,9 @@
 package tk.gbl.ai;
 
+import tk.gbl.chessmodel.Cannon;
 import tk.gbl.chessmodel.Chessman;
+import tk.gbl.chessmodel.Horse;
+import tk.gbl.chessmodel.Rook;
 import tk.gbl.constant.SituationEnum;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
@@ -28,7 +31,7 @@ public class AlphaBetaSearch {
         int depth = 0;
         double alpha = Integer.MIN_VALUE;
         double beta = Integer.MAX_VALUE;
-        int maxDepth = getMaxDepth(chessboard);
+
 
         // 获取当前可行的移动
         List<Step> steps = generateSteps(chessboard);
@@ -44,9 +47,10 @@ public class AlphaBetaSearch {
         double maxScore = Integer.MIN_VALUE;
         int minSearchDepth = Integer.MIN_VALUE;
 
+        SituationEnum situationEnum = chessboard.getSituation();
         for (Step step : steps) {
             Chessboard newChessboard = CopyUtil.makeStep(chessboard, step);
-
+            int maxDepth = getMaxDepth(situationEnum, chessboard.getChessman(step.getStart()));
             ScoreDepth scoreDepth = minValue(color, newChessboard, depth + 1, alpha, beta, maxDepth);
             step.setScoreDepth(scoreDepth);
 
@@ -89,16 +93,16 @@ public class AlphaBetaSearch {
         return bestStep;
     }
 
-    private int getMaxDepth(Chessboard newChessboard) {
+    private int getMaxDepth(SituationEnum situationEnum, Chessman chessman) {
         int maxDepth = MAX_DEPTH;
-        if (newChessboard.getSituation().equals(SituationEnum.START)) {
-            maxDepth = 3;
-        } else if (newChessboard.getSituation().equals(SituationEnum.ENDING)) {
-            maxDepth = 6;
-        } else if (newChessboard.getSituation().equals(SituationEnum.FINAL)) {
-            maxDepth = 6;
+        if (chessman instanceof Rook || chessman instanceof Horse || chessman instanceof Cannon) {
+            if (situationEnum.equals(SituationEnum.ENDING)) {
+                maxDepth = 4;
+            } else if (situationEnum.equals(SituationEnum.FINAL)) {
+                maxDepth = 4;
+            }
         }
-//        System.out.println("getMaxDepth:" + maxDepth);
+
         return maxDepth;
     }
 
