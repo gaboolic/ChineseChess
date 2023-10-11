@@ -27,7 +27,7 @@ public class PositionEvaluate {
     static Map<String, Map<String, int[][]>> situationChessValueMap = new HashMap<>();
 
     static {
-        String[] situations = new String[]{"start", "middle", "ending"};
+        String[] situations = new String[]{"start", "middle", "ending","final"};
         String[] chessNames = new String[]{"Cannon", "Horse", "Pawn", "Rook", "King"};
 
         for (String situation : situations) {

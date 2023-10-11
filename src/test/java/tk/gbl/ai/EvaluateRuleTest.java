@@ -21,7 +21,7 @@ public class EvaluateRuleTest {
     public void evaluatePositionGameStart() {
         //todo
         Chessman[][] chessmans = SaveReadUtil.readStr(
-                        "! @ # $ % $ # @ !\n" +
+                "! @ # $ % $ # @ !\n" +
                         "0 0 0 0 0 0 0 0 0\n" +
                         "0 ^ 0 0 0 0 0 ^ 0\n" +
                         "& 0 & 0 & 0 & 0 &\n" +
@@ -159,7 +159,7 @@ public class EvaluateRuleTest {
     @Test
     public void evaluatePositionGameStart_gameover() {
         Chessman[][] chessmans = SaveReadUtil.readStr(
-                        "0 0 0 % 0 0 0 0 0\n" +
+                "0 0 0 % 0 0 0 0 0\n" +
                         "0 0 0 0 0 0 0 0 0\n" +
                         "0 0 0 0 0 0 0 0 0\n" +
                         "0 0 0 1 0 0 0 0 0\n" +
@@ -201,15 +201,15 @@ public class EvaluateRuleTest {
 
         String str2 =
                 "　車象士將士象馬車\n" +
-                "　　　　　　　　　\n" +
-                "　砲　　　　　砲　\n" +
-                "卒　卒　卒　卒　卒\n" +
-                "　　　　　　　　　\n" +
-                "　　　　　　　　　\n" +
-                "兵　兵　兵　兵　兵\n" +
-                "　　　　　　　炮　\n" +
-                "　　　　　　　　　\n" +
-                "俥傌相仕帥仕相傌俥";
+                        "　　　　　　　　　\n" +
+                        "　砲　　　　　砲　\n" +
+                        "卒　卒　卒　卒　卒\n" +
+                        "　　　　　　　　　\n" +
+                        "　　　　　　　　　\n" +
+                        "兵　兵　兵　兵　兵\n" +
+                        "　　　　　　　炮　\n" +
+                        "　　　　　　　　　\n" +
+                        "俥傌相仕帥仕相傌俥";
 
         Chessman[][] chessmans2 = SaveReadUtil.readChineseStr(str2);
         Chessboard chessboard2 = new Chessboard();
@@ -221,15 +221,15 @@ public class EvaluateRuleTest {
 
         String str3 =
                 "　車象士將士象馬車\n" +
-                "　　　　　　　　　\n" +
-                "　砲　　　　　砲　\n" +
-                "卒　卒　卒　卒　卒\n" +
-                "　　　　　　　　　\n" +
-                "　　　　　　　　　\n" +
-                "兵　兵　兵　兵　兵\n" +
-                "　　傌　　　　炮　\n" +
-                "　　　　　　　　　\n" +
-                "俥　相仕帥仕相傌俥";
+                        "　　　　　　　　　\n" +
+                        "　砲　　　　　砲　\n" +
+                        "卒　卒　卒　卒　卒\n" +
+                        "　　　　　　　　　\n" +
+                        "　　　　　　　　　\n" +
+                        "兵　兵　兵　兵　兵\n" +
+                        "　　傌　　　　炮　\n" +
+                        "　　　　　　　　　\n" +
+                        "俥　相仕帥仕相傌俥";
 
         Chessman[][] chessmans3 = SaveReadUtil.readChineseStr(str3);
         Chessboard chessboard3 = new Chessboard();
@@ -250,7 +250,7 @@ public class EvaluateRuleTest {
                         "　　傌　　　　炮　\n" +
                         "　　　　　　　　　\n" +
                         "俥　相仕帥仕相傌俥";
-        Chessman[][] chessmans4= SaveReadUtil.readChineseStr(str4);
+        Chessman[][] chessmans4 = SaveReadUtil.readChineseStr(str4);
         Chessboard chessboard4 = new Chessboard();
         chessboard4.setChessmans(chessmans4);
         chessboard4.setCurrent(GameConstant.red);
@@ -281,15 +281,15 @@ public class EvaluateRuleTest {
 
         String str2 =
                 "　　　　將士　　　\n" +
-                "　　　　士　　　　\n" +
-                "　砲傌　象　　　象\n" +
-                "卒　　　卒　　車卒\n" +
-                "　馬卒　　　　　　\n" +
-                "　　　馬　　兵　　\n" +
-                "兵　兵　兵　　　兵\n" +
-                "　　傌炮　　　　俥\n" +
-                "　　　　　　　　　\n" +
-                "　　相仕帥仕相　　";
+                        "　　　　士　　　　\n" +
+                        "　砲傌　象　　　象\n" +
+                        "卒　　　卒　　車卒\n" +
+                        "　馬卒　　　　　　\n" +
+                        "　　　馬　　兵　　\n" +
+                        "兵　兵　兵　　　兵\n" +
+                        "　　傌炮　　　　俥\n" +
+                        "　　　　　　　　　\n" +
+                        "　　相仕帥仕相　　";
         Chessman[][] chessmans2 = SaveReadUtil.readChineseStr(str2);
         Chessboard chessboard2 = new Chessboard();
         chessboard2.setChessmans(chessmans2);
@@ -300,15 +300,15 @@ public class EvaluateRuleTest {
 
         String str3 =
                 "　　象　　將　　　\n" +
-                "　　　　砲　　　　\n" +
-                "　　　　　　　　　\n" +
-                "　　傌　　　　　　\n" +
-                "　　　　　　　　　\n" +
-                "　　馬炮　　　　　\n" +
-                "　　　　　　　　　\n" +
-                "　　　　　　　　　\n" +
-                "　　　　　　　　　\n" +
-                "　　　　帥　　　　";
+                        "　　　　砲　　　　\n" +
+                        "　　　　　　　　　\n" +
+                        "　　傌　　　　　　\n" +
+                        "　　　　　　　　　\n" +
+                        "　　馬炮　　　　　\n" +
+                        "　　　　　　　　　\n" +
+                        "　　　　　　　　　\n" +
+                        "　　　　　　　　　\n" +
+                        "　　　　帥　　　　";
         Chessman[][] chessmans3 = SaveReadUtil.readChineseStr(str3);
         Chessboard chessboard3 = new Chessboard();
         chessboard3.setChessmans(chessmans3);
@@ -316,5 +316,88 @@ public class EvaluateRuleTest {
 
         double result3 = new EvaluateRule().evaluatePosition(chessboard, GameConstant.red);
         System.out.println(result3);
+    }
+
+    @Test
+    public void test双炮擒王() {
+//        String str1 =
+//                    "　　　　　將　　　\n" +
+//                    "　　　　　　　　　\n" +
+//                    "　　　　炮　　　　\n" +
+//                    "　　　　　　　　　\n" +
+//                    "　　　　　　　　　\n" +
+//                    "　　　　　　　　　\n" +
+//                    "　　　炮　　　　　\n" +
+//                    "　　　　　　　　　\n" +
+//                    "　　　　　　　　　\n" +
+//                    "　　　　帥　　　　";
+//        Chessman[][] chessmans1 = SaveReadUtil.readChineseStr(str1);
+//        Chessboard chessboard1 = new Chessboard();
+//        chessboard1.setChessmans(chessmans1);
+//        chessboard1.setCurrent(GameConstant.black);
+//        chessboard1.setRound(50);
+//
+//        double result1= new EvaluateRule().evaluatePosition(chessboard1, GameConstant.black);
+//        System.out.println(result1);
+//
+//        String str2 =
+//                "　　　　　　　　　\n" +
+//                "　　　　將　　　　\n" +
+//                "　　　　炮　　　　\n" +
+//                "　　　　　　　　　\n" +
+//                "　　　　　　　　　\n" +
+//                "　　　　　　　　　\n" +
+//                "　　　炮　　　　　\n" +
+//                "　　　　　　　　　\n" +
+//                "　　　　　　　　　\n" +
+//                "　　　　帥　　　　";
+//        Chessman[][] chessmans2 = SaveReadUtil.readChineseStr(str2);
+//        Chessboard chessboard2 = new Chessboard();
+//        chessboard2.setChessmans(chessmans2);
+//        chessboard2.setCurrent(GameConstant.black);
+//        chessboard2.setRound(50);
+//
+//        double result2 = new EvaluateRule().evaluatePosition(chessboard2, GameConstant.black);
+//        System.out.println(result2);
+//
+//        String str3 =
+//                "　　　將　　　　　\n" +
+//                "　　　　　　　　　\n" +
+//                "　　　　炮　　　　\n" +
+//                "　　　　　　　　　\n" +
+//                "　　　　　　　　　\n" +
+//                "　　　　　　　　　\n" +
+//                "　　　炮　　　　　\n" +
+//                "　　　　　　　　　\n" +
+//                "　　　　　　　　　\n" +
+//                "　　　　帥　　　　";
+//        Chessman[][] chessmans3 = SaveReadUtil.readChineseStr(str3);
+//        Chessboard chessboard3 = new Chessboard();
+//        chessboard3.setChessmans(chessmans3);
+//        chessboard3.setCurrent(GameConstant.black);
+//        chessboard3.setRound(50);
+//
+//        double result3 = new EvaluateRule().evaluatePosition(chessboard3, GameConstant.black);
+//        System.out.println(result3);
+
+        String str4 =
+                "　　　將　　　　　\n" +
+                "　　　炮　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　炮　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　帥　　　　";
+        Chessman[][] chessmans4 = SaveReadUtil.readChineseStr(str4);
+        Chessboard chessboard4 = new Chessboard();
+        chessboard4.setChessmans(chessmans4);
+        chessboard4.setCurrent(GameConstant.black);
+        chessboard4.setRound(50);
+
+        double result4 = new EvaluateRule().evaluatePosition(chessboard4, GameConstant.black);
+        System.out.println(result4);
     }
 }

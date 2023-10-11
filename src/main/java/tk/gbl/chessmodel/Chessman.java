@@ -22,6 +22,8 @@ public abstract class Chessman implements Serializable, Cloneable {
     String type;
     int color;
 
+    double score;
+
     public static Chessman getInstance(String chessNumberStr) {
         Chessman chessman = ChessTypeMapping.getChess(chessNumberStr);
         if (chessman == null) {
@@ -111,5 +113,13 @@ public abstract class Chessman implements Serializable, Cloneable {
             }
         }
         return false;
+    }
+
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
     }
 }

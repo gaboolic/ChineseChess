@@ -14,5 +14,6 @@ public enum SituationEnum {
 
     START,
     MIDDLE,
-    ENDING
+    ENDING,
+    FINAL,
 }

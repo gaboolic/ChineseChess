@@ -187,6 +187,9 @@ public class Chessboard {
                 }
             }
         }
+        if (bigCount <= 3) {
+            return SituationEnum.FINAL;
+        }
         if (bigCount <= 6) {
             return SituationEnum.ENDING;
         }

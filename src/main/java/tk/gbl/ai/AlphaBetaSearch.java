@@ -17,7 +17,7 @@ import java.util.List;
  * @author gaboolic
  */
 public class AlphaBetaSearch {
-    private static final int MAX_DEPTH = 4; // 最大搜索深度
+    private static final int MAX_DEPTH = 8; // 最大搜索深度
 
     // Alpha-Beta搜索函数
     public Step alphaBetaSearch(Chessboard chessboard) {
@@ -27,6 +27,7 @@ public class AlphaBetaSearch {
         int depth = 0;
         double alpha = Integer.MIN_VALUE;
         double beta = Integer.MAX_VALUE;
+        int maxDepth = getMaxDepth(chessboard);
 
         // 获取当前可行的移动
         List<Step> steps = generateSteps(chessboard);
@@ -40,21 +41,29 @@ public class AlphaBetaSearch {
 
         List<Step> bestSteps = new ArrayList<>();
         double maxScore = Integer.MIN_VALUE;
-        int maxDepth = getMaxDepth(chessboard);
+        int minSearchDepth = Integer.MIN_VALUE;
 
         for (Step step : steps) {
             Chessboard newChessboard = CopyUtil.makeStep(chessboard, step);
 
-            double score = minValue(color, newChessboard, depth + 1, alpha, beta, maxDepth);
-
+            ScoreDepth scoreDepth = minValue(color, newChessboard, depth + 1, alpha, beta, maxDepth);
+            double score = scoreDepth.getScore();
+            int searchDepth = scoreDepth.getDepth();
 //            System.out.println(step + "---- " + score);
-            if (score >= maxScore) {
+            if (score > maxScore) {
+                minSearchDepth = searchDepth;
+                maxScore = score;
+                bestSteps.add(step);
+            } else if (score == maxScore && minSearchDepth > searchDepth) {
+                minSearchDepth = searchDepth;
                 maxScore = score;
                 bestSteps.add(step);
             }
+            if (maxScore == 999999) {
+                break;
+            }
 
             alpha = Math.max(alpha, maxScore);
-
             if (maxScore >= beta) {
                 break; // Beta剪枝
             }
@@ -65,6 +74,7 @@ public class AlphaBetaSearch {
         for (Step step : bestSteps) {
             Chessboard newChessboard = CopyUtil.makeStep(chessboard, step);
             double value = evaluate(newChessboard, color);
+            step.setEvaluateValue(value);
             if (value > finalScore) {
                 finalScore = value;
                 bestStep = step;
@@ -73,7 +83,7 @@ public class AlphaBetaSearch {
 
         long endTime = System.currentTimeMillis();
         System.out.println((endTime - startTime) + "ms");
-        System.out.println("color:" + color + " bestStep:" + bestStep + " maxScore:" + maxScore);
+        System.out.println("color:" + color + " bestStep:" + bestStep + " maxScore:" + maxScore + " minSearchDepth:" + minSearchDepth);
         return bestStep;
     }
 
@@ -89,14 +99,14 @@ public class AlphaBetaSearch {
     }
 
     // 极大层级
-    private double maxValue(int color, Chessboard chessboard, int depth, double alpha, double beta, int maxDepth) {
+    private ScoreDepth maxValue(int color, Chessboard chessboard, int depth, double alpha, double beta, int maxDepth) {
         if (depth >= maxDepth) {
-            return evaluate(chessboard, color);
+            return new ScoreDepth(evaluate(chessboard, color), depth);
         }
         //todo
         int gameOver = chessboard.isGameOver();
         if (gameOver >= 0) {
-            return evaluate(chessboard, color);
+            return new ScoreDepth(evaluate(chessboard, color), depth);
         }
 
         double maxScore = Integer.MIN_VALUE;
@@ -105,7 +115,7 @@ public class AlphaBetaSearch {
         for (Step step : steps) {
             Chessboard newChessboard = CopyUtil.makeStep(chessboard, step);
 
-            double score = minValue(color, newChessboard, depth + 1, alpha, beta, maxDepth);
+            double score = minValue(color, newChessboard, depth + 1, alpha, beta, maxDepth).getScore();
 
             maxScore = Math.max(maxScore, score);
 
@@ -116,18 +126,18 @@ public class AlphaBetaSearch {
             }
         }
 
-        return maxScore;
+        return new ScoreDepth(maxScore, depth);
     }
 
     // 极小层级
-    private double minValue(int color, Chessboard chessboard, int depth, double alpha, double beta, int maxDepth) {
+    private ScoreDepth minValue(int color, Chessboard chessboard, int depth, double alpha, double beta, int maxDepth) {
         if (depth >= maxDepth) {
-            return evaluate(chessboard, color);
+            return new ScoreDepth(evaluate(chessboard, color), depth);
         }
         //todo
         int gameOver = chessboard.isGameOver();
         if (gameOver >= 0) {
-            return evaluate(chessboard, color);
+            return new ScoreDepth(evaluate(chessboard, color), depth);
         }
 
         double minScore = Integer.MAX_VALUE;
@@ -136,7 +146,7 @@ public class AlphaBetaSearch {
         for (Step step : steps) {
             Chessboard newChessboard = CopyUtil.makeStep(chessboard, step);
 
-            double score = maxValue(color, newChessboard, depth + 1, alpha, beta, maxDepth);
+            double score = maxValue(color, newChessboard, depth + 1, alpha, beta, maxDepth).getScore();
 
             minScore = Math.min(minScore, score);
 
@@ -147,7 +157,7 @@ public class AlphaBetaSearch {
             }
         }
 
-        return minScore;
+        return new ScoreDepth(minScore, depth);
     }
 
     // 评估函数，用于评估当前棋局的得分

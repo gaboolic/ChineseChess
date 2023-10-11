@@ -10,6 +10,8 @@ public class Step {
     Point start;
     Point end;
 
+    double evaluateValue;
+
     public Step() {
     }
 
@@ -33,6 +35,14 @@ public class Step {
 
     public void setEnd(Point end) {
         this.end = end;
+    }
+
+    public double getEvaluateValue() {
+        return evaluateValue;
+    }
+
+    public void setEvaluateValue(double evaluateValue) {
+        this.evaluateValue = evaluateValue;
     }
 
     @Override
