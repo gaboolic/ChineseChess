@@ -1,5 +1,7 @@
 package tk.gbl.model;
 
+import tk.gbl.ai.ScoreDepth;
+
 /**
  * Date: 2017/11/27
  * Time: 16:14
@@ -10,6 +12,7 @@ public class Step {
     Point start;
     Point end;
 
+    ScoreDepth scoreDepth;
     double evaluateValue;
 
     public Step() {
@@ -35,6 +38,14 @@ public class Step {
 
     public void setEnd(Point end) {
         this.end = end;
+    }
+
+    public ScoreDepth getScoreDepth() {
+        return scoreDepth;
+    }
+
+    public void setScoreDepth(ScoreDepth scoreDepth) {
+        this.scoreDepth = scoreDepth;
     }
 
     public double getEvaluateValue() {

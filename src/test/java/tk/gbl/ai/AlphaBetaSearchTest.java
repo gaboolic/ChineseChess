@@ -8,6 +8,7 @@ import tk.gbl.model.Point;
 import tk.gbl.model.Step;
 import tk.gbl.util.CopyUtil;
 import tk.gbl.util.SaveReadUtil;
+import tk.gbl.util.ShowStepUtil;
 
 /**
  * Date: 2023-09-13
@@ -98,5 +99,50 @@ public class AlphaBetaSearchTest {
         System.out.println(chessboard.getChessman(step.getStart()).getMovePoints(chessboard));
 
         System.out.println(chessboard.getChessman(step.getEnd()));
+    }
+
+    @Test
+    public void test双炮擒王() {
+        String str2 =
+                "　　　　　　　　　\n" +
+                "　　　將　　　　　\n" +
+                "　　炮　　　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　炮　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　帥　　　　\n";
+
+        String str =
+                "　　　　　　　　　\n" +
+                "　　炮將　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　炮　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　帥　　　　\n";
+
+        Chessman[][] chessmans = SaveReadUtil.readChineseStr(str2);
+        Chessboard chessboard = new Chessboard();
+        chessboard.setChessmans(chessmans);
+        chessboard.setCurrent(GameConstant.black);
+        chessboard.setRound(50);
+
+        AlphaBetaSearch alphaBetaSearch = new AlphaBetaSearch();
+        Step step = alphaBetaSearch.alphaBetaSearch(chessboard);
+
+        System.out.println(step);
+
+        System.out.println(chessboard.getChessman(step.getStart()) + "---" + chessboard.getChessman(step.getEnd()));
+        System.out.println(ShowStepUtil.showStep(step, chessboard));
+        chessboard = CopyUtil.makeStep(chessboard, step);
+
+        String result = SaveReadUtil.outputStr(chessboard.getChessmans());
+        System.out.println(result);
     }
 }

@@ -55,7 +55,7 @@ public class EvaluateRule {
 
                     // 加权求和评估值
 //                    score = pieceValue + positionValue + Math.sqrt(controlValue);
-                    score = pieceValue + positionValue + flexibleValue + Math.sqrt(controlValue);
+                    score = pieceValue + positionValue + flexibleValue;
                     chessman.setScore(score);
                     if (chessman.getColor() == color) {
                         evaluation += score;
