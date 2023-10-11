@@ -50,7 +50,6 @@ public class KingTest {
 
     @Test
     public void getMovePoints3() {
-        //todo 修复
         String str =
                 "　　　將　　　　　\n" +
                 "　　　　　　　　　\n" +

@@ -112,7 +112,6 @@ public class AlphaBetaSearch {
             double score = evaluate(chessboard, color);
             return new ScoreDepth(score, depth);
         }
-        //todo
         int gameOver = chessboard.isGameOver();
         if (gameOver >= 0) {
             double score = evaluate(chessboard, color);
@@ -151,7 +150,6 @@ public class AlphaBetaSearch {
             double score = evaluate(chessboard, color);
             return new ScoreDepth(score, depth);
         }
-        //todo
         int gameOver = chessboard.isGameOver();
         if (gameOver >= 0) {
             double score = evaluate(chessboard, color);
