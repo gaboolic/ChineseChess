@@ -76,9 +76,10 @@ public class AlphaBetaSearch {
             }
         });
 
-        if (steps.size() > 10) {
-            steps = steps.subList(0, steps.size() / 2);
-        }
+        //todo 有bug 需要更好剪枝
+//        if (steps.size() > 10) {
+//            steps = steps.subList(0, steps.size() / 2);
+//        }
 
         for (Step step : steps) {
             Chessboard newChessboard = CopyUtil.makeStep(chessboard, step);

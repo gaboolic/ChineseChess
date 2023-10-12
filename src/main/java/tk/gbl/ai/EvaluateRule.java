@@ -48,6 +48,8 @@ public class EvaluateRule {
         }
         double evaluation = 0;
 
+        double selfValue = 0;
+        double enemyValue = 0;
         // 遍历棋盘上的每个位置
         for (int x = 0; x < Chessboard.X_SIZE; x++) {
             for (int y = 0; y < Chessboard.Y_SIZE; y++) {
@@ -70,14 +72,16 @@ public class EvaluateRule {
                     score = pieceValue + positionValue + flexibleValue;
                     chessman.setScore(score);
                     if (chessman.getColor() == color) {
-                        evaluation += score;
+                        selfValue += score;
                     } else {
-                        evaluation -= score;
+                        enemyValue += score;
                     }
-//                    System.out.println("evaluatePosition " + chessman.toString() + "---" + score);
                 }
             }
         }
+
+        double a = selfValue / (selfValue + enemyValue);
+        evaluation = a * selfValue - (1 - a) * enemyValue;
         return evaluation;
     }
 

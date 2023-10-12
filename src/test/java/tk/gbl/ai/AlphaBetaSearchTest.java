@@ -149,27 +149,17 @@ public class AlphaBetaSearchTest {
     @Test
     public void test将军() {
         //todo 有bug
-        String str = "　　象士將士象　　\n" +
-                "　　　　　　　　車\n" +
+        String str =
+                "　　　士將士象　　\n" +
+                "　　　　　　　車　\n" +
                 "　　馬　　　馬　　\n" +
                 "卒　傌　卒　卒　卒\n" +
-                "　　　　　　　俥　\n" +
-                "　　兵　　　　　　\n" +
-                "兵　　　兵　車　兵\n" +
-                "　　　　　　　　相\n" +
-                "　　　　　　　　　\n" +
-                "俥　相仕帥仕　　　";
-
-        String str2 = "　　象士將士象　　\n" +
-                "　　　　　　　　車\n" +
-                "　　馬　　　馬　　\n" +
-                "卒　傌　卒　卒　卒\n" +
-                "　　兵　　　　俥　\n" +
+                "　　俥　　　　　　\n" +
                 "　　　　　　　　　\n" +
                 "兵　　　車　　　兵\n" +
                 "　　　　　　　　相\n" +
-                "　　　　　　　　　\n" +
-                "俥　相仕帥仕　　　";
+                "　　　　仕　　　　\n" +
+                "　俥相仕帥　　　　";
 
         Chessman[][] chessmans = SaveReadUtil.readChineseStr(str);
         Chessboard chessboard = new Chessboard();
