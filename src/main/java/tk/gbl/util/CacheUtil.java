@@ -37,13 +37,13 @@ public class CacheUtil {
         gameOverMap.put(color + "-" + str, result);
     }
 
-    public static Double getEvaluatePosition(String str, int color) {
-        Double result = evaluateMap.get(color + "-" + str);
+    public static Double getEvaluatePosition(String str, int current, int color) {
+        Double result = evaluateMap.get(current + "-" + color + "-" + str);
         return result;
     }
 
-    public static void putEvaluatePosition(String str, int color, double result) {
-        evaluateMap.put(color + "-" + str, result);
+    public static void putEvaluatePosition(String str, int current, int color, double result) {
+        evaluateMap.put(current + "-" + color + "-" + str, result);
     }
 
     public static List<Point> getMovePoints(String str, Point point) {

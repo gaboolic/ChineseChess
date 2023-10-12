@@ -27,18 +27,22 @@ public class EvaluateRule {
     public static final int SOLDIER_VALUE = 50;  // 兵的价值
     public static final int CROSS_SOLDIER_VALUE = 150;  // 兵的价值
 
-    public double evaluatePosition(Chessboard chessboard, int color) {
-        Double cacheResult = CacheUtil.getEvaluatePosition(SaveReadUtil.outputStr(chessboard.getChessmans()), color);
+    public double evaluatePositionByCache(Chessboard chessboard, int color) {
+        Double cacheResult = CacheUtil.getEvaluatePosition(SaveReadUtil.outputStr(chessboard.getChessmans()), chessboard.getCurrent(), color);
         if (cacheResult != null) {
             return cacheResult;
         }
+        double result = evaluatePosition(chessboard, color);
+        CacheUtil.putEvaluatePosition(SaveReadUtil.outputStr(chessboard.getChessmans()), chessboard.getCurrent(), color, result);
+        return result;
+    }
+
+    public double evaluatePosition(Chessboard chessboard, int color) {
         int gameOver = chessboard.isGameOver();
         if (gameOver >= 0) {
             if (gameOver == color) {
-                CacheUtil.putEvaluatePosition(SaveReadUtil.outputStr(chessboard.getChessmans()), color, 999999);
                 return 999999;
             } else {
-                CacheUtil.putEvaluatePosition(SaveReadUtil.outputStr(chessboard.getChessmans()), color, -999999);
                 return -999999;
             }
         }
@@ -74,7 +78,6 @@ public class EvaluateRule {
                 }
             }
         }
-        CacheUtil.putEvaluatePosition(SaveReadUtil.outputStr(chessboard.getChessmans()), color, evaluation);
         return evaluation;
     }
 

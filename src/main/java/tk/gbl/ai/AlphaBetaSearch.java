@@ -27,6 +27,8 @@ import java.util.Random;
 public class AlphaBetaSearch {
     private static final int MAX_DEPTH = 4; // 最大搜索深度
 
+    EvaluateRule evaluateRule = new EvaluateRule();
+
     // Alpha-Beta搜索函数
     public Step alphaBetaSearch(Chessboard chessboard) {
         long startTime = System.currentTimeMillis();
@@ -209,7 +211,7 @@ public class AlphaBetaSearch {
     // 评估函数，用于评估当前棋局的得分
     private double evaluate(Chessboard chessboard, int color) {
         // 在这里计算当前棋局的得分并返回
-        return new EvaluateRule().evaluatePosition(chessboard, color);
+        return evaluateRule.evaluatePositionByCache(chessboard, color);
     }
 
     // 生成当前棋局的所有合法移动
