@@ -29,11 +29,11 @@ public class FlowTest {
                 "　　　仕相　俥　　\n" +
                 "　　　　　　　　　\n" +
                 "　　相仕帥　　　　";
-//        Chessman[][] chessmans = SaveReadUtil.read("gamestart.txt");
-        Chessman[][] chessmans = SaveReadUtil.readChineseStr(str);
+        Chessman[][] chessmans = SaveReadUtil.read("gamestart.txt");
+//        Chessman[][] chessmans = SaveReadUtil.readChineseStr(str);
         Chessboard chessboard = new Chessboard();
         chessboard.setChessmans(chessmans);
-        chessboard.setRound(20);
+        chessboard.setRound(0);
 
         AlphaBetaSearch alphaBetaSearch = new AlphaBetaSearch();
 
@@ -57,7 +57,7 @@ public class FlowTest {
         Chessboard chessboard = new Chessboard();
         chessboard.setChessmans(chessmans);
         chessboard.setRound(100);
-        chessboard.setCurrent(GameConstant.black);
+        chessboard.setCurrent(GameConstant.red);
 
         AlphaBetaSearch alphaBetaSearch = new AlphaBetaSearch();
 

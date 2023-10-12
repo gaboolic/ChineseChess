@@ -3,6 +3,8 @@ package tk.gbl.model;
 import tk.gbl.chessmodel.*;
 import tk.gbl.constant.GameConstant;
 import tk.gbl.constant.SituationEnum;
+import tk.gbl.util.CacheUtil;
+import tk.gbl.util.SaveReadUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -120,6 +122,10 @@ public class Chessboard {
      * 返回胜利方
      */
     public int isGameOver() {
+        Integer cacheResult = CacheUtil.getGameOver(SaveReadUtil.outputStr(chessmans), getCurrent());
+        if (cacheResult != null) {
+            return cacheResult;
+        }
         int redKingCount = 0;
         int blackKingCount = 0;
         Chessman redKing = null;
@@ -139,9 +145,11 @@ public class Chessboard {
             }
         }
         if (redKingCount == 0) {
+            CacheUtil.putGameOver(SaveReadUtil.outputStr(chessmans), getCurrent(), GameConstant.black);
             return GameConstant.black;
         }
         if (blackKingCount == 0) {
+            CacheUtil.putGameOver(SaveReadUtil.outputStr(chessmans), getCurrent(), GameConstant.red);
             return GameConstant.red;
         }
 
@@ -153,24 +161,29 @@ public class Chessboard {
                 if (chessman == null) {
                     continue;
                 }
-                List<Point> moves = chessman.getMovePoints(this);
+                List<Point> moves = chessman.getMovePointsByCache(this);
                 colorMoveMap.computeIfAbsent(chessman.getColor(), k -> new ArrayList<>());
                 colorMoveMap.get(chessman.getColor()).addAll(moves);
             }
         }
         if (colorMoveMap.get(GameConstant.red).size() == 0) {
+            CacheUtil.putGameOver(SaveReadUtil.outputStr(chessmans), getCurrent(), GameConstant.black);
             return GameConstant.black;
         }
         if (colorMoveMap.get(GameConstant.black).size() == 0) {
+            CacheUtil.putGameOver(SaveReadUtil.outputStr(chessmans), getCurrent(), GameConstant.red);
             return GameConstant.red;
         }
         if (getCurrent() == GameConstant.red && colorMoveMap.get(GameConstant.red).contains(blackKing.getPoint())) {
+            CacheUtil.putGameOver(SaveReadUtil.outputStr(chessmans), getCurrent(), GameConstant.red);
             return GameConstant.red;
         }
         if (getCurrent() == GameConstant.black && colorMoveMap.get(GameConstant.black).contains(redKing.getPoint())) {
+            CacheUtil.putGameOver(SaveReadUtil.outputStr(chessmans), getCurrent(), GameConstant.black);
             return GameConstant.black;
         }
         //todo 判断下一回合是否被绝杀
+        CacheUtil.putGameOver(SaveReadUtil.outputStr(chessmans), getCurrent(), -1);
         return -1;
     }
 

@@ -4,6 +4,8 @@ import tk.gbl.constant.ChessTypeMapping;
 import tk.gbl.constant.GameConstant;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
+import tk.gbl.util.CacheUtil;
+import tk.gbl.util.SaveReadUtil;
 
 import java.io.Serializable;
 import java.util.List;
@@ -67,13 +69,23 @@ public abstract class Chessman implements Serializable, Cloneable {
     public abstract String getChineseName();
 
     public boolean canRemove(Chessboard chessboard, Point target) {
-        if (getMovePoints(chessboard).contains(target)) {
+        if (getMovePointsByCache(chessboard).contains(target)) {
             return true;
         }
         return false;
     }
 
     public abstract List<Point> getMovePoints(Chessboard chessboard);
+
+    public List<Point> getMovePointsByCache(Chessboard chessboard) {
+//        List<Point> cachePoints = CacheUtil.getMovePoints(SaveReadUtil.outputStr(chessboard.getChessmans()), getPoint());
+//        if (cachePoints != null) {
+//            return cachePoints;
+//        }
+        List<Point> result = getMovePoints(chessboard);
+//        CacheUtil.putMovePoints(SaveReadUtil.outputStr(chessboard.getChessmans()), getPoint(), result);
+        return result;
+    }
 
     public abstract int getEvalValue();
 

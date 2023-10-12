@@ -78,7 +78,7 @@ public class King extends Chessman {
                     continue;
                 }
                 if (this.getColor() != chessman.getColor() && !(chessman instanceof King)) {
-                    List<Point> movePoints = chessman.getMovePoints(newBoard);
+                    List<Point> movePoints = chessman.getMovePointsByCache(newBoard);
                     if (movePoints.contains(new Point(x, y))) {
                         return false;
                     }

@@ -3,6 +3,8 @@ package tk.gbl.ai;
 import tk.gbl.chessmodel.*;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
+import tk.gbl.util.CacheUtil;
+import tk.gbl.util.SaveReadUtil;
 
 import java.util.List;
 
@@ -26,11 +28,17 @@ public class EvaluateRule {
     public static final int CROSS_SOLDIER_VALUE = 150;  // 兵的价值
 
     public double evaluatePosition(Chessboard chessboard, int color) {
+        Double cacheResult = CacheUtil.getEvaluatePosition(SaveReadUtil.outputStr(chessboard.getChessmans()), color);
+        if (cacheResult != null) {
+            return cacheResult;
+        }
         int gameOver = chessboard.isGameOver();
         if (gameOver >= 0) {
             if (gameOver == color) {
+                CacheUtil.putEvaluatePosition(SaveReadUtil.outputStr(chessboard.getChessmans()), color, 999999);
                 return 999999;
             } else {
+                CacheUtil.putEvaluatePosition(SaveReadUtil.outputStr(chessboard.getChessmans()), color, -999999);
                 return -999999;
             }
         }
@@ -66,7 +74,7 @@ public class EvaluateRule {
                 }
             }
         }
-
+        CacheUtil.putEvaluatePosition(SaveReadUtil.outputStr(chessboard.getChessmans()), color, evaluation);
         return evaluation;
     }
 
@@ -80,7 +88,7 @@ public class EvaluateRule {
         // 在这里计算棋子的控制力评估值
         // 可以考虑棋子的攻击范围、威胁等因素
         // 返回一个控制力评估值
-        List<Point> movePoints = chessman.getMovePoints(chessboard);
+        List<Point> movePoints = chessman.getMovePointsByCache(chessboard);
         int sumValue = 0;
         for (Point point : movePoints) {
             Chessman targetChessman = chessboard.getChessman(point);
@@ -118,7 +126,7 @@ public class EvaluateRule {
         // 在这里计算棋子的控制力评估值
         // 可以考虑棋子的攻击范围、威胁等因素
         // 返回一个控制力评估值
-        List<Point> movePoints = chessman.getMovePoints(chessboard);
+        List<Point> movePoints = chessman.getMovePointsByCache(chessboard);
 
         double f = 0;
         if (chessman instanceof Cannon || chessman instanceof Rook) {

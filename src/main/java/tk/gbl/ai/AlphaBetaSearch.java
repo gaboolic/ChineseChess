@@ -11,7 +11,9 @@ import tk.gbl.model.Step;
 import tk.gbl.util.CopyUtil;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 
 /**
  * αβ搜索
@@ -50,6 +52,25 @@ public class AlphaBetaSearch {
         SituationEnum situationEnum = chessboard.getSituation();
         for (Step step : steps) {
             Chessboard newChessboard = CopyUtil.makeStep(chessboard, step);
+            double value = evaluate(newChessboard, color);
+            step.setEvaluateValue(value);
+        }
+        steps.sort(new Comparator<Step>() {
+            @Override
+            public int compare(Step o1, Step o2) {
+                if (o1.getEvaluateValue() == o2.getEvaluateValue()) {
+                    return 0;
+                }
+                return o1.getEvaluateValue() < o2.getEvaluateValue() ? 1 : -1;
+            }
+        });
+
+        if (steps.size() > 10) {
+            steps = steps.subList(0, steps.size() / 2);
+        }
+
+        for (Step step : steps) {
+            Chessboard newChessboard = CopyUtil.makeStep(chessboard, step);
             int maxDepth = getMaxDepth(situationEnum, chessboard.getChessman(step.getStart()));
             ScoreDepth scoreDepth = minValue(color, newChessboard, depth + 1, alpha, beta, maxDepth);
             step.setScoreDepth(scoreDepth);
@@ -76,16 +97,9 @@ public class AlphaBetaSearch {
         }
 
         Step bestStep = null;
-        double finalScore = Integer.MIN_VALUE;
-        for (Step step : bestSteps) {
-            Chessboard newChessboard = CopyUtil.makeStep(chessboard, step);
-            double value = evaluate(newChessboard, color);
-            step.setEvaluateValue(value);
-            if (value > finalScore) {
-                finalScore = value;
-                bestStep = step;
-            }
-        }
+        Random random = new Random();
+        int randomNumber = random.nextInt(bestSteps.size());
+        bestStep = bestSteps.get(randomNumber);
 
         long endTime = System.currentTimeMillis();
         System.out.println((endTime - startTime) + "ms");
@@ -201,7 +215,7 @@ public class AlphaBetaSearch {
                 if (chessboard.getCurrent() != chessman.getColor()) {
                     continue;
                 }
-                List<Point> movePoints = chessman.getMovePoints(chessboard);
+                List<Point> movePoints = chessman.getMovePointsByCache(chessboard);
                 for (Point to : movePoints) {
                     Step step = new Step();
                     step.setStart(chessman.getPoint());
