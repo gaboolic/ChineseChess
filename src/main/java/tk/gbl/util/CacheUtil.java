@@ -1,6 +1,7 @@
 package tk.gbl.util;
 
 import tk.gbl.model.Point;
+import tk.gbl.model.Step;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,9 +14,19 @@ import java.util.Map;
  * @author gaboolic
  */
 public class CacheUtil {
+    static Map<String, Step> bestStepMap = new HashMap<>();
     static Map<String, Integer> gameOverMap = new HashMap<>();
     static Map<String, Double> evaluateMap = new HashMap<>();
     static Map<String, List<Point>> moveMap = new HashMap<>();
+
+    public static Step getBestStep(String str, int color) {
+        Step result = bestStepMap.get(color + "-" + str);
+        return result;
+    }
+
+    public static void putBestStep(String str, int color, Step result) {
+        bestStepMap.put(color + "-" + str, result);
+    }
 
     public static Integer getGameOver(String str, int color) {
         Integer result = gameOverMap.get(color + "-" + str);

@@ -8,7 +8,9 @@ import tk.gbl.constant.SituationEnum;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
 import tk.gbl.model.Step;
+import tk.gbl.util.CacheUtil;
 import tk.gbl.util.CopyUtil;
+import tk.gbl.util.SaveReadUtil;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -34,6 +36,13 @@ public class AlphaBetaSearch {
         double alpha = Integer.MIN_VALUE;
         double beta = Integer.MAX_VALUE;
 
+        Step cacheBestStep = CacheUtil.getBestStep(SaveReadUtil.outputStr(chessboard.getChessmans()), chessboard.getCurrent());
+        if (cacheBestStep != null) {
+            long endTime = System.currentTimeMillis();
+            System.out.println((endTime - startTime) + "ms");
+            System.out.println("color:" + color + "cache- bestStep:" + cacheBestStep + " maxScore:" + cacheBestStep.getScoreDepth().getScore() + " minSearchDepth:" + cacheBestStep.getScoreDepth().getDepth());
+            return cacheBestStep;
+        }
 
         // 获取当前可行的移动
         List<Step> steps = generateSteps(chessboard);
@@ -104,6 +113,7 @@ public class AlphaBetaSearch {
         long endTime = System.currentTimeMillis();
         System.out.println((endTime - startTime) + "ms");
         System.out.println("color:" + color + " bestStep:" + bestStep + " maxScore:" + maxScore + " minSearchDepth:" + minSearchDepth);
+        CacheUtil.putBestStep(SaveReadUtil.outputStr(chessboard.getChessmans()), chessboard.getCurrent(), bestStep);
         return bestStep;
     }
 
