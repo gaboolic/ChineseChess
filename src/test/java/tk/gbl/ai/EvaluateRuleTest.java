@@ -261,7 +261,8 @@ public class EvaluateRuleTest {
 
     @Test
     public void test() {
-        String str = "車　象士將士象　車\n" +
+        String str =
+                "車　象士將士象　車\n" +
                 "　　　　　　　　　\n" +
                 "　砲　　　　馬　　\n" +
                 "卒　　　卒　卒　卒\n" +
@@ -398,6 +399,29 @@ public class EvaluateRuleTest {
         chessboard4.setRound(50);
 
         double result4 = new EvaluateRule().evaluatePosition(chessboard4, GameConstant.black);
+        System.out.println(result4);
+    }
+
+    @Test
+    public void test1() {
+        String str =
+                "　車象　將士　　　\n" +
+                "　　俥　士　　　　\n" +
+                "　　　　象　　　馬\n" +
+                "卒　卒　炮　卒　卒\n" +
+                "　　　　　　　　　\n" +
+                "　　炮　　　　　　\n" +
+                "兵　兵　兵　兵　兵\n" +
+                "　　　　相　　　　\n" +
+                "　　　車　　　　俥\n" +
+                "　　相仕帥仕　傌　";
+        Chessman[][] chessmans4 = SaveReadUtil.readChineseStr(str);
+        Chessboard chessboard4 = new Chessboard();
+        chessboard4.setChessmans(chessmans4);
+        chessboard4.setCurrent(GameConstant.black);
+        chessboard4.setRound(50);
+
+        double result4 = new EvaluateRule().evaluatePosition(chessboard4, GameConstant.red);
         System.out.println(result4);
     }
 }

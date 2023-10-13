@@ -46,7 +46,7 @@ public class AlphaBetaSearch {
         }
 
         // 获取当前可行的移动
-        List<Step> steps = chessboard.generateSteps(chessboard.getCurrent());
+        List<Step> steps = chessboard.generateStepsByCache(chessboard.getCurrent());
 //        List<Step> steps = new ArrayList<>();
 //
 //        if (chessboard.getRound() == 0) {
@@ -149,7 +149,7 @@ public class AlphaBetaSearch {
         double maxScore = Integer.MIN_VALUE;
         ScoreDepth sd = null;
 
-        List<Step> steps = chessboard.generateSteps(chessboard.getCurrent());
+        List<Step> steps = chessboard.generateStepsByCache(chessboard.getCurrent());
         for (Step step : steps) {
             Chessboard newChessboard = CopyUtil.makeStep(chessboard, step);
 
@@ -187,7 +187,7 @@ public class AlphaBetaSearch {
         double minScore = Integer.MAX_VALUE;
         ScoreDepth sd = null;
 
-        List<Step> steps = chessboard.generateSteps(chessboard.getCurrent());
+        List<Step> steps = chessboard.generateStepsByCache(chessboard.getCurrent());
         for (Step step : steps) {
             Chessboard newChessboard = CopyUtil.makeStep(chessboard, step);
 

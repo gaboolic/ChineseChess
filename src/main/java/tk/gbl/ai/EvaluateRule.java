@@ -81,8 +81,9 @@ public class EvaluateRule {
             }
         }
 
-        double a = selfValue / (selfValue + enemyValue);
-        evaluation = a * selfValue - (1 - a) * enemyValue;
+//        double a = selfValue / (selfValue + enemyValue);
+//        evaluation = a * selfValue - (1 - a) * enemyValue;
+        evaluation = selfValue - enemyValue;
         return evaluation;
     }
 

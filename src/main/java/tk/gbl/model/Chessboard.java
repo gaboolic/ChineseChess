@@ -219,12 +219,12 @@ public class Chessboard {
 
     // 生成当前棋局的所有合法移动
     public List<Step> generateStepsByCache(int current) {
-        List<Step> cacheSteps = CacheUtil.getAllSteps(SaveReadUtil.outputStr(chessmans), current);
-        if (cacheSteps != null) {
-            return cacheSteps;
-        }
+//        List<Step> cacheSteps = CacheUtil.getAllSteps(SaveReadUtil.outputStr(chessmans), current);
+//        if (cacheSteps != null) {
+//            return cacheSteps;
+//        }
         List<Step> result = generateSteps(current);
-        CacheUtil.putAllSteps(SaveReadUtil.outputStr(chessmans), current, result);
+//        CacheUtil.putAllSteps(SaveReadUtil.outputStr(chessmans), current, result);
         return result;
     }
 
