@@ -6,7 +6,6 @@ import tk.gbl.chessmodel.Horse;
 import tk.gbl.chessmodel.Rook;
 import tk.gbl.constant.SituationEnum;
 import tk.gbl.model.Chessboard;
-import tk.gbl.model.Point;
 import tk.gbl.model.Step;
 import tk.gbl.util.CacheUtil;
 import tk.gbl.util.CopyUtil;
@@ -129,7 +128,9 @@ public class AlphaBetaSearch {
                 maxDepth = 4;
             }
         }
-
+        if (situationEnum.equals(SituationEnum.START)) {
+            maxDepth = 3;
+        }
         return maxDepth;
     }
 

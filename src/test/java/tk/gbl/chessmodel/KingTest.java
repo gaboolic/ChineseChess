@@ -75,5 +75,28 @@ public class KingTest {
         System.out.println(movePoints2);
     }
 
+    @Test
+    public void test() {
+        String str =
+                "　馬象士將士象　車\n" +
+                "　　　車　　　　　\n" +
+                "　　　　炮　　　馬\n" +
+                "卒　卒　炮　卒　卒\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "兵　兵　兵　兵　兵\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　俥相仕帥仕相傌俥";
+
+        Chessman[][] chessmans = SaveReadUtil.readChineseStr(str);
+        Chessboard chessboard = new Chessboard();
+        chessboard.setChessmans(chessmans);
+        Chessman king = chessboard.getChessman(new Point(4, 0));
+        System.out.println(king);
+        List<Point> movePoints = king.getMovePoints(chessboard);
+        System.out.println(movePoints);
+    }
+
 
 }

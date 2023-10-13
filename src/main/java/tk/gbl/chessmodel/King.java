@@ -68,9 +68,12 @@ public class King extends Chessman {
                 return false;
             }
         }
+        if (targetChessman != null && targetChessman.getColor() == getColor()) {
+            return false;
+        }
 
         //判断不能送吃
-        Chessboard newBoard = CopyUtil.makeStep(chessboard,new Step(getPoint(),new Point(x,y)));
+        Chessboard newBoard = CopyUtil.makeStep(chessboard, new Step(getPoint(), new Point(x, y)));
         Chessman[][] chessmans = newBoard.getChessmans();
         for (Chessman[] list : chessmans) {
             for (Chessman chessman : list) {
