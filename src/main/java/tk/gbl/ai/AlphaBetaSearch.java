@@ -10,11 +10,9 @@ import tk.gbl.model.Step;
 import tk.gbl.util.CacheUtil;
 import tk.gbl.util.CopyUtil;
 import tk.gbl.util.SaveReadUtil;
+import tk.gbl.util.ShowStepUtil;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * αβ搜索
@@ -84,6 +82,7 @@ public class AlphaBetaSearch {
             Chessboard newChessboard = CopyUtil.makeStep(chessboard, step);
             int maxDepth = getMaxDepth(situationEnum, chessboard.getChessman(step.getStart()));
             ScoreDepth scoreDepth = minValue(color, newChessboard, depth + 1, alpha, beta, maxDepth);
+            scoreDepth.getSteps().push(step);
             step.setScoreDepth(scoreDepth);
 
             double score = scoreDepth.getScore();
@@ -111,6 +110,21 @@ public class AlphaBetaSearch {
         Random random = new Random();
         int randomNumber = random.nextInt(bestSteps.size());
         bestStep = bestSteps.get(randomNumber);
+
+        LinkedList<Step> flowSteps = steps.get(0).getScoreDepth().getSteps();
+        Chessboard next = chessboard;
+        while (!flowSteps.isEmpty()) {
+            Step step = flowSteps.pop();
+
+            System.out.println(step);
+            System.out.println(next.getChessman(step.getStart()) + "---" + next.getChessman(step.getEnd()));
+            System.out.println(ShowStepUtil.showStep(step, next));
+            next = CopyUtil.makeStep(next, step);
+            System.out.println(SaveReadUtil.outputStr(next.getChessmans()));
+
+            System.out.println("估值："+evaluateRule.evaluatePosition(next,color));
+
+        }
 
         long endTime = System.currentTimeMillis();
         System.out.println((endTime - startTime) + "ms");
@@ -154,6 +168,7 @@ public class AlphaBetaSearch {
             Chessboard newChessboard = CopyUtil.makeStep(chessboard, step);
 
             ScoreDepth scoreDepth = minValue(color, newChessboard, depth + 1, alpha, beta, maxDepth);
+            scoreDepth.getSteps().push(step);
             double score = scoreDepth.getScore();
             if (score > maxScore) {
                 maxScore = score;
@@ -169,7 +184,7 @@ public class AlphaBetaSearch {
             }
         }
 
-        return new ScoreDepth(maxScore, sd.getDepth());
+        return sd;
     }
 
     // 极小层级
@@ -192,6 +207,7 @@ public class AlphaBetaSearch {
             Chessboard newChessboard = CopyUtil.makeStep(chessboard, step);
 
             ScoreDepth scoreDepth = maxValue(color, newChessboard, depth + 1, alpha, beta, maxDepth);
+            scoreDepth.getSteps().push(step);
             double score = scoreDepth.getScore();
 
             if (score < minScore) {
@@ -207,7 +223,7 @@ public class AlphaBetaSearch {
             }
         }
 
-        return new ScoreDepth(minScore, sd.getDepth());
+        return sd;
     }
 
     // 评估函数，用于评估当前棋局的得分

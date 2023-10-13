@@ -5,6 +5,7 @@ import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
 import tk.gbl.model.Step;
 import tk.gbl.util.CacheUtil;
+import tk.gbl.util.CopyUtil;
 import tk.gbl.util.SaveReadUtil;
 
 import java.util.*;
@@ -52,8 +53,8 @@ public class EvaluateRule {
         double selfValue = 0;
         double enemyValue = 0;
         // 遍历棋盘上的每个位置
-        for (int x = 0; x < Chessboard.X_SIZE; x++) {
-            for (int y = 0; y < Chessboard.Y_SIZE; y++) {
+        for (int y = 0; y < Chessboard.Y_SIZE; y++) {
+            for (int x = 0; x < Chessboard.X_SIZE; x++) {
                 Chessman chessman = chessboard.getChessman(x, y);
 
                 double score = 0;
@@ -92,6 +93,18 @@ public class EvaluateRule {
         return chessman.getEvalValue();
     }
 
+    private boolean eat(Chessboard chessboard, Point point){
+        List<Step> enemySteps = chessboard.generateStepsByCache(chessboard.getCurrent());
+        Set<Point> enemySet = new HashSet<>();
+        for (Step enemyStep : enemySteps) {
+            enemySet.add(enemyStep.getEnd());
+        }
+        if (enemySet.contains(point)) {
+            return true;
+        }
+        return false;
+    }
+
     /**
      * 获取棋子的控制力评估值
      * 捉双 牵制 闪击 串打
@@ -103,7 +116,7 @@ public class EvaluateRule {
             enemySet.add(enemyStep.getEnd());
         }
         if (enemySet.contains(chessman.getPoint())) {
-            return -chessman.getEvalValue();
+            return 0;
         }
         // 在这里计算棋子的控制力评估值
         // 可以考虑棋子的攻击范围、威胁等因素
@@ -118,6 +131,13 @@ public class EvaluateRule {
                 continue;
             }
             if (targetChessman.getColor() == chessman.getColor()) {
+                continue;
+            }
+            if (!targetChessman.isBig()) {
+                continue;
+            }
+            Chessboard newChessboard = CopyUtil.makeStep(chessboard,new Step(chessman.getPoint(),point));
+            if(eat(newChessboard,point)){
                 continue;
             }
             targetChessmanList.add(targetChessman);

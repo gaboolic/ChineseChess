@@ -424,4 +424,28 @@ public class EvaluateRuleTest {
         double result4 = new EvaluateRule().evaluatePosition(chessboard4, GameConstant.red);
         System.out.println(result4);
     }
+
+    @Test
+    public void test将军() {
+        String str =
+                "車　象將　士象　車\n" +
+                "　　　俥士　　　　\n" +
+                "馬　　　　　　砲馬\n" +
+                "　　卒　卒　卒　卒\n" +
+                "卒　　　　　　　　\n" +
+                "炮　　　　　　　　\n" +
+                "兵　兵　兵　兵　兵\n" +
+                "　　　　炮　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　相仕帥仕相傌俥";
+
+        Chessman[][] chessmans4 = SaveReadUtil.readChineseStr(str);
+        Chessboard chessboard4 = new Chessboard();
+        chessboard4.setChessmans(chessmans4);
+        chessboard4.setCurrent(GameConstant.black);
+        chessboard4.setRound(50);
+
+        double result4 = new EvaluateRule().evaluatePosition(chessboard4, GameConstant.black);
+        System.out.println(result4);
+    }
 }

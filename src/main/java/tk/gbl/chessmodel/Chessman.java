@@ -134,4 +134,11 @@ public abstract class Chessman implements Serializable, Cloneable {
     public void setScore(double score) {
         this.score = score;
     }
+
+    public boolean isBig(){
+        if (this instanceof Rook || this instanceof Horse || this instanceof Cannon || this instanceof King) {
+            return true;
+        }
+        return false;
+    }
 }
