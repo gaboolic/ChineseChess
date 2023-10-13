@@ -47,7 +47,7 @@ public class AlphaBetaSearch {
         }
 
         // 获取当前可行的移动
-        List<Step> steps = generateSteps(chessboard);
+        List<Step> steps = chessboard.generateSteps(chessboard.getCurrent());
 //        List<Step> steps = new ArrayList<>();
 //
 //        if (chessboard.getRound() == 0) {
@@ -148,7 +148,7 @@ public class AlphaBetaSearch {
         double maxScore = Integer.MIN_VALUE;
         ScoreDepth sd = null;
 
-        List<Step> steps = generateSteps(chessboard);
+        List<Step> steps = chessboard.generateSteps(chessboard.getCurrent());
         for (Step step : steps) {
             Chessboard newChessboard = CopyUtil.makeStep(chessboard, step);
 
@@ -186,7 +186,7 @@ public class AlphaBetaSearch {
         double minScore = Integer.MAX_VALUE;
         ScoreDepth sd = null;
 
-        List<Step> steps = generateSteps(chessboard);
+        List<Step> steps = chessboard.generateSteps(chessboard.getCurrent());
         for (Step step : steps) {
             Chessboard newChessboard = CopyUtil.makeStep(chessboard, step);
 
@@ -215,28 +215,5 @@ public class AlphaBetaSearch {
         return evaluateRule.evaluatePositionByCache(chessboard, color);
     }
 
-    // 生成当前棋局的所有合法移动
-    private List<Step> generateSteps(Chessboard chessboard) {
-        // 在这里生成当前棋局的合法移动列表
-        List<Step> stepList = new ArrayList<>();
-        Chessman[][] chessmans = chessboard.getChessmans();
-        for (Chessman[] list : chessmans) {
-            for (Chessman chessman : list) {
-                if (chessman == null) {
-                    continue;
-                }
-                if (chessboard.getCurrent() != chessman.getColor()) {
-                    continue;
-                }
-                List<Point> movePoints = chessman.getMovePointsByCache(chessboard);
-                for (Point to : movePoints) {
-                    Step step = new Step();
-                    step.setStart(chessman.getPoint());
-                    step.setEnd(to);
-                    stepList.add(step);
-                }
-            }
-        }
-        return stepList;
-    }
+
 }

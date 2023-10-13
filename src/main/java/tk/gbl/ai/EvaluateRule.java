@@ -3,10 +3,11 @@ package tk.gbl.ai;
 import tk.gbl.chessmodel.*;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
+import tk.gbl.model.Step;
 import tk.gbl.util.CacheUtil;
 import tk.gbl.util.SaveReadUtil;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * 局面估值
@@ -69,7 +70,7 @@ public class EvaluateRule {
 
                     // 加权求和评估值
 //                    score = pieceValue + positionValue + Math.sqrt(controlValue);
-                    score = pieceValue + positionValue + flexibleValue;
+                    score = pieceValue + positionValue + flexibleValue + controlValue;
                     chessman.setScore(score);
                     if (chessman.getColor() == color) {
                         selfValue += score;
@@ -90,49 +91,77 @@ public class EvaluateRule {
         return chessman.getEvalValue();
     }
 
-    // 获取棋子的控制力评估值
+    /**
+     * 获取棋子的控制力评估值
+     * 捉双 牵制 闪击 串打
+     */
     private int getControlValue(Chessman chessman, Chessboard chessboard) {
+        List<Step> enemySteps = chessboard.generateStepsByCache(chessman.getColor() ^ 1);
+        Set<Point> enemySet = new HashSet<>();
+        for (Step enemyStep : enemySteps) {
+            enemySet.add(enemyStep.getEnd());
+        }
+        if (enemySet.contains(chessman.getPoint())) {
+            return -chessman.getEvalValue();
+        }
         // 在这里计算棋子的控制力评估值
         // 可以考虑棋子的攻击范围、威胁等因素
         // 返回一个控制力评估值
         List<Point> movePoints = chessman.getMovePointsByCache(chessboard);
         int sumValue = 0;
+        // 判断同时攻击两个大子
+        List<Chessman> targetChessmanList = new ArrayList<>();
         for (Point point : movePoints) {
             Chessman targetChessman = chessboard.getChessman(point);
-            //威胁力
-            if (targetChessman != null && targetChessman.getColor() != chessman.getColor()) {
-                sumValue += targetChessman.getEvalValue();
+            if (targetChessman == null) {
+                continue;
             }
-        }
-        //todo 保护力
-
-        if (chessman instanceof Cannon) {
-            //判断炮打帅
-            for (int endY = 0; endY < Chessboard.Y_SIZE; endY++) {
-                Chessman targetChessman = chessboard.getChessman(chessman.getPoint().getX(), endY);
-                if (targetChessman != null) {
-                    if (targetChessman instanceof King && targetChessman.getColor() != chessman.getColor()) {
-                        sumValue += 100;
-                    }
-                }
+            if (targetChessman.getColor() == chessman.getColor()) {
+                continue;
             }
-            for (int endX = 0; endX < Chessboard.X_SIZE; endX++) {
-                Chessman targetChessman = chessboard.getChessman(endX, chessman.getPoint().getY());
-                if (targetChessman != null) {
-                    if (targetChessman instanceof King && targetChessman.getColor() != chessman.getColor()) {
-                        sumValue += 100;
-                    }
-                }
-            }
+            targetChessmanList.add(targetChessman);
         }
 
+        if (targetChessmanList.size() >= 2) {
+            targetChessmanList.sort(new Comparator<Chessman>() {
+                @Override
+                public int compare(Chessman o1, Chessman o2) {
+                    if (o1.getEvalValue() == o2.getEvalValue()) {
+                        return 0;
+                    }
+                    return o1.getEvalValue() < o2.getEvalValue() ? 1 : -1;
+                }
+            });
+            sumValue += targetChessmanList.get(1).getEvalValue();
+        }
+
+//        if (chessman instanceof Cannon) {
+//            //判断炮打帅
+//            for (int endY = 0; endY < Chessboard.Y_SIZE; endY++) {
+//                Chessman targetChessman = chessboard.getChessman(chessman.getPoint().getX(), endY);
+//                if (targetChessman != null) {
+//                    if (targetChessman instanceof King && targetChessman.getColor() != chessman.getColor()) {
+//                        sumValue += 100;
+//                    }
+//                }
+//            }
+//            for (int endX = 0; endX < Chessboard.X_SIZE; endX++) {
+//                Chessman targetChessman = chessboard.getChessman(endX, chessman.getPoint().getY());
+//                if (targetChessman != null) {
+//                    if (targetChessman instanceof King && targetChessman.getColor() != chessman.getColor()) {
+//                        sumValue += 100;
+//                    }
+//                }
+//            }
+//        }
         return sumValue;
     }
 
+    /**
+     * 灵活度评估
+     * 可移动步数/理论最大可移动步数
+     */
     private double getFlexibleValue(Chessman chessman, Chessboard chessboard) {
-        // 在这里计算棋子的控制力评估值
-        // 可以考虑棋子的攻击范围、威胁等因素
-        // 返回一个控制力评估值
         List<Point> movePoints = chessman.getMovePointsByCache(chessboard);
 
         double f = 0;

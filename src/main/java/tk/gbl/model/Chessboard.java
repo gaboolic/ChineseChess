@@ -216,4 +216,39 @@ public class Chessboard {
     public void setRound(int round) {
         this.round = round;
     }
+
+    // 生成当前棋局的所有合法移动
+    public List<Step> generateStepsByCache(int current) {
+        List<Step> cacheSteps = CacheUtil.getAllSteps(SaveReadUtil.outputStr(chessmans), current);
+        if (cacheSteps != null) {
+            return cacheSteps;
+        }
+        List<Step> result = generateSteps(current);
+        CacheUtil.putAllSteps(SaveReadUtil.outputStr(chessmans), current, result);
+        return result;
+    }
+
+    public List<Step> generateSteps(int current) {
+        // 在这里生成当前棋局的合法移动列表
+        List<Step> stepList = new ArrayList<>();
+        Chessman[][] chessmans = this.getChessmans();
+        for (Chessman[] list : chessmans) {
+            for (Chessman chessman : list) {
+                if (chessman == null) {
+                    continue;
+                }
+                if (current != chessman.getColor()) {
+                    continue;
+                }
+                List<Point> movePoints = chessman.getMovePointsByCache(this);
+                for (Point to : movePoints) {
+                    Step step = new Step();
+                    step.setStart(chessman.getPoint());
+                    step.setEnd(to);
+                    stepList.add(step);
+                }
+            }
+        }
+        return stepList;
+    }
 }

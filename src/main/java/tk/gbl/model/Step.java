@@ -2,6 +2,8 @@ package tk.gbl.model;
 
 import tk.gbl.ai.ScoreDepth;
 
+import java.util.Objects;
+
 /**
  * Date: 2017/11/27
  * Time: 16:14
@@ -54,6 +56,19 @@ public class Step {
 
     public void setEvaluateValue(double evaluateValue) {
         this.evaluateValue = evaluateValue;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Step step = (Step) o;
+        return Objects.equals(start, step.start) && Objects.equals(end, step.end);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(start, end);
     }
 
     @Override
