@@ -257,4 +257,37 @@ public class AlphaBetaSearchTest {
             System.out.println(result);
         }
     }
+
+    @Test
+    public void test残局_卒() {
+        String str =
+                "　　　　車將　　　\n" +
+                "　　　兵　　　　　\n" +
+                "　　　　象兵　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　卒炮卒　　　\n" +
+                "　　　　帥　俥俥　";
+
+        Chessman[][] chessmans = SaveReadUtil.readChineseStr(str);
+        Chessboard chessboard = new Chessboard();
+        chessboard.setChessmans(chessmans);
+        chessboard.setCurrent(GameConstant.black);
+        chessboard.setRound(50);
+        AlphaBetaSearch alphaBetaSearch = new AlphaBetaSearch();
+
+        for (int i = 0; i < 1; i++) {
+            Step step = alphaBetaSearch.alphaBetaSearch(chessboard);
+            System.out.println(step);
+            System.out.println(chessboard.getChessman(step.getStart()) + "---" + chessboard.getChessman(step.getEnd()));
+            System.out.println(ShowStepUtil.showStep(step, chessboard));
+            chessboard = CopyUtil.makeStep(chessboard, step);
+
+            String result = SaveReadUtil.outputStr(chessboard.getChessmans());
+            System.out.println(result);
+        }
+    }
 }

@@ -104,7 +104,7 @@ public class FlowTest {
 
     @Test
     public void test双炮擒王() {
-        //todo 无法计算出结果
+        //搜索深度为6时可以结算出结果
         Chessman[][] chessmans = SaveReadUtil.read("ending/双炮擒王.txt");
         Chessboard chessboard = new Chessboard();
         chessboard.setChessmans(chessmans);

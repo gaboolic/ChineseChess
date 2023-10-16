@@ -1,5 +1,6 @@
 package tk.gbl.util;
 
+import tk.gbl.ai.EvaluateRule;
 import tk.gbl.chessmodel.Bishop;
 import tk.gbl.chessmodel.Chessman;
 import tk.gbl.chessmodel.Guard;
@@ -8,6 +9,8 @@ import tk.gbl.constant.GameConstant;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
 import tk.gbl.model.Step;
+
+import java.util.LinkedList;
 
 /**
  * Date: 2023-09-26
@@ -36,6 +39,23 @@ public class ShowStepUtil {
             stringBuilder.append(getVerticalEndNumber(chessman, Math.abs(end.getY() - start.getY()), end));
         }
         return stringBuilder.toString();
+    }
+
+    public static void showFlowSteps(LinkedList<Step> flowSteps, Chessboard chessboard) {
+        int color = chessboard.getCurrent();
+        EvaluateRule evaluateRule = new EvaluateRule();
+        Chessboard next = chessboard;
+        while (!flowSteps.isEmpty()) {
+            Step step = flowSteps.pop();
+
+            System.out.println(step);
+            System.out.println(next.getChessman(step.getStart()) + "---" + next.getChessman(step.getEnd()));
+            System.out.println(ShowStepUtil.showStep(step, next));
+            next = CopyUtil.makeStep(next, step);
+            System.out.println(SaveReadUtil.outputStr(next.getChessmans()));
+
+            System.out.println("估值：" + evaluateRule.evaluatePosition(next, color));
+        }
     }
 
     public static String numberToChinese(int number) {

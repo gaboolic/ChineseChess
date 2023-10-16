@@ -1,9 +1,6 @@
 package tk.gbl.ai;
 
-import tk.gbl.chessmodel.Cannon;
 import tk.gbl.chessmodel.Chessman;
-import tk.gbl.chessmodel.Horse;
-import tk.gbl.chessmodel.Rook;
 import tk.gbl.constant.SituationEnum;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Step;
@@ -22,7 +19,7 @@ import java.util.*;
  * @author gaboolic
  */
 public class AlphaBetaSearch {
-    private static final int MAX_DEPTH = 4; // 最大搜索深度
+    private static final int MAX_DEPTH = 6; // 最大搜索深度
 
     EvaluateRule evaluateRule = new EvaluateRule();
 
@@ -112,19 +109,8 @@ public class AlphaBetaSearch {
         bestStep = bestSteps.get(randomNumber);
 
 //        LinkedList<Step> flowSteps = bestSteps.get(0).getScoreDepth().getSteps();
-//        LinkedList<Step> flowSteps = steps.get(23).getScoreDepth().getSteps();
-//        Chessboard next = chessboard;
-//        while (!flowSteps.isEmpty()) {
-//            Step step = flowSteps.pop();
-//
-//            System.out.println(step);
-//            System.out.println(next.getChessman(step.getStart()) + "---" + next.getChessman(step.getEnd()));
-//            System.out.println(ShowStepUtil.showStep(step, next));
-//            next = CopyUtil.makeStep(next, step);
-//            System.out.println(SaveReadUtil.outputStr(next.getChessmans()));
-//
-//            System.out.println("估值："+evaluateRule.evaluatePosition(next,color));
-//        }
+//        LinkedList<Step> flowSteps = steps.get(7).getScoreDepth().getSteps();
+//        ShowStepUtil.showFlowSteps(flowSteps, chessboard);
 
         long endTime = System.currentTimeMillis();
         System.out.println((endTime - startTime) + "ms");
@@ -135,13 +121,13 @@ public class AlphaBetaSearch {
 
     private int getMaxDepth(SituationEnum situationEnum, Chessman chessman) {
         int maxDepth = MAX_DEPTH;
-        if (chessman instanceof Rook || chessman instanceof Horse || chessman instanceof Cannon) {
-            if (situationEnum.equals(SituationEnum.ENDING)) {
-                maxDepth = 4;
-            } else if (situationEnum.equals(SituationEnum.FINAL)) {
-                maxDepth = 4;
-            }
-        }
+//        if (chessman instanceof Rook || chessman instanceof Horse || chessman instanceof Cannon) {
+//            if (situationEnum.equals(SituationEnum.ENDING)) {
+//                maxDepth = 6;
+//            } else if (situationEnum.equals(SituationEnum.FINAL)) {
+//                maxDepth = 6;
+//            }
+//        }
         if (situationEnum.equals(SituationEnum.START)) {
             maxDepth = 3;
         }
