@@ -148,7 +148,7 @@ public class AlphaBetaSearchTest {
 
     @Test
     public void test将军() {
-        //todo 有bug
+        //
         String str =
                 "　　　士將士象　　\n" +
                 "　　　　　　　車　\n" +
@@ -203,6 +203,41 @@ public class AlphaBetaSearchTest {
                 "　　　　炮　　　　\n" +
                 "　　　　　　　　　\n" +
                 "　俥相仕帥仕相傌俥";
+
+        Chessman[][] chessmans = SaveReadUtil.readChineseStr(str);
+        Chessboard chessboard = new Chessboard();
+        chessboard.setChessmans(chessmans);
+        chessboard.setCurrent(GameConstant.black);
+        chessboard.setRound(50);
+        AlphaBetaSearch alphaBetaSearch = new AlphaBetaSearch();
+
+        for (int i = 0; i < 1; i++) {
+            Step step = alphaBetaSearch.alphaBetaSearch(chessboard);
+            System.out.println(step);
+            System.out.println(chessboard.getChessman(step.getStart()) + "---" + chessboard.getChessman(step.getEnd()));
+            System.out.println(ShowStepUtil.showStep(step, chessboard));
+            chessboard = CopyUtil.makeStep(chessboard, step);
+
+            String result = SaveReadUtil.outputStr(chessboard.getChessmans());
+            System.out.println(result);
+        }
+    }
+
+
+    @Test
+    public void test为什么炮不跑() {
+        //todo
+        String str =
+                "車　　士將　　馬　\n" +
+                "　俥　　士　　　　\n" +
+                "　　　　象　　　象\n" +
+                "卒　　　　　卒　卒\n" +
+                "　砲卒　卒　　　　\n" +
+                "　　　　　　　　　\n" +
+                "兵　兵　兵　兵　兵\n" +
+                "　炮傌　　　傌　　\n" +
+                "　　　　　　　　　\n" +
+                "　　相仕帥仕相　　";
 
         Chessman[][] chessmans = SaveReadUtil.readChineseStr(str);
         Chessboard chessboard = new Chessboard();

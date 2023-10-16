@@ -30,4 +30,27 @@ public class CannonTest {
         List<Point> movePoints2 = chessman2.getMovePoints(chessboard);
         System.out.println(movePoints2);
     }
+
+    @Test
+    public void test() {
+        String str =
+                "車　　士將　　馬　\n" +
+                "　俥　　士　　　　\n" +
+                "　　　　象　　　象\n" +
+                "卒　　　　　卒　卒\n" +
+                "　砲卒　卒　　　　\n" +
+                "　　　　　　　　　\n" +
+                "兵　兵　兵　兵　兵\n" +
+                "　炮傌　　　傌　　\n" +
+                "　　　　　　　　　\n" +
+                "　　相仕帥仕相　　";
+
+        Chessman[][] chessmans = SaveReadUtil.readChineseStr(str);
+        Chessboard chessboard = new Chessboard();
+        chessboard.setChessmans(chessmans);
+        Chessman chessman = chessboard.getChessman(new Point(1,4));
+        System.out.println(chessman);
+        List<Point> movePoints = chessman.getMovePoints(chessboard);
+        System.out.println(movePoints);
+    }
 }

@@ -93,7 +93,7 @@ public class EvaluateRule {
         return chessman.getEvalValue();
     }
 
-    private boolean eat(Chessboard chessboard, Point point){
+    private boolean eat(Chessboard chessboard, Point point) {
         List<Step> enemySteps = chessboard.generateStepsByCache(chessboard.getCurrent());
         Set<Point> enemySet = new HashSet<>();
         for (Step enemyStep : enemySteps) {
@@ -136,10 +136,10 @@ public class EvaluateRule {
             if (!targetChessman.isBig()) {
                 continue;
             }
-            Chessboard newChessboard = CopyUtil.makeStep(chessboard,new Step(chessman.getPoint(),point));
-            if(eat(newChessboard,point)){
-                continue;
-            }
+//            Chessboard newChessboard = CopyUtil.makeStep(chessboard, new Step(chessman.getPoint(), point));
+//            if (eat(newChessboard, point)) {
+//                continue;
+//            }
             targetChessmanList.add(targetChessman);
         }
 
@@ -195,9 +195,6 @@ public class EvaluateRule {
         if (chessman instanceof King) {
             if (movePoints.size() == 0) {
                 return -100;
-            }
-            if (movePoints.size() > 1) {
-                return 100;
             }
         }
 

@@ -118,14 +118,20 @@ public class Chessboard {
         return true;
     }
 
-    /**
-     * 返回胜利方
-     */
-    public int isGameOver() {
+    public int isGameOverByCache() {
         Integer cacheResult = CacheUtil.getGameOver(SaveReadUtil.outputStr(chessmans), getCurrent());
         if (cacheResult != null) {
             return cacheResult;
         }
+        int gameOver = isGameOver();
+        CacheUtil.putGameOver(SaveReadUtil.outputStr(chessmans), getCurrent(), gameOver);
+        return gameOver;
+    }
+
+    /**
+     * 返回胜利方
+     */
+    public int isGameOver() {
         int redKingCount = 0;
         int blackKingCount = 0;
         Chessman redKing = null;
@@ -145,11 +151,9 @@ public class Chessboard {
             }
         }
         if (redKingCount == 0) {
-            CacheUtil.putGameOver(SaveReadUtil.outputStr(chessmans), getCurrent(), GameConstant.black);
             return GameConstant.black;
         }
         if (blackKingCount == 0) {
-            CacheUtil.putGameOver(SaveReadUtil.outputStr(chessmans), getCurrent(), GameConstant.red);
             return GameConstant.red;
         }
 
@@ -167,23 +171,18 @@ public class Chessboard {
             }
         }
         if (colorMoveMap.get(GameConstant.red).size() == 0) {
-            CacheUtil.putGameOver(SaveReadUtil.outputStr(chessmans), getCurrent(), GameConstant.black);
             return GameConstant.black;
         }
         if (colorMoveMap.get(GameConstant.black).size() == 0) {
-            CacheUtil.putGameOver(SaveReadUtil.outputStr(chessmans), getCurrent(), GameConstant.red);
             return GameConstant.red;
         }
         if (getCurrent() == GameConstant.red && colorMoveMap.get(GameConstant.red).contains(blackKing.getPoint())) {
-            CacheUtil.putGameOver(SaveReadUtil.outputStr(chessmans), getCurrent(), GameConstant.red);
             return GameConstant.red;
         }
         if (getCurrent() == GameConstant.black && colorMoveMap.get(GameConstant.black).contains(redKing.getPoint())) {
-            CacheUtil.putGameOver(SaveReadUtil.outputStr(chessmans), getCurrent(), GameConstant.black);
             return GameConstant.black;
         }
         //todo 判断下一回合是否被绝杀
-        CacheUtil.putGameOver(SaveReadUtil.outputStr(chessmans), getCurrent(), -1);
         return -1;
     }
 

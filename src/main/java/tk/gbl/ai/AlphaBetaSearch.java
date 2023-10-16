@@ -111,20 +111,19 @@ public class AlphaBetaSearch {
         int randomNumber = random.nextInt(bestSteps.size());
         bestStep = bestSteps.get(randomNumber);
 
-        LinkedList<Step> flowSteps = steps.get(0).getScoreDepth().getSteps();
-        Chessboard next = chessboard;
-        while (!flowSteps.isEmpty()) {
-            Step step = flowSteps.pop();
-
-            System.out.println(step);
-            System.out.println(next.getChessman(step.getStart()) + "---" + next.getChessman(step.getEnd()));
-            System.out.println(ShowStepUtil.showStep(step, next));
-            next = CopyUtil.makeStep(next, step);
-            System.out.println(SaveReadUtil.outputStr(next.getChessmans()));
-
-            System.out.println("估值："+evaluateRule.evaluatePosition(next,color));
-
-        }
+//        LinkedList<Step> flowSteps = steps.get(0).getScoreDepth().getSteps();
+//        Chessboard next = chessboard;
+//        while (!flowSteps.isEmpty()) {
+//            Step step = flowSteps.pop();
+//
+//            System.out.println(step);
+//            System.out.println(next.getChessman(step.getStart()) + "---" + next.getChessman(step.getEnd()));
+//            System.out.println(ShowStepUtil.showStep(step, next));
+//            next = CopyUtil.makeStep(next, step);
+//            System.out.println(SaveReadUtil.outputStr(next.getChessmans()));
+//
+//            System.out.println("估值："+evaluateRule.evaluatePosition(next,color));
+//        }
 
         long endTime = System.currentTimeMillis();
         System.out.println((endTime - startTime) + "ms");
@@ -164,6 +163,7 @@ public class AlphaBetaSearch {
         ScoreDepth sd = null;
 
         List<Step> steps = chessboard.generateStepsByCache(chessboard.getCurrent());
+        Collections.shuffle(steps);
         for (Step step : steps) {
             Chessboard newChessboard = CopyUtil.makeStep(chessboard, step);
 
@@ -203,6 +203,7 @@ public class AlphaBetaSearch {
         ScoreDepth sd = null;
 
         List<Step> steps = chessboard.generateStepsByCache(chessboard.getCurrent());
+        Collections.shuffle(steps);
         for (Step step : steps) {
             Chessboard newChessboard = CopyUtil.makeStep(chessboard, step);
 
