@@ -18,21 +18,23 @@ import tk.gbl.util.ShowStepUtil;
  */
 public class FlowTest {
     public static void main(String[] args) {
-        String str = "　車象　將士　　　\n" +
-                "　　俥　士　　　　\n" +
-                "　　　　象　　　馬\n" +
-                "卒　卒　炮　卒　卒\n" +
+        //屏风马直肋车对屏风马两头蛇
+        String str =
+                "車　象士將士象　車\n" +
                 "　　　　　　　　　\n" +
-                "　　炮　　　　　　\n" +
+                "　砲馬　　　馬砲　\n" +
+                "卒　　　卒　　　卒\n" +
+                "　　卒　　　卒　　\n" +
+                "　　　　　　　　　\n" +
                 "兵　兵　兵　兵　兵\n" +
-                "　　　　相　　　　\n" +
-                "　　　車　　　　俥\n" +
-                "　　相仕帥仕　傌　";
-        Chessman[][] chessmans = SaveReadUtil.read("gamestart.txt");
-//        Chessman[][] chessmans = SaveReadUtil.readChineseStr(str);
+                "　炮傌　　　傌炮　\n" +
+                "　　　　　俥　　　\n" +
+                "　　相仕帥仕相　俥";
+//        Chessman[][] chessmans = SaveReadUtil.read("gamestart.txt");
+        Chessman[][] chessmans = SaveReadUtil.readChineseStr(str);
         Chessboard chessboard = new Chessboard();
         chessboard.setChessmans(chessmans);
-        chessboard.setRound(0);
+        chessboard.setRound(10);
         chessboard.setCurrent(GameConstant.red);
 
         AlphaBetaSearch alphaBetaSearch = new AlphaBetaSearch();

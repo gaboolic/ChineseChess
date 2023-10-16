@@ -19,7 +19,7 @@ import java.util.*;
  * @author gaboolic
  */
 public class AlphaBetaSearch {
-    private static final int MAX_DEPTH = 6; // 最大搜索深度
+    private static final int MAX_DEPTH = 4; // 最大搜索深度
 
     EvaluateRule evaluateRule = new EvaluateRule();
 
@@ -67,10 +67,9 @@ public class AlphaBetaSearch {
 //        if (steps.size() > 10) {
 //            steps = steps.subList(0, steps.size() / 2);
 //        }
-
+        int maxDepth = getMaxDepth(situationEnum);
         for (Step step : steps) {
             Chessboard newChessboard = CopyUtil.makeStep(chessboard, step);
-            int maxDepth = getMaxDepth(situationEnum, chessboard.getChessman(step.getStart()));
             ScoreDepth scoreDepth = minValue(color, newChessboard, depth + 1, alpha, beta, maxDepth);
             scoreDepth.getSteps().push(step);
             step.setScoreDepth(scoreDepth);
@@ -112,7 +111,7 @@ public class AlphaBetaSearch {
         return bestStep;
     }
 
-    private int getMaxDepth(SituationEnum situationEnum, Chessman chessman) {
+    private int getMaxDepth(SituationEnum situationEnum) {
         int maxDepth = MAX_DEPTH;
 //        if (chessman instanceof Rook || chessman instanceof Horse || chessman instanceof Cannon) {
 //            if (situationEnum.equals(SituationEnum.ENDING)) {

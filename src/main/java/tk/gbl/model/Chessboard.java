@@ -190,21 +190,21 @@ public class Chessboard {
         if (round <= 3) {
             return SituationEnum.START;
         }
-        int bigCount = 0;
-        for (int row = 0; row < Chessboard.Y_SIZE; row++) {
-            for (int column = 0; column < Chessboard.X_SIZE; column++) {
-                Chessman chessman = this.getChessmans()[row][column];
-                if (chessman instanceof Rook || chessman instanceof Horse || chessman instanceof Cannon) {
-                    bigCount++;
-                }
-            }
-        }
-        if (bigCount <= 3) {
-            return SituationEnum.FINAL;
-        }
-        if (bigCount <= 6) {
-            return SituationEnum.ENDING;
-        }
+//        int bigCount = 0;
+//        for (int row = 0; row < Chessboard.Y_SIZE; row++) {
+//            for (int column = 0; column < Chessboard.X_SIZE; column++) {
+//                Chessman chessman = this.getChessmans()[row][column];
+//                if (chessman instanceof Rook || chessman instanceof Horse || chessman instanceof Cannon) {
+//                    bigCount++;
+//                }
+//            }
+//        }
+//        if (bigCount <= 3) {
+//            return SituationEnum.FINAL;
+//        }
+//        if (bigCount <= 6) {
+//            return SituationEnum.ENDING;
+//        }
         return SituationEnum.MIDDLE;
     }
 
