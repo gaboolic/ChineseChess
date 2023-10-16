@@ -30,12 +30,12 @@ public class EvaluateRule {
     public static final int CROSS_SOLDIER_VALUE = 150;  // 兵的价值
 
     public double evaluatePositionByCache(Chessboard chessboard, int color) {
-        Double cacheResult = CacheUtil.getEvaluatePosition(SaveReadUtil.outputStr(chessboard.getChessmans()), chessboard.getCurrent(), color);
-        if (cacheResult != null) {
-            return cacheResult;
-        }
+//        Double cacheResult = CacheUtil.getEvaluatePosition(SaveReadUtil.outputStr(chessboard.getChessmans()), chessboard.getCurrent(), color);
+//        if (cacheResult != null) {
+//            return cacheResult;
+//        }
         double result = evaluatePosition(chessboard, color);
-        CacheUtil.putEvaluatePosition(SaveReadUtil.outputStr(chessboard.getChessmans()), chessboard.getCurrent(), color, result);
+//        CacheUtil.putEvaluatePosition(SaveReadUtil.outputStr(chessboard.getChessmans()), chessboard.getCurrent(), color, result);
         return result;
     }
 
