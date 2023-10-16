@@ -111,7 +111,8 @@ public class AlphaBetaSearch {
         int randomNumber = random.nextInt(bestSteps.size());
         bestStep = bestSteps.get(randomNumber);
 
-//        LinkedList<Step> flowSteps = steps.get(0).getScoreDepth().getSteps();
+//        LinkedList<Step> flowSteps = bestSteps.get(0).getScoreDepth().getSteps();
+//        LinkedList<Step> flowSteps = steps.get(23).getScoreDepth().getSteps();
 //        Chessboard next = chessboard;
 //        while (!flowSteps.isEmpty()) {
 //            Step step = flowSteps.pop();
