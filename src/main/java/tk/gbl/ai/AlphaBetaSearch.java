@@ -42,13 +42,6 @@ public class AlphaBetaSearch {
 
         // 获取当前可行的移动
         List<Step> steps = chessboard.generateStepsByCache(chessboard.getCurrent());
-//        List<Step> steps = new ArrayList<>();
-//
-//        if (chessboard.getRound() == 0) {
-//            steps.add(steps_old.get(steps_old.size() - 1));
-//        } else {
-//            steps = steps_old;
-//        }
 
         List<Step> bestSteps = new ArrayList<>();
         double maxScore = Integer.MIN_VALUE;

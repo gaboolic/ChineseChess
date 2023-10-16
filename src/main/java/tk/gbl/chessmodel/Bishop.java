@@ -75,20 +75,17 @@ public class Bishop extends Chessman {
 
         // 判断目标位置是否为空或者有敌方棋子
         Chessman targetChessman = chessboard.getChessman(new Point(x, y));
-        if (targetChessman == null || targetChessman.getColor() != getColor()) {
-            // 判断是否堵象眼
-            int startX = getPoint().getX();
-            int startY = getPoint().getY();
-            int midX = (startX + x) / 2;
-            int midY = (startY + y) / 2;
-
-            Chessman middleChessman = chessboard.getChessman(new Point(midX, midY));
-            if (middleChessman == null) {
-                return true;
-            }
+        if (targetChessman != null && targetChessman.getColor() == getColor()) {
+            return false;
         }
+        // 判断是否堵象眼
+        int startX = getPoint().getX();
+        int startY = getPoint().getY();
+        int midX = (startX + x) / 2;
+        int midY = (startY + y) / 2;
 
-        return false;
+        Chessman middleChessman = chessboard.getChessman(new Point(midX, midY));
+        return middleChessman == null;
     }
 
 }
