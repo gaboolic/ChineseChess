@@ -5,9 +5,7 @@ import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
 import tk.gbl.model.Step;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 局面估值
@@ -70,7 +68,7 @@ public class EvaluateRule {
                     double flexibleValue = getFlexibleValue(chessman, chessboard);
 
                     List<Step> chessmanEnemySteps = enemySteps;
-                    if(chessman.getColor()!=chessboard.getCurrent()){
+                    if (chessman.getColor() != chessboard.getCurrent()) {
                         chessmanEnemySteps = selfSteps;
                     }
                     // 根据棋子的控制力进行评估
@@ -101,93 +99,74 @@ public class EvaluateRule {
         return chessman.getEvalValue();
     }
 
-    private boolean eat(Chessboard chessboard, Point point) {
-        List<Step> enemySteps = chessboard.generateStepsByCache(chessboard.getCurrent());
-        Set<Point> enemySet = new HashSet<>();
-        for (Step enemyStep : enemySteps) {
-            enemySet.add(enemyStep.getEnd());
-        }
-        if (enemySet.contains(point)) {
-            return true;
-        }
-        return false;
-    }
 
     /**
      * 获取棋子的控制力评估值
      * 捉双 牵制 闪击 串打
      */
     private int getControlValue(Chessman chessman, Chessboard chessboard, List<Step> chessmanEnemySteps) {
-        if (chessboard.getCurrent() == chessman.getColor()) {
-            return 0;
-        }
         List<Step> enemySteps = chessmanEnemySteps;
         Set<Point> enemySet = new HashSet<>();
         for (Step enemyStep : enemySteps) {
             enemySet.add(enemyStep.getEnd());
         }
-        if (enemySet.contains(chessman.getPoint())) {
+        if (enemySet.contains(chessman.getPoint()) && chessboard.getCurrent() != chessman.getColor()) {
             return -chessman.getEvalValue();
         }
-        return 0;
+//        if (true) {
+//            return 0;
+//        }
         // 在这里计算棋子的控制力评估值
         // 可以考虑棋子的攻击范围、威胁等因素
         // 返回一个控制力评估值
-//        List<Point> movePoints = chessman.getMovePointsByCache(chessboard);
-//        int sumValue = 0;
-//        // 判断同时攻击两个大子
-//        List<Chessman> targetChessmanList = new ArrayList<>();
-//        for (Point point : movePoints) {
-//            Chessman targetChessman = chessboard.getChessman(point);
-//            if (targetChessman == null) {
-//                continue;
-//            }
-//            if (targetChessman.getColor() == chessman.getColor()) {
-//                continue;
-//            }
-//            if (!targetChessman.isBig()) {
-//                continue;
-//            }
-////            Chessboard newChessboard = CopyUtil.makeStep(chessboard, new Step(chessman.getPoint(), point));
-////            if (eat(newChessboard, point)) {
-////                continue;
-////            }
-//            targetChessmanList.add(targetChessman);
-//        }
-//
-//        if (targetChessmanList.size() >= 2) {
-//            targetChessmanList.sort(new Comparator<Chessman>() {
-//                @Override
-//                public int compare(Chessman o1, Chessman o2) {
-//                    if (o1.getEvalValue() == o2.getEvalValue()) {
-//                        return 0;
+        List<Point> movePoints = chessman.getMovePointsByCache(chessboard);
+        List<Chessman> targetChessmanList = new ArrayList<>();
+        int sumValue = 0;
+        for (Point point : movePoints) {
+            Chessman targetChessman = chessboard.getChessman(point);
+            if (targetChessman == null) {
+                continue;
+            }
+            if (targetChessman.getColor() == chessman.getColor()) {
+                continue;
+            }
+            if (!targetChessman.isBig()) {
+                continue;
+            }
+            targetChessmanList.add(targetChessman);
+        }
+        if (targetChessmanList.size() >= 2) {
+            targetChessmanList.sort(new Comparator<Chessman>() {
+                public int compare(Chessman o1, Chessman o2) {
+                    if (o1.getEvalValue() == o2.getEvalValue()) {
+                        return 0;
+                    }
+                    return o1.getEvalValue() < o2.getEvalValue() ? 1 : -1;
+                }
+            });
+            sumValue += targetChessmanList.get(1).getEvalValue() / 2;
+        }
+
+//        if (chessman instanceof Cannon) {
+//            //判断炮打帅
+//            for (int endY = 0; endY < Chessboard.Y_SIZE; endY++) {
+//                Chessman targetChessman = chessboard.getChessman(chessman.getPoint().getX(), endY);
+//                if (targetChessman != null) {
+//                    if (targetChessman instanceof King && targetChessman.getColor() != chessman.getColor()) {
+//                        sumValue += 100;
 //                    }
-//                    return o1.getEvalValue() < o2.getEvalValue() ? 1 : -1;
 //                }
-//            });
-//            sumValue += targetChessmanList.get(1).getEvalValue();
+//            }
+//            for (int endX = 0; endX < Chessboard.X_SIZE; endX++) {
+//                Chessman targetChessman = chessboard.getChessman(endX, chessman.getPoint().getY());
+//                if (targetChessman != null) {
+//                    if (targetChessman instanceof King && targetChessman.getColor() != chessman.getColor()) {
+//                        sumValue += 100;
+//                    }
+//                }
+//            }
 //        }
-//
-////        if (chessman instanceof Cannon) {
-////            //判断炮打帅
-////            for (int endY = 0; endY < Chessboard.Y_SIZE; endY++) {
-////                Chessman targetChessman = chessboard.getChessman(chessman.getPoint().getX(), endY);
-////                if (targetChessman != null) {
-////                    if (targetChessman instanceof King && targetChessman.getColor() != chessman.getColor()) {
-////                        sumValue += 100;
-////                    }
-////                }
-////            }
-////            for (int endX = 0; endX < Chessboard.X_SIZE; endX++) {
-////                Chessman targetChessman = chessboard.getChessman(endX, chessman.getPoint().getY());
-////                if (targetChessman != null) {
-////                    if (targetChessman instanceof King && targetChessman.getColor() != chessman.getColor()) {
-////                        sumValue += 100;
-////                    }
-////                }
-////            }
-////        }
-//        return sumValue;
+        return sumValue;
     }
 
     /**

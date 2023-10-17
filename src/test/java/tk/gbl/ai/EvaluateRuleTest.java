@@ -493,4 +493,51 @@ public class EvaluateRuleTest {
         double result2 = new EvaluateRule().evaluatePosition(chessboard2, GameConstant.black);
         System.out.println(result2);
     }
+
+    @Test
+    public void test为什么车不吃炮() {
+        //546
+        String str1=
+                "車馬象士將士象　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　砲　馬　　\n" +
+                "卒　卒　卒　炮　卒\n" +
+                "　　　　砲　　　　\n" +
+                "　　　　　　　車　\n" +
+                "兵　兵　兵傌兵　兵\n" +
+                "　　　　炮　　　　\n" +
+                "　　　　　　　　　\n" +
+                "俥傌相仕帥仕相　俥";
+
+        //434
+        String str2 =
+                "車馬象士將士象　　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　砲　馬　　\n" +
+                "卒　卒　卒　卒　卒\n" +
+                "　　　　砲　　　　\n" +
+                "　　　　炮　　　　\n" +
+                "兵　兵　兵傌兵　兵\n" +
+                "　　　　　　　車　\n" +
+                "　　　　　　　　　\n" +
+                "俥傌相仕帥仕相　俥";
+
+        Chessman[][] chessmans1 = SaveReadUtil.readChineseStr(str1);
+        Chessboard chessboard1 = new Chessboard();
+        chessboard1.setChessmans(chessmans1);
+        chessboard1.setCurrent(GameConstant.black);
+        chessboard1.setRound(50);
+
+        double result1 = new EvaluateRule().evaluatePosition(chessboard1, GameConstant.black);
+        System.out.println(result1);
+
+        Chessman[][] chessmans2 = SaveReadUtil.readChineseStr(str2);
+        Chessboard chessboard2 = new Chessboard();
+        chessboard2.setChessmans(chessmans2);
+        chessboard2.setCurrent(GameConstant.black);
+        chessboard2.setRound(50);
+
+        double result2 = new EvaluateRule().evaluatePosition(chessboard2, GameConstant.black);
+        System.out.println(result2);
+    }
 }

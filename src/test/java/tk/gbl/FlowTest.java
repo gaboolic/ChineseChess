@@ -30,11 +30,11 @@ public class FlowTest {
                 "　炮傌　　　傌炮　\n" +
                 "　　　　　俥　　　\n" +
                 "　　相仕帥仕相　俥";
-//        Chessman[][] chessmans = SaveReadUtil.read("gamestart.txt");
-        Chessman[][] chessmans = SaveReadUtil.readChineseStr(str);
+        Chessman[][] chessmans = SaveReadUtil.read("gamestart.txt");
+//        Chessman[][] chessmans = SaveReadUtil.readChineseStr(str);
         Chessboard chessboard = new Chessboard();
         chessboard.setChessmans(chessmans);
-        chessboard.setRound(10);
+        chessboard.setRound(0);
         chessboard.setCurrent(GameConstant.red);
 
         AlphaBetaSearch alphaBetaSearch = new AlphaBetaSearch();

@@ -291,4 +291,37 @@ public class AlphaBetaSearchTest {
         }
     }
 
+    @Test
+    public void test为什么車不吃炮() {
+        String str =
+                "車馬象士將士象車　\n" +
+                "　　　　　　　　　\n" +
+                "　　　　砲　馬　　\n" +
+                "卒　卒　卒　卒　卒\n" +
+                "　　　　　　砲　　\n" +
+                "　　　　　　炮　　\n" +
+                "兵　兵　兵傌兵　兵\n" +
+                "　　　　　　　炮　\n" +
+                "　　　　　　　　　\n" +
+                "俥傌相仕帥仕相　俥";
+
+        Chessman[][] chessmans = SaveReadUtil.readChineseStr(str);
+        Chessboard chessboard = new Chessboard();
+        chessboard.setChessmans(chessmans);
+        chessboard.setCurrent(GameConstant.black);
+        chessboard.setRound(50);
+        AlphaBetaSearch alphaBetaSearch = new AlphaBetaSearch();
+
+        for (int i = 0; i < 1; i++) {
+            Step step = alphaBetaSearch.alphaBetaSearch(chessboard);
+            System.out.println(step);
+            System.out.println(chessboard.getChessman(step.getStart()) + "---" + chessboard.getChessman(step.getEnd()));
+            System.out.println(ShowStepUtil.showStep(step, chessboard));
+            chessboard = CopyUtil.makeStep(chessboard, step);
+
+            String result = SaveReadUtil.outputStr(chessboard.getChessmans());
+            System.out.println(result);
+        }
+    }
+
 }
