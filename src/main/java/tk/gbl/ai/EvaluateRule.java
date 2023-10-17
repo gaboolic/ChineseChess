@@ -4,9 +4,6 @@ import tk.gbl.chessmodel.*;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
 import tk.gbl.model.Step;
-import tk.gbl.util.CacheUtil;
-import tk.gbl.util.CopyUtil;
-import tk.gbl.util.SaveReadUtil;
 
 import java.util.*;
 
@@ -61,18 +58,20 @@ public class EvaluateRule {
                 if (chessman != null) {
                     // 根据棋子类型进行评估
                     int pieceValue = getPieceValue(chessman);
-                    // 根据棋子的控制力进行评估
-                    int controlValue = getControlValue(chessman, chessboard);
+
                     // 根据棋子的位置进行评估
                     int positionValue = PositionEvaluate.getPositionValue(chessman, chessboard);
 
                     //灵活度
                     double flexibleValue = getFlexibleValue(chessman, chessboard);
 
+                    // 根据棋子的控制力进行评估
+//                    int controlValue = getControlValue(chessman, chessboard);
+
                     // 加权求和评估值
 //                    score = pieceValue + positionValue + Math.sqrt(controlValue);
 //                    score = pieceValue + positionValue + flexibleValue + controlValue;
-                    score = pieceValue + positionValue + flexibleValue + controlValue;
+                    score = pieceValue + positionValue + flexibleValue;
                     chessman.setScore(score);
                     if (chessman.getColor() == color) {
                         selfValue += score;
@@ -184,6 +183,9 @@ public class EvaluateRule {
      * 可移动步数/理论最大可移动步数
      */
     private double getFlexibleValue(Chessman chessman, Chessboard chessboard) {
+        if (chessman.getEvalValue() < 300) {
+            return 0;
+        }
         List<Point> movePoints = chessman.getMovePointsByCache(chessboard);
 
         double f = 0;
