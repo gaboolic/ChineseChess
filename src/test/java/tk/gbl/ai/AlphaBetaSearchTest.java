@@ -290,4 +290,5 @@ public class AlphaBetaSearchTest {
             System.out.println(result);
         }
     }
+
 }
