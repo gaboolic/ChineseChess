@@ -100,9 +100,9 @@ public class AlphaBetaSearch {
         int randomNumber = random.nextInt(bestSteps.size());
         bestStep = bestSteps.get(randomNumber);
 
-        LinkedList<Step> flowSteps = bestSteps.get(0).getScoreDepth().getSteps();
+//        LinkedList<Step> flowSteps = bestSteps.get(0).getScoreDepth().getSteps();
 //        LinkedList<Step> flowSteps = steps.get(7).getScoreDepth().getSteps();
-        ShowStepUtil.showFlowSteps(flowSteps, chessboard);
+//        ShowStepUtil.showFlowSteps(flowSteps, chessboard);
 
         long endTime = System.currentTimeMillis();
         System.out.println((endTime - startTime) + "ms");
