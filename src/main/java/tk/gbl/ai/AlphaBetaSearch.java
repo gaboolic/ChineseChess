@@ -23,6 +23,16 @@ public class AlphaBetaSearch {
 
     EvaluateRule evaluateRule = new EvaluateRule();
 
+    public Step alphaBetaSearchByCache(Chessboard chessboard) {
+        Step cacheBestStep = CacheUtil.getBestStep(SaveReadUtil.outputStr(chessboard.getChessmans()), chessboard.getCurrent());
+        if (cacheBestStep != null) {
+            return cacheBestStep;
+        }
+        Step bestStep = alphaBetaSearch(chessboard);
+        CacheUtil.putBestStep(SaveReadUtil.outputStr(chessboard.getChessmans()), chessboard.getCurrent(), bestStep);
+        return bestStep;
+    }
+
     // Alpha-Beta搜索函数
     public Step alphaBetaSearch(Chessboard chessboard) {
         long startTime = System.currentTimeMillis();
@@ -31,14 +41,6 @@ public class AlphaBetaSearch {
         int depth = 0;
         double alpha = Integer.MIN_VALUE;
         double beta = Integer.MAX_VALUE;
-
-        Step cacheBestStep = CacheUtil.getBestStep(SaveReadUtil.outputStr(chessboard.getChessmans()), chessboard.getCurrent());
-        if (cacheBestStep != null) {
-            long endTime = System.currentTimeMillis();
-            System.out.println((endTime - startTime) + "ms");
-            System.out.println("color:" + color + "cache- bestStep:" + cacheBestStep + " maxScore:" + cacheBestStep.getScoreDepth().getScore() + " minSearchDepth:" + cacheBestStep.getScoreDepth().getDepth());
-            return cacheBestStep;
-        }
 
         // 获取当前可行的移动
         List<Step> steps = chessboard.generateStepsByCache(chessboard.getCurrent());
@@ -108,7 +110,6 @@ public class AlphaBetaSearch {
         long endTime = System.currentTimeMillis();
         System.out.println((endTime - startTime) + "ms");
         System.out.println("color:" + color + " bestStep:" + bestStep + " maxScore:" + maxScore + " minSearchDepth:" + minSearchDepth);
-        CacheUtil.putBestStep(SaveReadUtil.outputStr(chessboard.getChessmans()), chessboard.getCurrent(), bestStep);
         return bestStep;
     }
 
