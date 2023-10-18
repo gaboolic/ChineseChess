@@ -54,6 +54,7 @@ public class ShowStepUtil {
             next = CopyUtil.makeStep(next, step);
             System.out.println(SaveReadUtil.outputStr(next.getChessmans()));
 
+            System.out.println("color:" + color);
             System.out.println("估值：" + evaluateRule.evaluatePosition(next, color));
         }
     }

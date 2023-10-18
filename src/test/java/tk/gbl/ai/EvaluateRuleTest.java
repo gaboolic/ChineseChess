@@ -263,15 +263,15 @@ public class EvaluateRuleTest {
     public void test() {
         String str =
                 "車　象士將士象　車\n" +
-                "　　　　　　　　　\n" +
-                "　砲　　　　馬　　\n" +
-                "卒　　　卒　卒　卒\n" +
-                "　馬卒　　　　　　\n" +
-                "　　　　　　兵　　\n" +
-                "兵　兵　兵　　　兵\n" +
-                "　　傌　　　傌炮　\n" +
-                "俥　　　　　　　　\n" +
-                "　　相仕帥仕相　俥";
+                        "　　　　　　　　　\n" +
+                        "　砲　　　　馬　　\n" +
+                        "卒　　　卒　卒　卒\n" +
+                        "　馬卒　　　　　　\n" +
+                        "　　　　　　兵　　\n" +
+                        "兵　兵　兵　　　兵\n" +
+                        "　　傌　　　傌炮　\n" +
+                        "俥　　　　　　　　\n" +
+                        "　　相仕帥仕相　俥";
         Chessman[][] chessmans = SaveReadUtil.readChineseStr(str);
         Chessboard chessboard = new Chessboard();
         chessboard.setChessmans(chessmans);
@@ -451,7 +451,7 @@ public class EvaluateRuleTest {
 
     @Test
     public void test炮怎么不跑() {
-        String str1=
+        String str1 =
                 "車　　士將士　馬　\n" +
                 "　俥　　　　　　　\n" +
                 "　　　　象　　　象\n" +
@@ -497,7 +497,7 @@ public class EvaluateRuleTest {
     @Test
     public void test为什么车不吃炮() {
         //546
-        String str1=
+        String str1 =
                 "車馬象士將士象　　\n" +
                 "　　　　　　　　　\n" +
                 "　　　　砲　馬　　\n" +
@@ -539,5 +539,76 @@ public class EvaluateRuleTest {
 
         double result2 = new EvaluateRule().evaluatePosition(chessboard2, GameConstant.black);
         System.out.println(result2);
+    }
+
+    @Test
+    public void test为什么俥不吃士() {
+        //相三进一
+        String str1 =
+                "　　象　將士象　炮\n" +
+                "　　　　　　　　　\n" +
+                "　俥　士　　　砲　\n" +
+                "卒　卒　炮　卒　卒\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　馬　　\n" +
+                "兵　兵　兵　　　兵\n" +
+                "　　傌　　　　　相\n" +
+                "　　　　仕　　　　\n" +
+                "　　相　帥仕　　　";
+
+        //俥吃士
+        String str2 =
+                "　　象　將士象　炮\n" +
+                "　　　　　　　　　\n" +
+                "　　　俥　　　砲　\n" +
+                "卒　卒　炮　卒　卒\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　馬　　\n" +
+                "兵　兵　兵　　　兵\n" +
+                "　　傌　　　　　車\n" +
+                "　　　　仕　　　　\n" +
+                "　　相　帥仕相　　";
+
+        Chessman[][] chessmans1 = SaveReadUtil.readChineseStr(str1);
+        Chessboard chessboard1 = new Chessboard();
+        chessboard1.setChessmans(chessmans1);
+        chessboard1.setCurrent(GameConstant.black);
+        chessboard1.setRound(50);
+
+        double result1 = new EvaluateRule().evaluatePosition(chessboard1, GameConstant.red);
+        System.out.println(result1);
+
+        Chessman[][] chessmans2 = SaveReadUtil.readChineseStr(str2);
+        Chessboard chessboard2 = new Chessboard();
+        chessboard2.setChessmans(chessmans2);
+        chessboard2.setCurrent(GameConstant.black);
+        chessboard2.setRound(50);
+
+        double result2 = new EvaluateRule().evaluatePosition(chessboard2, GameConstant.red);
+        System.out.println(result2);
+    }
+
+    @Test
+    public void test为什么车9不跑() {
+        String str1 =
+                "　　象士將士象　炮\n" +
+                "　　　　　　　　　\n" +
+                "　砲馬　　　馬砲　\n" +
+                "卒　卒俥卒　卒　卒\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　　　　\n" +
+                "兵　兵　兵　　　兵\n" +
+                "　　　　　車　炮　\n" +
+                "　　　　傌　　　　\n" +
+                "　　相仕帥仕相　俥";
+
+        Chessman[][] chessmans1 = SaveReadUtil.readChineseStr(str1);
+        Chessboard chessboard1 = new Chessboard();
+        chessboard1.setChessmans(chessmans1);
+        chessboard1.setCurrent(GameConstant.black);
+        chessboard1.setRound(50);
+
+        double result1 = new EvaluateRule().evaluatePosition(chessboard1, GameConstant.black);
+        System.out.println(result1);
     }
 }

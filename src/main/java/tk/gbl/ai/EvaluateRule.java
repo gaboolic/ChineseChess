@@ -63,7 +63,7 @@ public class EvaluateRule {
 
                     // 根据棋子的位置进行评估
                     int positionValue = PositionEvaluate.getPositionValue(chessman, chessboard);
-
+//                    chessman.setScore(pieceValue + positionValue);
                     //灵活度
                     double flexibleValue = getFlexibleValue(chessman, chessboard);
 
@@ -72,7 +72,7 @@ public class EvaluateRule {
                         chessmanEnemySteps = selfSteps;
                     }
                     // 根据棋子的控制力进行评估
-                    int controlValue = getControlValue(chessman, chessboard, chessmanEnemySteps);
+                    double controlValue = getControlValue(chessman, chessboard, chessmanEnemySteps);
 
                     // 加权求和评估值
 //                    score = pieceValue + positionValue + Math.sqrt(controlValue);
@@ -104,7 +104,7 @@ public class EvaluateRule {
      * 获取棋子的控制力评估值
      * 捉双 牵制 闪击 串打
      */
-    private int getControlValue(Chessman chessman, Chessboard chessboard, List<Step> chessmanEnemySteps) {
+    private double getControlValue(Chessman chessman, Chessboard chessboard, List<Step> chessmanEnemySteps) {
         List<Step> enemySteps = chessmanEnemySteps;
         Set<Point> enemySet = new HashSet<>();
         for (Step enemyStep : enemySteps) {
