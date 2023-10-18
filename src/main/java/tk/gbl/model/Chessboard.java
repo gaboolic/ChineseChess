@@ -1,7 +1,6 @@
 package tk.gbl.model;
 
-import tk.gbl.chessmodel.Chessman;
-import tk.gbl.chessmodel.King;
+import tk.gbl.chessmodel.*;
 import tk.gbl.constant.GameConstant;
 import tk.gbl.constant.SituationEnum;
 import tk.gbl.util.CacheUtil;
@@ -146,6 +145,7 @@ public class Chessboard {
         }
         int redKingCount = 0;
         int blackKingCount = 0;
+        int attackCount = 0;
         Chessman redKing = null;
         Chessman blackKing = null;
         for (int row = 0; row < Chessboard.Y_SIZE; row++) {
@@ -160,13 +160,21 @@ public class Chessboard {
                         blackKing = chessman;
                     }
                 }
+                if (chessman instanceof Rook || chessman instanceof Horse || chessman instanceof Cannon || chessman instanceof Pawn) {
+                    attackCount++;
+                }
             }
         }
+
         if (redKingCount == 0) {
             return GameConstant.black;
         }
         if (blackKingCount == 0) {
             return GameConstant.red;
+        }
+        //和棋
+        if (attackCount == 0) {
+            return 2;
         }
 
         //困毙
