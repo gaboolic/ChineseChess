@@ -19,7 +19,7 @@ import java.util.*;
  * @author gaboolic
  */
 public class AlphaBetaSearch {
-    private static final int MAX_DEPTH = 6; // 最大搜索深度
+    private static final int MAX_DEPTH = 4; // 最大搜索深度
 
     EvaluateRule evaluateRule = new EvaluateRule();
 
