@@ -130,4 +130,23 @@ public class SaveReadUtil {
         }
         return line.toString();
     }
+
+    public static String outputScoreStr(Chessman[][] chessmans) {
+        StringBuilder line = new StringBuilder();
+        for (Chessman[] chessmansLine : chessmans) {
+            for (int i = 0; i < chessmansLine.length; i++) {
+                Chessman chessman = chessmansLine[i];
+                if (chessman != null) {
+                    line.append((int)chessman.getScore());
+                    line.append("\t");
+                } else {
+                    line.append("　");
+                    line.append("\t");
+                }
+            }
+//            line.deleteCharAt(line.length() - 1);
+            line.append("\n");
+        }
+        return line.toString();
+    }
 }

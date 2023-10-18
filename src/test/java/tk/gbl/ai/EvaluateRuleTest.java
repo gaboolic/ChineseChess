@@ -611,4 +611,41 @@ public class EvaluateRuleTest {
         double result1 = new EvaluateRule().evaluatePosition(chessboard1, GameConstant.black);
         System.out.println(result1);
     }
+
+    @Test
+    public void test11111() {
+        //todo
+        String str0 =
+                "　　象　將士象　炮\n" +
+                "　　　　　　　　　\n" +
+                "　俥　士　　　砲　\n" +
+                "卒　卒　炮　卒　卒\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　馬　　\n" +
+                "兵　兵　兵　　　兵\n" +
+                "　　傌　　　　　車\n" +
+                "　　　　仕　　　　\n" +
+                "　　相　帥仕相　　";
+
+        String str1 =
+                "　　象　將士象　炮\n" +
+                "　　　　　　　　　\n" +
+                "　砲　士　　　　　\n" +
+                "卒　卒　炮　卒　卒\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　相　　\n" +
+                "兵　兵　兵　　　兵\n" +
+                "　　傌　　　　　　\n" +
+                "　　　　仕　　　　\n" +
+                "　　相　帥仕　　　";
+
+        Chessman[][] chessmans1 = SaveReadUtil.readChineseStr(str1);
+        Chessboard chessboard1 = new Chessboard();
+        chessboard1.setChessmans(chessmans1);
+        chessboard1.setCurrent(GameConstant.black);
+        chessboard1.setRound(50);
+
+        double result1 = new EvaluateRule().evaluatePosition(chessboard1, GameConstant.black);
+        System.out.println(result1);
+    }
 }

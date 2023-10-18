@@ -4,6 +4,7 @@ import tk.gbl.chessmodel.*;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
 import tk.gbl.model.Step;
+import tk.gbl.util.SaveReadUtil;
 
 import java.util.*;
 
@@ -87,7 +88,7 @@ public class EvaluateRule {
                 }
             }
         }
-
+//        System.out.println(SaveReadUtil.outputScoreStr(chessboard.getChessmans()));
 //        double a = selfValue / (selfValue + enemyValue);
 //        evaluation = a * selfValue - (1 - a) * enemyValue;
         evaluation = selfValue - enemyValue;

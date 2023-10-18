@@ -329,15 +329,15 @@ public class AlphaBetaSearchTest {
         //todo
         String str =
                 "　　象　將士象　炮\n" +
-                        "　　　　士　　　　\n" +
-                        "　砲　　俥　　砲　\n" +
-                        "卒　卒　炮　卒　卒\n" +
-                        "　　　　　　　　　\n" +
-                        "　　　　　　馬　　\n" +
-                        "兵　兵　兵　　　兵\n" +
-                        "　　傌　　　　　車\n" +
-                        "　　　　仕　　　　\n" +
-                        "　　相　帥仕相　　\n";
+                "　　　　士　　　　\n" +
+                "　砲　　俥　　砲　\n" +
+                "卒　卒　炮　卒　卒\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　馬　　\n" +
+                "兵　兵　兵　　　兵\n" +
+                "　　傌　　　　　車\n" +
+                "　　　　仕　　　　\n" +
+                "　　相　帥仕相　　\n";
 
         Chessman[][] chessmans = SaveReadUtil.readChineseStr(str);
         Chessboard chessboard = new Chessboard();
@@ -363,15 +363,15 @@ public class AlphaBetaSearchTest {
         //
         String str =
                 "　　象　將士象　炮\n" +
-                        "　　　　　　　　　\n" +
-                        "　俥　士　　　砲　\n" +
-                        "卒　卒　炮　卒　卒\n" +
-                        "　　　　　　　　　\n" +
-                        "　　　　　　馬　　\n" +
-                        "兵　兵　兵　　　兵\n" +
-                        "　　傌　　　　　車\n" +
-                        "　　　　仕　　　　\n" +
-                        "　　相　帥仕相　　";
+                "　　　　　　　　　\n" +
+                "　俥　士　　　砲　\n" +
+                "卒　卒　炮　卒　卒\n" +
+                "　　　　　　　　　\n" +
+                "　　　　　　馬　　\n" +
+                "兵　兵　兵　　　兵\n" +
+                "　　傌　　　　　車\n" +
+                "　　　　仕　　　　\n" +
+                "　　相　帥仕相　　";
         Chessman[][] chessmans = SaveReadUtil.readChineseStr(str);
         Chessboard chessboard = new Chessboard();
         chessboard.setChessmans(chessmans);
