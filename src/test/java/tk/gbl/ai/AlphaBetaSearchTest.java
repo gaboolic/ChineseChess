@@ -127,7 +127,7 @@ public class AlphaBetaSearchTest {
                         "　　　　　　　　　\n" +
                         "　　　　帥　　　　\n";
 
-        Chessman[][] chessmans = SaveReadUtil.readChineseStr(str2);
+        Chessman[][] chessmans = SaveReadUtil.readChineseStr(str);
         Chessboard chessboard = new Chessboard();
         chessboard.setChessmans(chessmans);
         chessboard.setCurrent(GameConstant.black);
@@ -326,7 +326,7 @@ public class AlphaBetaSearchTest {
 
     @Test
     public void test为什么俥不吃砲() {
-        //todo
+        //
         String str =
                 "　　象　將士象　炮\n" +
                 "　　　　士　　　　\n" +
@@ -357,6 +357,8 @@ public class AlphaBetaSearchTest {
             System.out.println(result);
         }
     }
+
+
 
     @Test
     public void test为什么俥不吃士() {
@@ -391,20 +393,34 @@ public class AlphaBetaSearchTest {
         }
     }
 
+
+
     @Test
-    public void test为什么車9不跑() {
+    public void test为什么馬5进6不吃炮() {
         //todo
         String str =
-                "　　象士將士象　車\n" +
+                "　　象士將士象　炮\n" +
+                "　　　　馬　　砲　\n" +
+                "　砲　　　　馬　　\n" +
+                "卒　卒　卒　卒　卒\n" +
+                "　　　俥　　　　　\n" +
                 "　　　　　　　　　\n" +
-                "　砲馬　　　馬砲　\n" +
-                "卒　卒俥卒　卒　卒\n" +
+                "兵　兵　兵　　　兵\n" +
+                "　　傌　　　車炮　\n" +
                 "　　　　　　　　　\n" +
-                "　　　　　　　　炮\n" +
-                "兵　兵　兵　車　兵\n" +
-                "　　傌　　　傌炮　\n" +
-                "　　　　　　　　　\n" +
-                "　　相仕帥仕相　俥";
+                "　　相仕帥仕相　俥\n";
+
+        //馬5进6后
+//        String str2 = "　　象士將士象　炮\n" +
+//                "　　　　　　　砲　\n" +
+//                "　砲　　　　馬　　\n" +
+//                "卒　卒　卒馬卒　卒\n" +
+//                "　　　俥　　　　　\n" +
+//                "　　　　　　　　　\n" +
+//                "兵　兵　兵　　　兵\n" +
+//                "　　傌　　　車炮　\n" +
+//                "　　　　　　　　　\n" +
+//                "　　相仕帥仕相　俥";
 
         Chessman[][] chessmans = SaveReadUtil.readChineseStr(str);
         Chessboard chessboard = new Chessboard();

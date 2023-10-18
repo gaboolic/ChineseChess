@@ -71,6 +71,15 @@ public class ControlPanel extends JPanel {
         });
         this.add(button2, gbc);
 
+        JButton button3 = new JButton("悔棋");
+        button3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                chessClickController.withdraw();
+            }
+        });
+        this.add(button2, gbc);
+
 
         // 在最后添加一个垂直填充的空组件，以铺满剩余空间
         gbc.weighty = 1.0;

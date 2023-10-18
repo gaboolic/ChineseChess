@@ -6,10 +6,7 @@ import tk.gbl.constant.SituationEnum;
 import tk.gbl.util.CacheUtil;
 import tk.gbl.util.SaveReadUtil;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 棋盘
@@ -35,6 +32,8 @@ public class Chessboard {
     private int round = 0;
 
     private int noEatRound = 0;
+
+    private Stack<Step> moveStepStack = new Stack<>();
 
 
     public Chessman[][] getChessmans() {
@@ -103,7 +102,11 @@ public class Chessboard {
         } else {
             noEatRound++;
         }
+        //移动步数
         Point fromPoint = currentChessman.getPoint();
+        Step moveStep = new Step(fromPoint, toPoint);
+        moveStep.setEndChessman(getChessman(toPoint));
+        moveStepStack.push(moveStep);
 
         currentChessman.setPoint(toPoint);
         setChessman(currentChessman);
@@ -113,6 +116,25 @@ public class Chessboard {
         //当前方
         current = current ^ 1;
         round++;
+    }
+
+    public void withdraw() {
+        if (round == 0) {
+            return;
+        }
+        Step step = moveStepStack.pop();
+        Chessman lastChessman = getChessman(step.getEnd());
+        lastChessman.setPoint(step.getStart());
+        setChessman(currentChessman);
+
+        //todo 恢复棋子
+        Chessman endChessman = step.getEndChessman();
+        if (endChessman != null) {
+            setChessman(endChessman);
+        }
+        //当前方
+        current = current ^ 1;
+        round--;
     }
 
     public boolean isInsideBoard(int x, int y) {
@@ -210,21 +232,21 @@ public class Chessboard {
         if (round <= 3) {
             return SituationEnum.START;
         }
-//        int bigCount = 0;
-//        for (int row = 0; row < Chessboard.Y_SIZE; row++) {
-//            for (int column = 0; column < Chessboard.X_SIZE; column++) {
-//                Chessman chessman = this.getChessmans()[row][column];
-//                if (chessman instanceof Rook || chessman instanceof Horse || chessman instanceof Cannon) {
-//                    bigCount++;
-//                }
-//            }
-//        }
-//        if (bigCount <= 3) {
-//            return SituationEnum.FINAL;
-//        }
-//        if (bigCount <= 6) {
-//            return SituationEnum.ENDING;
-//        }
+        int bigCount = 0;
+        for (int row = 0; row < Chessboard.Y_SIZE; row++) {
+            for (int column = 0; column < Chessboard.X_SIZE; column++) {
+                Chessman chessman = this.getChessmans()[row][column];
+                if (chessman instanceof Rook || chessman instanceof Horse || chessman instanceof Cannon) {
+                    bigCount++;
+                }
+            }
+        }
+        if (bigCount <= 3) {
+            return SituationEnum.FINAL;
+        }
+        if (bigCount <= 6) {
+            return SituationEnum.ENDING;
+        }
         return SituationEnum.MIDDLE;
     }
 

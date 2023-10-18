@@ -1,6 +1,7 @@
 package tk.gbl.model;
 
 import tk.gbl.ai.ScoreDepth;
+import tk.gbl.chessmodel.Chessman;
 
 import java.util.Objects;
 
@@ -13,6 +14,8 @@ import java.util.Objects;
 public class Step {
     Point start;
     Point end;
+
+    Chessman endChessman;
 
     ScoreDepth scoreDepth;
     double evaluateValue;
@@ -56,6 +59,14 @@ public class Step {
 
     public void setEvaluateValue(double evaluateValue) {
         this.evaluateValue = evaluateValue;
+    }
+
+    public Chessman getEndChessman() {
+        return endChessman;
+    }
+
+    public void setEndChessman(Chessman endChessman) {
+        this.endChessman = endChessman;
     }
 
     @Override

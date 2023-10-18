@@ -54,7 +54,12 @@ public class ChessClickController extends MouseAdapter {
         repaint();
     }
 
-    public void repaint(){
+
+    public void withdraw() {
+        chessboard.withdraw();
+    }
+
+    public void repaint() {
         boardPanel.repaint();
     }
 
@@ -65,4 +70,5 @@ public class ChessClickController extends MouseAdapter {
     private int getX(MouseEvent e) {
         return (e.getX() + 25) / SizeConstant.gridSize - 1;
     }
+
 }
