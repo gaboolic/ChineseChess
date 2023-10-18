@@ -1,6 +1,7 @@
 package tk.gbl.model;
 
-import tk.gbl.chessmodel.*;
+import tk.gbl.chessmodel.Chessman;
+import tk.gbl.chessmodel.King;
 import tk.gbl.constant.GameConstant;
 import tk.gbl.constant.SituationEnum;
 import tk.gbl.util.CacheUtil;
@@ -33,6 +34,8 @@ public class Chessboard {
      * 回合数
      */
     private int round = 0;
+
+    private int noEatRound = 0;
 
 
     public Chessman[][] getChessmans() {
@@ -96,6 +99,11 @@ public class Chessboard {
     }
 
     public void moveChessMan(Point toPoint) {
+        if (getChessman(toPoint) != null) {
+            noEatRound = 0;
+        } else {
+            noEatRound++;
+        }
         Point fromPoint = currentChessman.getPoint();
 
         currentChessman.setPoint(toPoint);
@@ -132,6 +140,10 @@ public class Chessboard {
      * 返回胜利方
      */
     public int isGameOver() {
+        //和棋
+        if (noEatRound > 50) {
+            return 2;
+        }
         int redKingCount = 0;
         int blackKingCount = 0;
         Chessman redKing = null;
@@ -214,6 +226,14 @@ public class Chessboard {
 
     public void setRound(int round) {
         this.round = round;
+    }
+
+    public int getNoEatRound() {
+        return noEatRound;
+    }
+
+    public void setNoEatRound(int noEatRound) {
+        this.noEatRound = noEatRound;
     }
 
     // 生成当前棋局的所有合法移动

@@ -4,7 +4,6 @@ import tk.gbl.chessmodel.*;
 import tk.gbl.model.Chessboard;
 import tk.gbl.model.Point;
 import tk.gbl.model.Step;
-import tk.gbl.util.SaveReadUtil;
 
 import java.util.*;
 
@@ -40,6 +39,9 @@ public class EvaluateRule {
     public double evaluatePosition(Chessboard chessboard, int color) {
         int gameOver = chessboard.isGameOver();
         if (gameOver >= 0) {
+            if (gameOver == 2) {
+                return 0;
+            }
             if (gameOver == color) {
                 return 999999;
             } else {

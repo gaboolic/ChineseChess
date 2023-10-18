@@ -34,6 +34,11 @@ public class CopyUtil {
 
     public static Chessboard makeStep(Chessboard origin, Step step) {
         Chessboard newBoard = copyChessboard(origin);
+        if (origin.getChessman(step.getEnd()) != null) {
+            newBoard.setNoEatRound(0);
+        } else {
+            newBoard.setNoEatRound(origin.getNoEatRound() + 1);
+        }
         Chessman currentChessman = newBoard.getChessman(step.getStart());
         newBoard.setCurrentChessman(currentChessman);
         newBoard.moveChessMan(step.getEnd());
