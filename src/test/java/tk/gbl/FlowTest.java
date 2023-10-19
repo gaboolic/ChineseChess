@@ -21,15 +21,15 @@ public class FlowTest {
         //屏风马直肋车对屏风马两头蛇
         String str =
                 "車　象士將士象　車\n" +
-                "　　　　　　　　　\n" +
-                "　砲馬　　　馬砲　\n" +
-                "卒　　　卒　　　卒\n" +
-                "　　卒　　　卒　　\n" +
-                "　　　　　　　　　\n" +
-                "兵　兵　兵　兵　兵\n" +
-                "　炮傌　　　傌炮　\n" +
-                "　　　　　俥　　　\n" +
-                "　　相仕帥仕相　俥";
+                        "　　　　　　　　　\n" +
+                        "　砲馬　　　馬砲　\n" +
+                        "卒　　　卒　　　卒\n" +
+                        "　　卒　　　卒　　\n" +
+                        "　　　　　　　　　\n" +
+                        "兵　兵　兵　兵　兵\n" +
+                        "　炮傌　　　傌炮　\n" +
+                        "　　　　　俥　　　\n" +
+                        "　　相仕帥仕相　俥";
         Chessman[][] chessmans = SaveReadUtil.read("gamestart.txt");
 //        Chessman[][] chessmans = SaveReadUtil.readChineseStr(str);
         Chessboard chessboard = new Chessboard();
@@ -39,13 +39,21 @@ public class FlowTest {
 
         AlphaBetaSearch alphaBetaSearch = new AlphaBetaSearch();
 
-        for (int i = 0; i < 200; i++) {
+        for (int i = 0; i < 10; i++) {
             Step step = alphaBetaSearch.alphaBetaSearch(chessboard);
             System.out.println(step);
             System.out.println(chessboard.getChessman(step.getStart()) + "---" + chessboard.getChessman(step.getEnd()));
             System.out.println(ShowStepUtil.showStep(step, chessboard));
-            chessboard = CopyUtil.makeStep(chessboard, step);
 
+            chessboard.makeStep(step);
+
+            String result = SaveReadUtil.outputStr(chessboard.getChessmans());
+            System.out.println(result);
+        }
+
+        System.out.println("---测试悔棋---");
+        for (int i = 0; i < 10; i++) {
+            chessboard.withdraw();
             String result = SaveReadUtil.outputStr(chessboard.getChessmans());
             System.out.println(result);
         }

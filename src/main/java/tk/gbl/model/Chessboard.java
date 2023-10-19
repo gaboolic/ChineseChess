@@ -125,16 +125,24 @@ public class Chessboard {
         Step step = moveStepStack.pop();
         Chessman lastChessman = getChessman(step.getEnd());
         lastChessman.setPoint(step.getStart());
-        setChessman(currentChessman);
+        setChessman(lastChessman);
 
-        //todo 恢复棋子
+        // 恢复棋子
         Chessman endChessman = step.getEndChessman();
         if (endChessman != null) {
             setChessman(endChessman);
+        } else {
+            chessmans[step.getEnd().getY()][step.getEnd().getX()] = null;
         }
         //当前方
         current = current ^ 1;
         round--;
+    }
+
+    public void makeStep(Step step) {
+        Chessman currentChessman = this.getChessman(step.getStart());
+        this.setCurrentChessman(currentChessman);
+        this.moveChessMan(step.getEnd());
     }
 
     public boolean isInsideBoard(int x, int y) {
