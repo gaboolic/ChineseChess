@@ -78,7 +78,7 @@ public class ControlPanel extends JPanel {
                 chessClickController.withdraw();
             }
         });
-        this.add(button2, gbc);
+        this.add(button3, gbc);
 
 
         // 在最后添加一个垂直填充的空组件，以铺满剩余空间

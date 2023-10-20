@@ -57,6 +57,7 @@ public class ChessClickController extends MouseAdapter {
 
     public void withdraw() {
         chessboard.withdraw();
+        repaint();
     }
 
     public void repaint() {
